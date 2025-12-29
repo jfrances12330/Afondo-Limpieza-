@@ -2,22 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://afondolimpiezadecampanas.com/</loc>
-    <lastmod>2025-03-01</lastmod>
+    <lastmod>2025-03-02</lastmod>
     <priority>1.0</priority>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://afondolimpiezadecampanas.com/contacto</loc>
-    <lastmod>2025-03-01</lastmod>
+    <lastmod>2025-03-02</lastmod>
     <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://afondolimpiezadecampanas.com/calculadora</loc>
-    <lastmod>2025-03-01</lastmod>
+    <lastmod>2025-03-02</lastmod>
     <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://afondolimpiezadecampanas.com/aviso-legal</loc>
-    <lastmod>2025-03-01</lastmod>
+    <lastmod>2025-03-02</lastmod>
     <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://afondolimpiezadecampanas.com/privacidad</loc>
+    <lastmod>2025-03-02</lastmod>
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://afondolimpiezadecampanas.com/cookies</loc>
+    <lastmod>2025-03-02</lastmod>
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
   </url>
 </urlset>
