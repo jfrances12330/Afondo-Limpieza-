@@ -49,7 +49,6 @@ const ResultsSection: React.FC = () => {
                 height="600"
               />
             </div>
-            <p className="text-xs text-slate-400 px-1 italic">Estado inicial: Acumulación de 12 meses sin mantenimiento profundo.</p>
           </article>
 
           {/* After */}
@@ -63,10 +62,6 @@ const ResultsSection: React.FC = () => {
             </div>
             <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl ring-4 ring-primary/20 group-hover:shadow-primary/30 transition-all duration-500">
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10"></div>
-              <div className="absolute top-6 right-6 z-20 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-lg">
-                <span className="material-symbols-outlined text-sm">check_circle</span>
-                CERTIFICADO UNE
-              </div>
               <div className="absolute bottom-6 left-6 z-20 flex items-center gap-2 text-white">
                 <span className="material-symbols-outlined text-green-400">verified</span>
                 <span className="text-sm font-bold uppercase">Superficie Higienizada</span>
@@ -80,7 +75,6 @@ const ResultsSection: React.FC = () => {
                 height="600"
               />
             </div>
-            <p className="text-xs text-slate-400 px-1 italic">Resultado final: Sistema de extracción optimizado y certificado.</p>
           </article>
         </div>
 
@@ -92,7 +86,7 @@ const ResultsSection: React.FC = () => {
             </a>
             <a href="tel:+34622064101" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 font-bold py-4 px-10 rounded-xl transition-all hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm flex items-center justify-center gap-2">
               <span className="material-symbols-outlined">call</span>
-              Llamar para Consultar
+              Llamar 622 06 41 01
             </a>
           </div>
         </div>

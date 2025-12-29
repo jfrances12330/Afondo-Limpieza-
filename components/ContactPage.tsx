@@ -6,11 +6,36 @@ interface ContactPageProps {
 }
 
 const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
-  const phone = "622 064 101";
+  const phone = "622 06 41 01";
   const whatsappUrl = "https://wa.me/34622064101?text=Hola,%20quisiera%20pedir%20presupuesto%20para%20la%20limpieza%20de%20mi%20campana.";
+  const address = "Partida Canastell, E17, 03690 San Vicente del Raspeig, Alicante";
+
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "mainEntity": {
+      "@type": "ProfessionalService",
+      "name": "Afondo - Limpieza de campanas",
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBiqkJXK7dDEL0GKvACYNXCL8-7_klRe300_2g0SPv0F-bIV3MY5ueoBz7yGF1ZXHwuGgA13KFHbBqpSw6jGtNGA6p7qwY_5oakgwZzidkDVFvXMXvkqzeJ6MiNQ0GUzTJuyb5d9otC5eYHvwJpSzcUk9Qt-yGIG1HhLWD9EGHtQmlcM7RXTF2juJ45ZXVIiEAExs9ugW0PQ6fl69jW1Elr4FMI4loaIL58c9-M-X3XgTn1OxpfvKmegoPECcf9-eTpH2Dh_B-NXNo",
+      "telephone": "+34622064101",
+      "email": "contacto@afondolimpiezadecampanas.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Partida Canastell, E17",
+        "addressLocality": "San Vicente del Raspeig",
+        "postalCode": "03690",
+        "addressRegion": "Alicante",
+        "addressCountry": "ES"
+      }
+    }
+  };
 
   return (
-    <section className="bg-white dark:bg-slate-950 min-h-screen py-32 px-6">
+    <section className="bg-white dark:bg-slate-950 min-h-screen py-16 px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+      />
       <div className="max-w-6xl mx-auto">
         <button 
           onClick={onBack}
@@ -22,103 +47,108 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
         
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-6">
-            Contacto y Ubicación
+            Contacto Directo
           </h1>
           <p className="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-            Estamos en Alicante y damos servicio a toda la provincia. Contacta con nosotros para cualquier duda técnica o presupuesto.
+            Estamos en Alicante y damos servicio a toda la provincia. Envíenos su solicitud y recibirá respuesta en menos de 1h vía WhatsApp o teléfono.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Info Card */}
-          <div className="flex flex-col gap-8">
-            <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xl">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary">info</span>
-                Datos de Interés
-              </h2>
-              
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-xl text-primary">
-                    <span className="material-symbols-outlined">call</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-slate-400 uppercase tracking-wider">Teléfono Directo</p>
-                    <a href={`tel:+34622064101`} className="text-xl font-black text-slate-900 dark:text-white hover:text-primary transition-colors">
-                      {phone}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="bg-green-100 p-3 rounded-xl text-green-600">
-                    <span className="material-symbols-outlined">chat</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-slate-400 uppercase tracking-wider">WhatsApp Business</p>
-                    <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-xl font-black text-slate-900 dark:text-white hover:text-green-500 transition-colors">
-                      Enviar Mensaje
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="bg-orange-100 p-3 rounded-xl text-orange-600">
-                    <span className="material-symbols-outlined">schedule</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-slate-400 uppercase tracking-wider">Horario Comercial</p>
-                    <p className="text-lg font-bold text-slate-900 dark:text-white">Lunes a Viernes</p>
-                    <p className="text-slate-500 dark:text-slate-400">08:30 – 19:30 (Atención continua)</p>
-                    <p className="text-xs text-primary font-bold mt-1 uppercase tracking-tighter">Atención de Urgencias 24h para Clientes</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="bg-blue-100 p-3 rounded-xl text-blue-600">
-                    <span className="material-symbols-outlined">location_on</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-slate-400 uppercase tracking-wider">Zona de Servicio</p>
-                    <p className="text-lg font-bold text-slate-900 dark:text-white">Alicante y Provincia</p>
-                    <p className="text-slate-500 dark:text-slate-400 italic">Desplazamiento incluido en presupuestos aceptados.</p>
-                  </div>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Maps Section */}
+          <div className="flex flex-col gap-6">
+            <div className="overflow-hidden rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl bg-slate-100 h-[450px]">
+              <iframe 
+                src="https://maps.google.com/maps?q=Partida%20Canastell%20E17%20San%20Vicente%20del%20Raspeig%20Alicante&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Ubicación de Afondo Limpieza en Alicante"
+                className="grayscale hover:grayscale-0 transition-all duration-500"
+              ></iframe>
             </div>
-            
-            <div className="bg-primary p-8 rounded-3xl text-white shadow-xl shadow-primary/20 flex flex-col gap-4">
-              <h3 className="text-xl font-bold flex items-center gap-2">
-                <span className="material-symbols-outlined">verified</span>
-                Higiene Certificada
-              </h3>
-              <p className="text-white/80">
-                Somos una empresa autorizada para la emisión de certificados oficiales UNE 100165 en la Comunidad Valenciana.
+            <div className="flex items-center gap-3 px-6">
+              <span className="material-symbols-outlined text-primary">pin_drop</span>
+              <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                Sede central: {address}
               </p>
             </div>
           </div>
 
-          {/* Map Card - Corrected URL */}
-          <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xl overflow-hidden h-[500px] lg:h-auto">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1d50060.10443048563!2d-0.5283995893114972!3d38.348983944747715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6235864340d6e7%3A0xf657df65403756d8!2sAlicante!5e0!3m2!1ses!2ses!4v1714383745239!5m2!1ses!2ses" 
-              className="w-full h-full rounded-2xl grayscale contrast-125 dark:invert dark:grayscale"
-              style={{ border: 0 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Mapa de Alicante - Zona de Servicio Afondo Limpieza"
-            ></iframe>
-          </div>
-        </div>
+          {/* Info Card */}
+          <div className="flex flex-col gap-8">
+            <div className="bg-slate-50 dark:bg-slate-900 p-8 md:p-12 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
+                <span className="material-symbols-outlined text-primary text-4xl">contact_support</span>
+                Vías Rápidas
+              </h2>
+              
+              <div className="space-y-10">
+                <div className="flex items-start gap-5">
+                  <div className="bg-primary/10 p-4 rounded-2xl text-primary">
+                    <span className="material-symbols-outlined text-3xl">call</span>
+                  </div>
+                  <div>
+                    <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Llamada Directa</p>
+                    <a href={`tel:+34622064101`} className="text-2xl font-black text-slate-900 dark:text-white hover:text-primary transition-colors">
+                      {phone}
+                    </a>
+                    <p className="text-slate-500 text-sm mt-1 italic">Atención técnica inmediata 24h</p>
+                  </div>
+                </div>
 
-        <div className="mt-20 p-12 bg-slate-900 rounded-[2.5rem] text-center border border-white/10">
-          <h3 className="text-3xl font-bold text-white mb-4">¿Preparado para tu inspección de Sanidad?</h3>
-          <p className="text-slate-400 mb-8 max-w-xl mx-auto text-lg">No te arriesgues. Pide tu presupuesto ahora y cumple con la normativa legal vigente.</p>
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-primary hover:bg-primary-dark text-white font-black py-5 px-10 rounded-2xl transition-all shadow-xl hover:scale-105 active:scale-95 text-lg">
-            Solicitar Auditoría por WhatsApp
-          </a>
+                <div className="flex items-start gap-5">
+                  <div className="bg-green-100 p-4 rounded-2xl text-green-600">
+                    <span className="material-symbols-outlined text-3xl">chat</span>
+                  </div>
+                  <div>
+                    <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">WhatsApp Business</p>
+                    <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-2xl font-black text-slate-900 dark:text-white hover:text-green-500 transition-colors">
+                      Enviar Mensaje
+                    </a>
+                    <p className="text-slate-500 text-sm mt-1 italic">Presupuestos online sin compromiso</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-5">
+                  <div className="bg-blue-100 p-4 rounded-2xl text-blue-600">
+                    <span className="material-symbols-outlined text-3xl">mail</span>
+                  </div>
+                  <div>
+                    <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Email Oficial</p>
+                    <a href="mailto:contacto@afondolimpiezadecampanas.com" className="text-xl font-black text-slate-900 dark:text-white hover:text-primary transition-colors break-all">
+                      contacto@afondolimpiezadecampanas.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-12">
+                <a 
+                  href={whatsappUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-full bg-primary hover:bg-primary-dark text-white font-black py-6 rounded-2xl transition-all shadow-xl shadow-primary/20 text-lg uppercase tracking-wider flex items-center justify-center gap-3"
+                >
+                  <span className="material-symbols-outlined">description</span>
+                  Presupuesto por WhatsApp
+                </a>
+              </div>
+            </div>
+            
+            <div className="bg-slate-900 dark:bg-primary p-8 rounded-[2rem] text-white shadow-xl flex flex-col gap-4">
+              <h3 className="text-xl font-bold flex items-center gap-2">
+                <span className="material-symbols-outlined">verified</span>
+                Servicio Autorizado
+              </h3>
+              <p className="text-white/80 text-sm leading-relaxed">
+                Empresa especializada en desengrase técnico. Emitimos certificados oficiales de limpieza técnica para el cumplimiento estricto de la normativa de Sanidad.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

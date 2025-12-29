@@ -81,18 +81,6 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
             </article>
           ))}
         </div>
-
-        {/* Banner CTA Calculadora */}
-        <div className="mt-20 bg-primary/10 dark:bg-primary/20 rounded-3xl p-8 flex flex-col items-center text-center gap-6 border border-primary/20">
-          <h3 className="text-2xl font-black text-slate-900 dark:text-white">¿Quieres saber cuánto te costará?</h3>
-          <p className="text-slate-600 dark:text-slate-400 max-w-2xl">Usa nuestra herramienta online para recibir un presupuesto estimado según las medidas de tu instalación en menos de 1 minuto.</p>
-          <button 
-            onClick={onNavigateCalculadora}
-            className="bg-primary hover:bg-primary-dark text-white font-black py-4 px-12 rounded-xl transition-all shadow-xl hover:scale-105 active:scale-95"
-          >
-            Calcúlalo en 1 minuto
-          </button>
-        </div>
       </div>
     </section>
   );
