@@ -80,11 +80,21 @@ const CertificateSection: React.FC = () => {
               
               <div className="grid grid-cols-2 gap-4 py-2">
                 <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 relative">
-                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPqEYgnqF76FfHY6CfvepiqGK49Q7Vj_Zffqk1IAe-vu42K_Yts6udGfdQS223IgYMJd6DPmpClcnyV8nB5ba8OAC46M9TnZuzkVfbLybYJiDW646yg1aFFJtH9xFd0aTVBHPQvfrS2xSy6FHCMfc18wRePbgBxthQ2kDMF7wTzNQ2mvrqhgAoLkcWA6J_y0AYd2EYsUtSaQPNeBKss6rJk2cggvqgVKPC5d4x0cNUTviy2Snu61aPAX2etmyKImXPgqc4WnoK44Q" alt="Antes" className="w-full h-full object-cover opacity-50 grayscale" />
+                  <img 
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPqEYgnqF76FfHY6CfvepiqGK49Q7Vj_Zffqk1IAe-vu42K_Yts6udGfdQS223IgYMJd6DPmpClcnyV8nB5ba8OAC46M9TnZuzkVfbLybYJiDW646yg1aFFJtH9xFd0aTVBHPQvfrS2xSy6FHCMfc18wRePbgBxthQ2kDMF7wTzNQ2mvrqhgAoLkcWA6J_y0AYd2EYsUtSaQPNeBKss6rJk2cggvqgVKPC5d4x0cNUTviy2Snu61aPAX2etmyKImXPgqc4WnoK44Q" 
+                    alt="Antes" 
+                    className="w-full h-full object-cover opacity-50 grayscale"
+                    loading="lazy" 
+                  />
                   <span className="absolute bottom-2 left-2 bg-red-500 text-white text-[8px] px-2 py-0.5 rounded font-bold uppercase">Estado Inicial</span>
                 </div>
                 <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 relative">
-                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY-uSTLgaPQjgKom4e4tMgDIjPSScys5eAFjAjnTmaB9RvC_xJ1xcxG45S-dvwRGE9wHXeyjjMnRREHlL0PqIOKsUWltQ2Nzrx5IMxLz5AvY1zAzZE-tQnzYAfE0qDSkO7UWwVOnsXSjtqKiPDIP7zsKqa3MUBe0o37bdi9mAooh4kfxpqkB6enAhfKvMUW3Mup6z-kc5KKI2Z6qF2hcRBSuPxIf-5lYZQ7bKRlBEvJH4bdhePxltjckNOHjVb2jzzI_fxbKVilW4" alt="Después" className="w-full h-full object-cover opacity-80" />
+                  <img 
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY-uSTLgaPQjgKom4e4tMgDIjPSScys5eAFjAjnTmaB9RvC_xJ1xcxG45S-dvwRGE9wHXeyjjMnRREHlL0PqIOKsUWltQ2Nzrx5IMxLz5AvY1zAzZE-tQnzYAfE0qDSkO7UWwVOnsXSjtqKiPDIP7zsKqa3MUBe0o37bdi9mAooh4kfxpqkB6enAhfKvMUW3Mup6z-kc5KKI2Z6qF2hcRBSuPxIf-5lYZQ7bKRlBEvJH4bdhePxltjckNOHjVb2jzzI_fxbKVilW4" 
+                    alt="Después" 
+                    className="w-full h-full object-cover opacity-80"
+                    loading="lazy"
+                  />
                   <span className="absolute bottom-2 left-2 bg-green-500 text-white text-[8px] px-2 py-0.5 rounded font-bold uppercase">Estado Certificado</span>
                 </div>
               </div>
@@ -102,7 +112,7 @@ const CertificateSection: React.FC = () => {
               </div>
             </div>
             
-            {/* Visual Sticker Badge - Adjusted size and padding for better fit */}
+            {/* Visual Sticker Badge */}
             <div className="absolute -bottom-10 -right-6 bg-yellow-400 text-slate-900 w-36 h-36 rounded-full flex flex-col items-center justify-center text-center p-6 shadow-xl border-4 border-white rotate-12 transition-transform group-hover:rotate-0 z-20" aria-hidden="true">
               <span className="font-black text-[10px] leading-[1.1] uppercase mb-1">Pegatina de Próxima Revisión</span>
               <span className="material-symbols-outlined text-2xl my-1">event_available</span>

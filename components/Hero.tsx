@@ -7,14 +7,28 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
+  const heroImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuBiqkJXK7dDEL0GKvACYNXCL8-7_klRe300_2g0SPv0F-bIV3MY5ueoBz7yGF1ZXHwuGgA13KFHbBqpSw6jGtNGA6p7qwY_5oakgwZzidkDVFvXMXvkqzeJ6MiNQ0GUzTJuyb5d9otC5eYHvwJpSzcUk9Qt-yGIG1HhLWD9EGHtQmlcM7RXTF2juJ45ZXVIiEAExs9ugW0PQ6fl69jW1Elr4FMI4loaIL58c9-M-X3XgTn1OxpfvKmegoPECcf9-eTpH2Dh_B-NXNo";
+
   return (
     <section className="relative flex min-h-[100svh] w-full flex-col justify-center items-center overflow-hidden">
+      {/* 
+         Elemento invisible para disparar la carga de la imagen con prioridad alta. 
+         Esto mejora drásticamente el LCP cuando se usa background-image.
+      */}
+      <img 
+        src={heroImageUrl} 
+        alt="" 
+        className="hidden" 
+        // @ts-ignore - fetchpriority es un atributo válido de HTML5
+        fetchpriority="high" 
+      />
+
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div 
           className="h-full w-full bg-cover bg-center bg-no-repeat scale-105"
           style={{ 
-            backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiqkJXK7dDEL0GKvACYNXCL8-7_klRe300_2g0SPv0F-bIV3MY5ueoBz7yGF1ZXHwuGgA13KFHbBqpSw6jGtNGA6p7qwY_5oakgwZzidkDVFvXMXvkqzeJ6MiNQ0GUzTJuyb5d9otC5eYHvwJpSzcUk9Qt-yGIG1HhLWD9EGHtQmlcM7RXTF2juJ45ZXVIiEAExs9ugW0PQ6fl69jW1Elr4FMI4loaIL58c9-M-X3XgTn1OxpfvKmegoPECcf9-eTpH2Dh_B-NXNo")` 
+            backgroundImage: `url("${heroImageUrl}")` 
           }}
           role="img"
           aria-label="Técnico realizando limpieza de campana industrial"
