@@ -35,9 +35,9 @@ const Cookies: React.FC<LegalProps> = ({ onBack }) => {
           <h3 className="text-xl font-bold text-slate-900 dark:text-white mt-8">3. Cómo desactivar las cookies</h3>
           <p>Puede permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador instalado en su ordenador:</p>
           <ul className="list-disc pl-5 space-y-2">
-            <li><strong>Google Chrome:</strong> Configuración > Privacidad y seguridad > Cookies y otros datos de sitios.</li>
-            <li><strong>Mozilla Firefox:</strong> Opciones > Privacidad y Seguridad > Cookies y datos del sitio.</li>
-            <li><strong>Safari:</strong> Preferencias > Privacidad.</li>
+            <li><strong>Google Chrome:</strong> Configuración &gt; Privacidad y seguridad &gt; Cookies y otros datos de sitios.</li>
+            <li><strong>Mozilla Firefox:</strong> Opciones &gt; Privacidad y Seguridad &gt; Cookies y datos del sitio.</li>
+            <li><strong>Safari:</strong> Preferencias &gt; Privacidad.</li>
           </ul>
           
           <p className="mt-8 italic">Si bloquea el uso de cookies en su navegador es posible que algunos servicios o funcionalidades de la página web no estén disponibles.</p>
