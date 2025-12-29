@@ -13,12 +13,14 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
     <section className="relative flex min-h-[100svh] w-full flex-col justify-center items-center overflow-hidden">
       {/* 
          Elemento invisible para disparar la carga de la imagen con prioridad alta. 
-         Esto mejora drásticamente el LCP cuando se usa background-image.
+         Añadimos dimensiones para ayudar al navegador a reservar espacio.
       */}
       <img 
         src={heroImageUrl} 
         alt="" 
         className="hidden" 
+        width="1920"
+        height="1080"
         // @ts-ignore - fetchpriority es un atributo válido de HTML5
         fetchpriority="high" 
       />
@@ -73,7 +75,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
         </div>
       </div>
 
-      {/* Quick Stats bar - Adjusted gaps for intermediate spacing */}
+      {/* Quick Stats bar */}
       <div className="absolute bottom-0 z-20 w-full border-t border-white/10 bg-slate-900/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-10 px-4 py-6 md:py-8 md:gap-16 lg:px-12">
           <div className="flex items-center gap-4">

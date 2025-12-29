@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://lh3.googleusercontent.com" />
 
-    <!-- Pre-carga de la imagen principal (LCP) -->
+    <!-- Pre-carga de la imagen principal (LCP) con fetchpriority alta -->
     <link 
       rel="preload" 
       as="image" 
@@ -27,11 +27,11 @@
     <meta name="description" content="¿Necesitas el certificado para Sanidad? ✅ Limpieza técnica de campanas y conductos en Alicante. Evita incendios y multas graves. ¡Calcula tu presupuesto online! 🚀" />
     <meta name="keywords" content="limpieza campanas industriales alicante, mantenimiento extraccion humos, certificado une 100165, desengrase cocinas industriales alicante" />
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" media="print" onload="this.media='all'" />
+    <!-- Fonts - Cargadas de forma optimizada -->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
-    <!-- Tailwind CDN para previsualización inmediata con configuración personalizada -->
+    <!-- Tailwind CDN con Configuración personalizada para restaurar diseño -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -70,6 +70,6 @@
   </head>
   <body class="bg-surface-light dark:bg-surface-dark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="/index.tsx" defer></script>
   </body>
 </html>
