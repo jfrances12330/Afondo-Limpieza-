@@ -22,7 +22,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/40 to-slate-900/90"></div>
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl px-6 lg:px-12 pt-28 pb-64 md:pb-48 flex flex-col items-center text-center">
+      <div className="relative z-10 w-full max-w-7xl px-6 lg:px-12 pt-44 sm:pt-48 md:pt-40 lg:pt-32 pb-64 md:pb-48 flex flex-col items-center text-center">
         {/* Badge */}
         <div className="mb-6 md:mb-10 inline-flex items-center gap-3 rounded-full bg-white/10 border border-white/20 px-5 py-2 backdrop-blur-md">
           <span className="relative flex h-2.5 w-2.5">
