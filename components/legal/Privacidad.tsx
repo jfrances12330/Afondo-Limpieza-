@@ -27,7 +27,7 @@ const Privacidad: React.FC<LegalProps> = ({ onBack }) => {
             <li><strong>Identidad:</strong> Jaime Gascón López</li>
             <li><strong>NIF:</strong> 53978208-Z</li>
             <li><strong>Dirección:</strong> Partida Canastell, E17, 03690, San Vicente del Raspeig, Alicante</li>
-            <li><strong>Email:</strong> contacto@afondolimpiezadecampanas.com</li>
+            <li><strong>Email:</strong> hola@limpiezadecampanas.com</li>
           </ul>
 
           <h3 className="text-xl font-bold text-slate-900 dark:text-white mt-8">2. Finalidad del Tratamiento</h3>
@@ -53,7 +53,7 @@ const Privacidad: React.FC<LegalProps> = ({ onBack }) => {
             <li><strong>Limitación y Oposición:</strong> Restringir el uso de sus datos.</li>
             <li><strong>Portabilidad:</strong> Recibir sus datos en formato electrónico.</li>
           </ul>
-          <p>Para ejercer estos derechos, puede enviar un email a <strong>contacto@afondolimpiezadecampanas.com</strong> adjuntando copia de su DNI.</p>
+          <p>Para ejercer estos derechos, puede enviar un email a <strong>hola@limpiezadecampanas.com</strong> adjuntando copia de su DNI.</p>
         </div>
       </div>
     </section>

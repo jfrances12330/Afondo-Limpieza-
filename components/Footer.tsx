@@ -6,6 +6,7 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+  const email = "hola@limpiezadecampanas.com";
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -74,7 +75,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div className="flex flex-col gap-4">
               <span className="text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest">Contacto</span>
               <a href="tel:+34622064101" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors">+34 622 06 41 01</a>
-              <a href="mailto:contacto@afondolimpiezadecampanas.com" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors">contacto@afondolimpiezadecampanas.com</a>
+              <a href={`mailto:${email}`} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors">{email}</a>
               <span className="text-slate-500 dark:text-slate-400 text-sm">Lun - Vie: 8:00 - 20:00</span>
             </div>
           </div>

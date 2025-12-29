@@ -27,7 +27,7 @@ const AvisoLegal: React.FC<LegalProps> = ({ onBack }) => {
               <li><strong>Titular:</strong> Jaime Gascón López</li>
               <li><strong>NIF:</strong> 53978208-Z</li>
               <li><strong>Domicilio:</strong> Partida Canastell, E17, 03690, San Vicente del Raspeig, Alicante</li>
-              <li><strong>Email:</strong> contacto@afondolimpiezadecampanas.com</li>
+              <li><strong>Email:</strong> hola@limpiezadecampanas.com</li>
               <li><strong>Teléfono:</strong> +34 622 06 41 01</li>
             </ul>
           </div>
