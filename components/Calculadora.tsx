@@ -122,7 +122,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
         </div>
 
         <div className="bg-white dark:bg-slate-900 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-2xl overflow-hidden min-h-[520px] flex flex-col">
-          <div className="p-6 md:p-10 flex-1">
+          <div className="p-4 md:p-10 flex-1">
             
             {/* PASO 1: CAMPANA */}
             {step === 1 && (
@@ -231,62 +231,63 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
               </div>
             )}
 
-            {/* PASO 4: ESTADO Y PLAN (Diseño fiel a captura) */}
+            {/* PASO 4: ESTADO Y PLAN (Optimizado para móvil según solicitud) */}
             {step === 4 && (
               <div className="animate-in fade-in slide-in-from-right-4 duration-500 flex flex-col h-full">
-                <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">Estado y Plan</h2>
-                <p className="text-sm text-slate-500 mb-8 font-medium">Mantenimiento y condiciones actuales.</p>
+                <h2 className="text-2xl md:text-4xl font-black text-slate-900 dark:text-white mb-1 md:mb-2 tracking-tight">Estado y Plan</h2>
+                <p className="text-[11px] md:text-sm text-slate-500 mb-4 md:mb-8 font-medium">Mantenimiento y condiciones actuales.</p>
                 
-                <div className="flex flex-col gap-6 flex-1">
+                <div className="flex flex-col gap-4 md:gap-6 flex-1">
                   {/* Cards de Estado */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-3 md:gap-4">
                     <button 
                       onClick={() => setState('normal')}
-                      className={`p-6 rounded-[2rem] border-2 transition-all text-center flex flex-col items-center justify-center gap-1 min-h-[140px] ${state === 'normal' ? 'border-primary bg-blue-50/20' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900'}`}
+                      className={`p-3 md:p-6 rounded-[1.5rem] md:rounded-[2rem] border-2 transition-all text-center flex flex-col items-center justify-center gap-0.5 md:gap-1 min-h-[110px] md:min-h-[140px] ${state === 'normal' ? 'border-primary bg-blue-50/20' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900'}`}
                     >
-                      <span className={`text-sm font-black uppercase tracking-wider ${state === 'normal' ? 'text-primary' : 'text-slate-900 dark:text-white'}`}>Uso Normal</span>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">6-12 MESES</span>
+                      <span className={`text-xs md:text-sm font-black uppercase tracking-wider ${state === 'normal' ? 'text-primary' : 'text-slate-900 dark:text-white'}`}>Uso Normal</span>
+                      <span className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">6-12 MESES</span>
                     </button>
                     <button 
                       onClick={() => setState('muy-sucio')}
-                      className={`p-6 rounded-[2rem] border-2 transition-all text-center flex flex-col items-center justify-center gap-1 min-h-[140px] ${state === 'muy-sucio' ? 'border-primary bg-blue-50/20' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900'}`}
+                      className={`p-3 md:p-6 rounded-[1.5rem] md:rounded-[2rem] border-2 transition-all text-center flex flex-col items-center justify-center gap-0.5 md:gap-1 min-h-[110px] md:min-h-[140px] ${state === 'muy-sucio' ? 'border-primary bg-blue-50/20' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900'}`}
                     >
-                      <span className="text-sm font-black uppercase tracking-wider text-slate-900 dark:text-white">Grasa Crítica</span>
-                      <span className="text-[10px] font-black text-red-500 uppercase tracking-widest">ALTO RIESGO</span>
+                      <span className="text-xs md:text-sm font-black uppercase tracking-wider text-slate-900 dark:text-white">Grasa Crítica</span>
+                      <span className="text-[9px] md:text-[10px] font-black text-red-500 uppercase tracking-widest">ALTO RIESGO</span>
                     </button>
                   </div>
 
                   {/* Plan Mantenimiento Card */}
                   <div 
                     onClick={() => setRecurring(!recurring)}
-                    className="cursor-pointer p-6 rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-700 flex items-center gap-6 bg-slate-50/30 dark:bg-slate-800/30"
+                    className="cursor-pointer p-4 md:p-6 rounded-[1.5rem] md:rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-700 flex items-center gap-4 md:gap-6 bg-slate-50/30 dark:bg-slate-800/30"
                   >
-                    <div className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
-                      <span className={`material-symbols-outlined text-2xl ${recurring ? 'text-primary' : 'text-slate-400'}`}>verified</span>
+                    <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                      <span className={`material-symbols-outlined text-xl md:text-2xl ${recurring ? 'text-primary' : 'text-slate-400'}`}>verified</span>
                     </div>
                     <div className="text-left">
-                      <h4 className="font-black text-sm text-slate-900 dark:text-white tracking-widest">PLAN MANTENIMIENTO ANUAL</h4>
-                      <p className="text-xs text-slate-500 font-medium mt-1">
+                      <h4 className="font-black text-[10px] md:text-sm text-slate-900 dark:text-white tracking-widest">PLAN MANTENIMIENTO ANUAL</h4>
+                      <p className="text-[10px] md:text-xs text-slate-500 font-medium mt-0.5">
                         Descuento del <span className="text-primary font-bold">15%</span> en cada intervención.
                       </p>
                     </div>
                   </div>
 
                   {/* Total Estimado Bloque Oscuro */}
-                  <div className="bg-[#0a0a1a] dark:bg-slate-950 p-8 rounded-[2.5rem] shadow-2xl mt-auto overflow-hidden relative group">
+                  <div className="bg-[#0a0a1a] dark:bg-slate-950 p-5 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl mt-auto overflow-hidden relative">
                     <div className="text-center relative z-10">
-                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-3 block">TOTAL ESTIMADO</span>
-                      <div className="flex items-center justify-center gap-1 mb-8">
-                        <span className="text-7xl font-black text-white tracking-tighter">{total}</span>
-                        <span className="text-3xl font-black text-primary mb-2">€</span>
+                      <span className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-[0.25em] md:tracking-[0.3em] mb-2 md:mb-3 block">TOTAL ESTIMADO</span>
+                      <div className="flex items-center justify-center gap-0.5 md:gap-1 mb-6 md:mb-8">
+                        <span className="text-5xl md:text-7xl font-black text-white tracking-tighter">{total}</span>
+                        <span className="text-2xl md:text-3xl font-black text-primary mb-1 md:mb-2">€</span>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button onClick={generatePDF} className="bg-[#1f2128] hover:bg-[#2a2d36] text-white font-black py-4 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-widest transition-all">
-                          <span className="material-symbols-outlined text-lg">picture_as_pdf</span> PDF
+                      <div className="grid grid-cols-2 gap-3 md:gap-4">
+                        <button onClick={generatePDF} className="bg-[#1f2128] hover:bg-[#2a2d36] text-white font-black py-3 md:py-4 rounded-xl md:rounded-2xl flex items-center justify-center gap-2 text-[10px] md:text-xs uppercase tracking-widest transition-all">
+                          <span className="material-symbols-outlined text-base md:text-lg">picture_as_pdf</span> PDF
                         </button>
-                        <button onClick={shareWhatsApp} className="bg-[#22c55e] hover:bg-[#1db053] text-white font-black py-4 px-4 rounded-2xl flex items-center justify-center gap-2 text-[10px] md:text-xs uppercase tracking-widest shadow-lg shadow-green-500/20 transition-all">
-                          <span className="material-symbols-outlined text-lg">near_me</span> agenda tu cita por whatsapp
+                        <button onClick={shareWhatsApp} className="bg-[#22c55e] hover:bg-[#1db053] text-white font-black py-3 px-3 md:py-4 md:px-4 rounded-xl md:rounded-2xl flex items-center justify-center gap-1.5 md:gap-2 text-[8px] md:text-xs uppercase tracking-widest shadow-lg shadow-green-500/20 transition-all text-center leading-tight">
+                          <span className="material-symbols-outlined text-base md:text-lg">near_me</span>
+                          <span>agenda tu cita por whatsapp</span>
                         </button>
                       </div>
                     </div>
