@@ -6,13 +6,18 @@ interface CalculadoraProps {
   onBack: () => void;
 }
 
-type Step = 1 | 2 | 3 | 4;
+type Step = 0 | 1 | 2 | 3 | 4;
 type HoodType = 'mural' | 'central';
 type TurbineSize = 'pequeña' | 'estándar' | 'industrial';
 type Accessibility = 'fácil' | 'media' | 'difícil';
 
 const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
-  const [step, setStep] = useState<Step>(1);
+  const [step, setStep] = useState<Step>(0);
+
+  // Paso 0: Selección de Servicios
+  const [includeHood, setIncludeHood] = useState(true);
+  const [includeTurbine, setIncludeTurbine] = useState(true);
+  const [includeDucts, setIncludeDucts] = useState(false);
 
   // Paso 1: Campana y Filtros
   const [type, setType] = useState<HoodType>('mural');
@@ -43,26 +48,80 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
 
   // Lógica de cálculo técnica
   useEffect(() => {
-    let subtotal = 150; // Base fija (Desplazamiento/ Preparacion/ Recoger)
-    subtotal += filters * 67; // 67€ por sección de 0.5m (que incluye campana + filtro)
-    subtotal += ductsHorizontal * 18;
-    subtotal += ductsVertical * 26;
-    subtotal += registers * 30;
+    if (!includeHood && !includeTurbine && !includeDucts) {
+      setTotal(0);
+      return;
+    }
 
-    const turbinePrices = { pequeña: 360, estándar: 420, industrial: 780 };
-    let turbineCost = turbinePrices[turbineSize];
-    const accessMultipliers = { fácil: 1, media: 1.2, difícil: 1.4 };
-    turbineCost *= accessMultipliers[accessibility];
+    let subtotal = 150; // Base fija por desplazamiento y materiales
 
-    subtotal += turbineCost;
+    if (includeHood) {
+      subtotal += filters * 67; // 67€ por sección de 0.5m (que incluye campana + filtro)
+    }
+
+    if (includeDucts) {
+      subtotal += ductsHorizontal * 18;
+      subtotal += ductsVertical * 26;
+      subtotal += registers * 30;
+    }
+
+    if (includeTurbine) {
+      const turbinePrices = { pequeña: 360, estándar: 420, industrial: 780 };
+      let turbineCost = turbinePrices[turbineSize];
+      const accessMultipliers = { fácil: 1, media: 1.2, difícil: 1.4 };
+      turbineCost *= accessMultipliers[accessibility];
+      subtotal += turbineCost;
+    }
+
     if (state === 'muy-sucio') subtotal *= 1.25;
     if (recurring) subtotal *= 0.85;
 
     setTotal(Math.round(subtotal));
-  }, [filters, ductsVertical, ductsHorizontal, registers, turbineSize, accessibility, state, recurring]);
+  }, [includeHood, includeTurbine, includeDucts, filters, ductsVertical, ductsHorizontal, registers, turbineSize, accessibility, state, recurring]);
 
-  const handleNext = () => setStep((s) => Math.min(s + 1, 4) as Step);
-  const handlePrev = () => setStep((s) => Math.max(s - 1, 1) as Step);
+  const handleNext = () => {
+    if (step === 0) {
+      if (includeHood) setStep(1);
+      else if (includeDucts) setStep(2);
+      else if (includeTurbine) setStep(3);
+      else setStep(4);
+      return;
+    }
+    if (step === 1) {
+      if (includeDucts) setStep(2);
+      else if (includeTurbine) setStep(3);
+      else setStep(4);
+      return;
+    }
+    if (step === 2) {
+      if (includeTurbine) setStep(3);
+      else setStep(4);
+      return;
+    }
+    setStep((s) => Math.min(s + 1, 4) as Step);
+  };
+
+  const handlePrev = () => {
+    if (step === 4) {
+      if (includeTurbine) setStep(3);
+      else if (includeDucts) setStep(2);
+      else if (includeHood) setStep(1);
+      else setStep(0);
+      return;
+    }
+    if (step === 3) {
+      if (includeDucts) setStep(2);
+      else if (includeHood) setStep(1);
+      else setStep(0);
+      return;
+    }
+    if (step === 2) {
+      if (includeHood) setStep(1);
+      else setStep(0);
+      return;
+    }
+    setStep((s) => Math.max(s - 1, 0) as Step);
+  };
 
   const generatePDF = () => {
     const doc = new jsPDF();
@@ -95,16 +154,27 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
       y += 8;
     };
 
-    lineItem("Tipo de Campana:", type.toUpperCase());
-    lineItem("Secciones (Filtros):", `${filters} unidades (${campanaMeters}m de campana)`);
-    lineItem("Tiempo Estimado:", `${estimatedHours} horas de intervención`);
-    lineItem("Conducto Vertical:", `${ductsVertical} metros`);
-    lineItem("Conducto Horizontal:", `${ductsHorizontal} metros`);
-    lineItem("Registros Técnicos:", `${registers} unidades`);
-    lineItem("Caudal Turbina:", `${turbineSize.toUpperCase()} (${getTurbineDescription(turbineSize)})`);
-    lineItem("Accesibilidad:", accessibility.toUpperCase());
-    lineItem("Estado de Suciedad:", state === 'muy-sucio' ? "GRASA CRÍTICA (+25%)" : "NORMAL");
-    lineItem("Plan Mantenimiento:", recurring ? "SÍ (Descuento 15% aplicado)" : "NO");
+    if (includeHood) {
+      lineItem("Limpieza Campana:", "SÍ");
+      lineItem("- Secciones (Filtros):", `${filters} uds (${campanaMeters}m)`);
+      // lineItem("Tipo de Campana:", type.toUpperCase()); // Removed as per new step 1
+      // lineItem("Tiempo Estimado:", `${estimatedHours} horas de intervención`); // Removed as per new step 1
+    }
+    if (includeDucts) {
+      lineItem("Limpieza Conductos:", "SÍ");
+      lineItem("- Metros totales:", `${ductsVertical + ductsHorizontal}m`);
+      // lineItem("Conducto Vertical:", `${ductsVertical} metros`); // Removed as per new step 2
+      // lineItem("Conducto Horizontal:", `${ductsHorizontal} metros`); // Removed as per new step 2
+      // lineItem("Registros Técnicos:", `${registers} unidades`); // Removed as per new step 2
+    }
+    if (includeTurbine) {
+      lineItem("Limpieza Turbina:", `SÍ (${turbineSize.toUpperCase()})`);
+      // lineItem("Caudal Turbina:", `${turbineSize.toUpperCase()} (${getTurbineDescription(turbineSize)})`); // Removed as per new step 3
+      // lineItem("Accesibilidad:", accessibility.toUpperCase()); // Removed as per new step 3
+    }
+
+    lineItem("Estado Suciedad:", state === 'muy-sucio' ? "GRASA CRÍTICA (+25%)" : "NORMAL");
+    lineItem("Plan Mantenimiento:", recurring ? "SÍ (-15%)" : "NO");
 
     // Total
     y += 10;
@@ -125,19 +195,19 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
   };
 
   const shareWhatsApp = () => {
+    let services = "";
+    if (includeHood) services += `✅ Campana (${filters} filtros)\n`;
+    if (includeTurbine) services += `✅ Turbina (${turbineSize.toUpperCase()})\n`;
+    if (includeDucts) services += `✅ Conductos (${ductsVertical + ductsHorizontal}m)\n`;
+
     const msg = `¡Hola Afondo! 👋 He generado un presupuesto online: *${budgetRef}*\n\n` +
-      `📊 *DETALLE DE INSTALACIÓN:*\n` +
-      `- *Tipo:* Campana ${type.toUpperCase()}\n` +
-      `- *Dimensiones:* ${filters} secciones (${campanaMeters}m)\n` +
-      `- *Tiempo est.:* ${estimatedHours}h de trabajo\n` +
-      `- *Extracción:* ${ductsVertical}m vert. / ${ductsHorizontal}m horiz.\n` +
-      `- *Registros:* ${registers} uds.\n` +
-      `- *Turbina:* ${turbineSize.toUpperCase()} (Acceso ${accessibility})\n` +
+      `🛠️ *SERVICIOS SOLICITADOS:*\n${services}\n` +
+      `📊 *DETALLE:*\n` +
       `- *Estado:* ${state === 'muy-sucio' ? '❌ GRASA CRÍTICA' : '✅ Normal'}\n` +
       `- *Plan Anual:* ${recurring ? 'SÍ (15% dto)' : 'No'}\n\n` +
       `💰 *INVERSIÓN ESTIMADA: ${total}€*\n` +
       `-----------------------------------\n` +
-      `¿Cuándo podríais pasar a validar la instalación?`;
+      `¿Cuándo podríais venir a verlo?`;
     window.open(`https://wa.me/34622064101?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -172,7 +242,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
 
         <div className="mb-6 md:mb-10">
           <div className="flex items-center gap-2 md:gap-4 mb-3">
-            {[1, 2, 3, 4].map((s) => (
+            {[0, 1, 2, 3, 4].map((s) => (
               <div key={s} className={`h-1.5 flex-1 rounded-full transition-all duration-500 ${step >= s ? 'bg-primary' : 'bg-slate-100 dark:bg-slate-800'}`} />
             ))}
           </div>
@@ -181,8 +251,8 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">ID: {budgetRef}</span>
           </div>
           <div className="flex justify-between mt-2 px-1">
-            {['Campana', 'Extracción', 'Motor', 'Garantía'].map((label, i) => (
-              <span key={label} className={`text-[8px] font-bold uppercase tracking-tighter ${step > i ? 'text-primary' : 'text-slate-300'}`}>
+            {['Inicio', 'Campana', 'Extracción', 'Motor', 'Garantía'].map((label, i) => (
+              <span key={label} className={`text-[8px] font-bold uppercase tracking-tighter ${step >= i ? 'text-primary' : 'text-slate-300'}`}>
                 {label}
               </span>
             ))}
@@ -192,13 +262,44 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
         <div className="bg-white dark:bg-slate-900 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-2xl overflow-hidden min-h-[520px] flex flex-col">
           <div className="p-4 md:p-10 flex-1">
 
+            {/* PASO 0: SELECCIÓN DE SERVICIOS */}
+            {step === 0 && (
+              <div className="animate-in fade-in slide-in-from-right-4 duration-500">
+                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">¿Qué necesitas limpiar?</h2>
+                <p className="text-sm text-slate-500 mb-8 font-medium">Selecciona los elementos de tu sistema de extracción.</p>
+
+                <div className="grid grid-cols-1 gap-4">
+                  {[
+                    { id: 'hood', label: 'Campana y Filtros', icon: 'shelves', state: includeHood, setter: setIncludeHood },
+                    { id: 'turbine', label: 'Turbina (Motor)', icon: 'cyclone', state: includeTurbine, setter: setIncludeTurbine },
+                    { id: 'ducts', label: 'Conductos de Extracción', icon: 'settings_input_component', state: includeDucts, setter: setIncludeDucts }
+                  ].map((service) => (
+                    <button
+                      key={service.id}
+                      onClick={() => service.setter(!service.state)}
+                      className={`p-6 rounded-2xl border-2 flex items-center justify-between transition-all ${service.state ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800'}`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <span className="material-symbols-outlined text-3xl text-primary">{service.icon}</span>
+                        <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider">{service.label}</span>
+                      </div>
+                      <span className="material-symbols-outlined text-primary text-2xl">
+                        {service.state ? 'check_box' : 'check_box_outline_blank'}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* PASO 1: CAMPANA */}
             {step === 1 && (
               <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">La Campana</h2>
-                <p className="text-sm text-slate-500 mb-8 md:mb-10 font-medium">Cada sección de campana incluye su limpieza técnica interior y el filtro.</p>
+                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">Detalles de Campana</h2>
+                <p className="text-sm text-slate-500 mb-8 md:mb-10 font-medium">Dimensiones para el cálculo de tiempo y materiales.</p>
 
-                <div className="grid grid-cols-2 gap-3 md:gap-6 mb-8 md:mb-12">
+                {/* Removed type selection (mural/central) as it's not used in calculations and simplifies the flow */}
+                {/* <div className="grid grid-cols-2 gap-3 md:gap-6 mb-8 md:mb-12">
                   <button onClick={() => setType('mural')} className={`p-4 md:p-10 rounded-2xl md:rounded-3xl border-2 transition-all flex flex-col items-center gap-2 md:gap-4 ${type === 'mural' ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800'}`}>
                     <span className="material-symbols-outlined text-3xl md:text-4xl text-primary">shelves</span>
                     <span className="font-bold text-xs md:text-base dark:text-white uppercase tracking-wider">Mural</span>
@@ -207,7 +308,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
                     <span className="material-symbols-outlined text-3xl md:text-4xl text-primary">format_overline</span>
                     <span className="font-bold text-xs md:text-base dark:text-white uppercase tracking-wider">Central</span>
                   </button>
-                </div>
+                </div> */}
 
                 <div className="bg-slate-50 dark:bg-slate-800/50 p-6 md:p-8 rounded-2xl md:rounded-[2rem] border border-slate-100 dark:border-slate-800 text-center">
                   <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Número de Filtros (Secciones)</label>
@@ -233,7 +334,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
             {/* PASO 2: EXTRACCIÓN */}
             {step === 2 && (
               <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">Extracción</h2>
+                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">Conductos</h2>
                 <p className="text-sm text-slate-500 mb-8 md:mb-10 font-medium">Metraje de conductos y accesos técnicos.</p>
 
                 <div className="space-y-6 md:space-y-10">
@@ -279,7 +380,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
             {/* PASO 3: TURBINA */}
             {step === 3 && (
               <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">Turbina</h2>
+                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">La Turbina</h2>
                 <p className="text-sm text-slate-500 mb-8 font-medium">Motor y complejidad de acceso.</p>
 
                 <div className="mb-8 md:mb-10">
@@ -342,7 +443,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
                       <h4 className={`font-black text-[10px] uppercase tracking-widest ${state === 'muy-sucio' ? 'text-red-600' : 'text-green-600'}`}>
                         {state === 'muy-sucio' ? 'RIESGO CRÍTICO DE INCENDIO' : 'ESTADO DE MANTENIMIENTO'}
                       </h4>
-                      <p className="text-[10px] text-slate-600 font-medium leading-tight">
+                      <p className="text-[10px] text-slate-600 dark:text-slate-400 font-medium leading-tight">
                         {state === 'muy-sucio'
                           ? 'La acumulación de grasa gotea y puede inflamarse en segundos. Requiere limpieza urgente.'
                           : 'Limpieza preventiva recomendada cada 6-12 meses según normativa.'}
@@ -434,7 +535,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
 
             {/* Navegación (Botones) */}
             <div className="flex gap-3 w-full sm:w-auto">
-              {step > 1 && (
+              {step > 0 && (
                 <button
                   onClick={handlePrev}
                   className="flex-1 sm:flex-none px-6 h-12 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-bold dark:text-white text-xs hover:bg-white transition-all uppercase tracking-widest"
@@ -446,6 +547,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
                 <button
                   onClick={handleNext}
                   className="flex-[2] sm:flex-none px-10 h-12 rounded-xl bg-primary text-white font-black uppercase tracking-widest text-xs shadow-xl active:scale-95 transition-all"
+                  disabled={step === 0 && !includeHood && !includeTurbine && !includeDucts}
                 >
                   Continuar
                 </button>
@@ -479,3 +581,4 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
 };
 
 export default Calculadora;
+```
