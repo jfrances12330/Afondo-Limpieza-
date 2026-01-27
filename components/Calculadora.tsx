@@ -581,4 +581,3 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
 };
 
 export default Calculadora;
-```
