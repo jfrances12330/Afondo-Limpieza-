@@ -15,6 +15,8 @@ import Calculadora from './components/Calculadora';
 import AvisoLegal from './components/legal/AvisoLegal';
 import Privacidad from './components/legal/Privacidad';
 import Cookies from './components/legal/Cookies';
+import Breadcrumbs from './components/Breadcrumbs';
+import FAQSection from './components/FAQSection';
 
 type View = 'home' | 'aviso-legal' | 'privacidad' | 'cookies' | 'calculadora' | 'contacto';
 
@@ -63,8 +65,8 @@ const App: React.FC = () => {
         return (
           <>
             <div id="inicio">
-              <Hero 
-                onNavigateServices={() => scrollToSection('servicios')} 
+              <Hero
+                onNavigateServices={() => scrollToSection('servicios')}
                 onNavigateCalculadora={() => navigateTo('calculadora')}
               />
             </div>
@@ -86,7 +88,7 @@ const App: React.FC = () => {
                   <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-2">¿Cuánto cuesta limpiar tu campana?</h3>
                   <p className="text-slate-600 dark:text-slate-400">Descúbrelo ahora con nuestra calculadora inteligente en solo 1 minuto.</p>
                 </div>
-                <button 
+                <button
                   onClick={() => navigateTo('calculadora')}
                   className="bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg hover:scale-105 active:scale-95"
                 >
@@ -94,48 +96,50 @@ const App: React.FC = () => {
                 </button>
               </div>
             </section>
+            <div id="faq">
+              <FAQSection />
+            </div>
             <div id="ubicaciones">
               <LocationSection />
             </div>
             <div id="contacto-seccion">
               <ContactSection onNavigate={() => navigateTo('contacto')} />
-            </div>
-          </>
-        );
+            </>
+            );
     }
   };
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar 
-        onToggleDarkMode={toggleDarkMode} 
-        isDarkMode={isDarkMode} 
-        onNavigateHome={() => navigateTo('home')} 
-        onNavigateCalculadora={() => navigateTo('calculadora')}
-        onNavigateContacto={() => navigateTo('contacto')}
-        onNavigateServices={() => scrollToSection('servicios')}
-        currentView={currentView}
-      />
-      
-      <main className="flex-1">
-        {renderContent()}
-      </main>
-      
-      <Footer onNavigate={navigateTo} />
-      
-      <CookieBanner onManage={() => navigateTo('cookies')} />
+            return (
+            <div className="flex flex-col min-h-screen">
+              <Navbar
+                onToggleDarkMode={toggleDarkMode}
+                isDarkMode={isDarkMode}
+                onNavigateHome={() => navigateTo('home')}
+                onNavigateCalculadora={() => navigateTo('calculadora')}
+                onNavigateContacto={() => navigateTo('contacto')}
+                onNavigateServices={() => scrollToSection('servicios')}
+                currentView={currentView}
+              />
 
-      <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-green-500 text-white shadow-[0_10px_25px_rgba(34,197,94,0.4)] transition-all hover:scale-110 active:scale-95 group"
-        aria-label="Contactar por WhatsApp"
-      >
-        <span className="material-symbols-outlined text-4xl group-hover:rotate-12 transition-transform">chat</span>
-      </a>
-    </div>
-  );
+              <main className="flex-1">
+                {renderContent()}
+              </main>
+
+              <Footer onNavigate={navigateTo} />
+
+              <CookieBanner onManage={() => navigateTo('cookies')} />
+
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-green-500 text-white shadow-[0_10px_25px_rgba(34,197,94,0.4)] transition-all hover:scale-110 active:scale-95 group"
+                aria-label="Contactar por WhatsApp"
+              >
+                <span className="material-symbols-outlined text-4xl group-hover:rotate-12 transition-transform">chat</span>
+              </a>
+            </div>
+            );
 };
 
-export default App;
+            export default App;

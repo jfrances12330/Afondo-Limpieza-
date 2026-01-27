@@ -34,11 +34,11 @@ const ProblemSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex flex-col items-center text-center mb-20 max-w-3xl mx-auto">
           <span className="text-primary font-black text-[10px] tracking-[0.3em] uppercase mb-4">¿Por qué es vital?</span>
-          <h2 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-8">
-            Más que limpieza, es la <span className="text-primary">salud legal</span> de su negocio
+          <h2 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-6">
+            ¿Por qué es Obligatorio Limpiar tu Campana en Alicante?
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 text-lg font-medium">
-            No deje el futuro de su establecimiento en manos de la suerte. La normativa actual exige una limpieza técnica profesional certificada.
+          <p className="text-slate-500 dark:text-slate-400 text-lg font-medium leading-relaxed">
+            La normativa vigente en la Comunidad Valenciana exige una limpieza técnica profesional certificada. No dejes el futuro de tu establecimiento en manos de la suerte.
           </p>
         </div>
 

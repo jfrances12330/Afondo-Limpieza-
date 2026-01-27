@@ -41,18 +41,21 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
         <div className="mb-16 text-center">
           <span className="text-primary font-bold text-sm tracking-widest uppercase mb-3">Nuestras Soluciones Técnicas</span>
           <h2 id="servicios-titulo" className="text-slate-900 dark:text-white text-3xl md:text-5xl font-extrabold leading-tight tracking-tight">
-            Especialistas en Higiene Industrial
+            Servicios de Limpieza Industrial en Alicante
           </h2>
+          <p className="text-slate-500 dark:text-slate-400 text-lg font-medium mt-4 max-w-3xl mx-auto">
+            Especialistas en mantenimiento de sistemas de extracción para restaurantes, hoteles y cocinas industriales
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {services.map((service, idx) => (
             <article key={idx} className="group flex flex-col bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 dark:border-slate-800">
               <div className="relative h-56 overflow-hidden">
-                <img 
-                  src={service.img} 
-                  alt={service.alt} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                <img
+                  src={service.img}
+                  alt={service.alt}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   loading="lazy"
                   width="400"
                   height="300"
