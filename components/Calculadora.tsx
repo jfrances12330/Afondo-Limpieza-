@@ -66,7 +66,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
 
   const generatePDF = () => {
     const doc = new jsPDF();
-    
+
     // Header
     doc.setFillColor(26, 26, 255);
     doc.rect(0, 0, 210, 45, 'F');
@@ -82,10 +82,10 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
     doc.setTextColor(30, 41, 59);
     doc.setFontSize(14);
     doc.text("DETALLE DEL PRESUPUESTO ESTIMADO", 20, 60);
-    
+
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    
+
     let y = 75;
     const lineItem = (label: string, value: string) => {
       doc.setFont("helvetica", "bold");
@@ -180,6 +180,13 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
             <p className="text-[9px] font-black uppercase tracking-widest text-primary">Paso {step} de 4</p>
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">ID: {budgetRef}</span>
           </div>
+          <div className="flex justify-between mt-2 px-1">
+            {['Campana', 'Extracción', 'Motor', 'Garantía'].map((label, i) => (
+              <span key={label} className={`text-[8px] font-bold uppercase tracking-tighter ${step > i ? 'text-primary' : 'text-slate-300'}`}>
+                {label}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="bg-white dark:bg-slate-900 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-2xl overflow-hidden min-h-[520px] flex flex-col">
@@ -246,15 +253,23 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
                     <input type="range" min="0" max="40" step="1" value={ductsHorizontal} onChange={(e) => setDuctsHorizontal(parseInt(e.target.value))} className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-primary" />
                   </div>
 
-                  <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
-                    <div className="flex items-center gap-3">
-                      <span className="material-symbols-outlined text-2xl text-primary">door_open</span>
-                      <h4 className="font-bold text-xs dark:text-white uppercase tracking-wider">Registros técnicos</h4>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <button onClick={() => setRegisters(Math.max(0, registers - 1))} className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 dark:text-white font-bold">-</button>
-                      <span className="text-xl font-black text-primary min-w-[24px] text-center">{registers}</span>
-                      <button onClick={() => setRegisters(registers + 1)} className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 dark:text-white font-bold">+</button>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                      <div className="flex items-center gap-3">
+                        <span className="material-symbols-outlined text-2xl text-primary">door_open</span>
+                        <div>
+                          <h4 className="font-bold text-xs dark:text-white uppercase tracking-wider flex items-center gap-1">
+                            Registros técnicos
+                            <span className="material-symbols-outlined text-slate-400 text-xs cursor-help" title="Compuertas de acceso necesarias para limpiar tramos largos de conducto">info</span>
+                          </h4>
+                          <p className="text-[8px] text-slate-400 font-medium">Compuertas de acceso para limpieza de conductos</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <button onClick={() => setRegisters(Math.max(0, registers - 1))} className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 dark:text-white font-bold">-</button>
+                        <span className="text-xl font-black text-primary min-w-[24px] text-center">{registers}</span>
+                        <button onClick={() => setRegisters(registers + 1)} className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 dark:text-white font-bold">+</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -312,26 +327,26 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
             {step === 4 && (
               <div className="animate-in fade-in slide-in-from-right-4 duration-500 flex flex-col h-full">
                 <header className="mb-4">
-                     <h2 className="text-2xl md:text-4xl font-black text-slate-900 dark:text-white mb-1 tracking-tight">Estado y Garantía</h2>
-                     <p className="text-[11px] md:text-sm text-slate-500 font-medium">Seguridad y cumplimiento de normativa.</p>
+                  <h2 className="text-2xl md:text-4xl font-black text-slate-900 dark:text-white mb-1 tracking-tight">Estado y Garantía</h2>
+                  <p className="text-[11px] md:text-sm text-slate-500 font-medium">Seguridad y cumplimiento de normativa.</p>
                 </header>
 
                 <div className="flex flex-col gap-4 flex-1">
-                  
+
                   {/* Riesgo / Termómetro */}
                   <div className={`p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${state === 'muy-sucio' ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
                     <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${state === 'muy-sucio' ? 'bg-red-500 text-white animate-pulse' : 'bg-green-500 text-white'}`}>
-                        <span className="material-symbols-outlined">{state === 'muy-sucio' ? 'warning' : 'check'}</span>
+                      <span className="material-symbols-outlined">{state === 'muy-sucio' ? 'warning' : 'check'}</span>
                     </div>
                     <div>
-                        <h4 className={`font-black text-[10px] uppercase tracking-widest ${state === 'muy-sucio' ? 'text-red-600' : 'text-green-600'}`}>
-                            {state === 'muy-sucio' ? 'RIESGO CRÍTICO DE INCENDIO' : 'ESTADO DE MANTENIMIENTO'}
-                        </h4>
-                        <p className="text-[10px] text-slate-600 font-medium leading-tight">
-                            {state === 'muy-sucio' 
-                                ? 'La acumulación de grasa gotea y puede inflamarse en segundos. Requiere limpieza urgente.' 
-                                : 'Limpieza preventiva recomendada cada 6-12 meses según normativa.'}
-                        </p>
+                      <h4 className={`font-black text-[10px] uppercase tracking-widest ${state === 'muy-sucio' ? 'text-red-600' : 'text-green-600'}`}>
+                        {state === 'muy-sucio' ? 'RIESGO CRÍTICO DE INCENDIO' : 'ESTADO DE MANTENIMIENTO'}
+                      </h4>
+                      <p className="text-[10px] text-slate-600 font-medium leading-tight">
+                        {state === 'muy-sucio'
+                          ? 'La acumulación de grasa gotea y puede inflamarse en segundos. Requiere limpieza urgente.'
+                          : 'Limpieza preventiva recomendada cada 6-12 meses según normativa.'}
+                      </p>
                     </div>
                   </div>
 
@@ -356,21 +371,26 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
                   {/* Plan Mantenimiento + Certificado */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div
-                        onClick={() => setRecurring(!recurring)}
-                        className={`cursor-pointer p-4 rounded-2xl border-2 border-dashed flex items-center gap-3 transition-all ${recurring ? 'border-primary bg-primary/5' : 'border-slate-200 dark:border-slate-700 bg-slate-50/50'}`}
+                      onClick={() => setRecurring(!recurring)}
+                      className={`cursor-pointer p-4 rounded-2xl border-2 border-dashed flex items-center gap-3 transition-all relative overflow-hidden ${recurring ? 'border-primary bg-primary/5' : 'border-slate-200 dark:border-slate-700 bg-slate-50/50'}`}
                     >
-                        <span className={`material-symbols-outlined text-xl ${recurring ? 'text-primary' : 'text-slate-400'}`}>verified</span>
-                        <div className="text-left">
-                            <h4 className="font-black text-[9px] text-slate-900 dark:text-white tracking-widest">PLAN ANUAL (-15%)</h4>
-                            <p className="text-[9px] text-slate-500 font-medium">Intervenciones periódicas.</p>
+                      <span className={`material-symbols-outlined text-xl ${recurring ? 'text-primary' : 'text-slate-400'}`}>verified</span>
+                      <div className="text-left">
+                        <h4 className="font-black text-[9px] text-slate-900 dark:text-white tracking-widest">PLAN ANUAL (-15%)</h4>
+                        <p className="text-[9px] text-slate-500 font-medium">Intervenciones periódicas.</p>
+                      </div>
+                      {recurring && (
+                        <div className="absolute top-0 right-0 bg-primary text-white text-[7px] px-2 py-0.5 font-bold rounded-bl-lg">
+                          AHORRAS {Math.round(total / 0.85 * 0.15)}€
                         </div>
+                      )}
                     </div>
                     <div className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center gap-3 bg-white dark:bg-slate-900">
-                        <span className="material-symbols-outlined text-xl text-amber-500">workspace_premium</span>
-                        <div className="text-left">
-                            <h4 className="font-black text-[9px] text-slate-900 dark:text-white tracking-widest uppercase">CERTIFICACIÓN INCLUIDA</h4>
-                            <p className="text-[9px] text-slate-500 font-medium">Válido para Sanidad y Seguros.</p>
-                        </div>
+                      <span className="material-symbols-outlined text-xl text-amber-500">workspace_premium</span>
+                      <div className="text-left">
+                        <h4 className="font-black text-[9px] text-slate-900 dark:text-white tracking-widest uppercase">CERTIFICACIÓN INCLUIDA</h4>
+                        <p className="text-[9px] text-slate-500 font-medium">Válido para Sanidad y Seguros.</p>
+                      </div>
                     </div>
                   </div>
 
