@@ -15,22 +15,22 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
          Elemento invisible para disparar la carga de la imagen con prioridad alta. 
          Añadimos dimensiones para ayudar al navegador a reservar espacio.
       */}
-      <img 
-        src={heroImageUrl} 
-        alt="" 
-        className="hidden" 
+      <img
+        src={heroImageUrl}
+        alt="Técnico de Afondo realizando limpieza profesional de campana extractora industrial en cocina comercial de Alicante con equipo especializado"
+        className="hidden"
         width="1920"
         height="1080"
         // @ts-ignore - fetchpriority es un atributo válido de HTML5
-        fetchpriority="high" 
+        fetchpriority="high"
       />
 
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <div 
+        <div
           className="h-full w-full bg-cover bg-center bg-no-repeat scale-105"
-          style={{ 
-            backgroundImage: `url("${heroImageUrl}")` 
+          style={{
+            backgroundImage: `url("${heroImageUrl}")`
           }}
           role="img"
           aria-label="Técnico realizando limpieza de campana industrial"
@@ -57,7 +57,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
         </p>
 
         <div className="flex w-full flex-col items-center justify-center gap-6">
-          <button 
+          <button
             onClick={onNavigateCalculadora}
             className="group relative flex h-20 md:h-24 w-full max-w-xl items-center justify-center gap-4 overflow-hidden rounded-[2rem] bg-primary px-10 transition-all duration-300 hover:bg-primary-dark hover:shadow-[0_25px_50px_rgba(26,26,255,0.45)] hover:-translate-y-1"
           >
@@ -67,7 +67,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
               <span className="text-[10px] md:text-[11px] font-bold text-white/70 uppercase mt-1.5 italic">Sin compromiso • Online</span>
             </div>
           </button>
-          
+
           <p className="text-white/50 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] flex items-center gap-2">
             <span className="material-symbols-outlined text-sm">bolt</span>
             Valora tu instalación ahora
@@ -82,19 +82,19 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
             <div className="flex h-10 w-10 md:h-14 md:w-14 items-center justify-center rounded-xl md:rounded-2xl bg-primary/20 text-primary border border-primary/30 shrink-0">
               <span className="material-symbols-outlined text-2xl md:text-3xl">verified</span>
             </div>
-            <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest text-left leading-tight">Certificado <br className="hidden md:block"/> Oficial UNE</span>
+            <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest text-left leading-tight">Certificado <br className="hidden md:block" /> Oficial UNE</span>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex h-10 w-10 md:h-14 md:w-14 items-center justify-center rounded-xl md:rounded-2xl bg-orange-500/20 text-orange-400 border border-orange-500/30 shrink-0">
               <span className="material-symbols-outlined text-2xl md:text-3xl">local_fire_department</span>
             </div>
-            <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest text-left leading-tight">Prevención <br className="hidden md:block"/> de incendios</span>
+            <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest text-left leading-tight">Prevención <br className="hidden md:block" /> de incendios</span>
           </div>
           <div className="hidden xs:flex items-center gap-4">
             <div className="flex h-10 w-10 md:h-14 md:w-14 items-center justify-center rounded-xl md:rounded-2xl bg-green-500/20 text-green-400 border border-green-500/30 shrink-0">
               <span className="material-symbols-outlined text-2xl md:text-3xl">gavel</span>
             </div>
-            <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest text-left leading-tight">Garantía ante <br className="hidden md:block"/> Sanidad</span>
+            <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest text-left leading-tight">Garantía ante <br className="hidden md:block" /> Sanidad</span>
           </div>
         </div>
       </div>

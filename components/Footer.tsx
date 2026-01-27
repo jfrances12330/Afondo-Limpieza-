@@ -6,15 +6,17 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
-  const email = "hola@limpiezadecampanas.com";
+  const email = "afondolimpiezadecampanas@gmail.com";
   const schemaData = {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Afondo - Limpieza de campanas",
+    "@type": "LocalBusiness",
+    "name": "Afondo - Limpieza de Campanas Industriales",
     "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBiqkJXK7dDEL0GKvACYNXCL8-7_klRe300_2g0SPv0F-bIV3MY5ueoBz7yGF1ZXHwuGgA13KFHbBqpSw6jGtNGA6p7qwY_5oakgwZzidkDVFvXMXvkqzeJ6MiNQ0GUzTJuyb5d9otC5eYHvwJpSzcUk9Qt-yGIG1HhLWD9EGHtQmlcM7RXTF2juJ45ZXVIiEAExs9ugW0PQ6fl69jW1Elr4FMI4loaIL58c9-M-X3XgTn1OxpfvKmegoPECcf9-eTpH2Dh_B-NXNo",
     "@id": "https://afondolimpiezadecampanas.com",
     "url": "https://afondolimpiezadecampanas.com",
     "telephone": "+34622064101",
+    "email": "afondolimpiezadecampanas@gmail.com",
+    "priceRange": "€€",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Partida Canastell, E17",
@@ -28,6 +30,14 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       "latitude": 38.3976,
       "longitude": -0.5215
     },
+    "areaServed": [
+      { "@type": "City", "name": "Alicante" },
+      { "@type": "City", "name": "San Vicente del Raspeig" },
+      { "@type": "City", "name": "Elche" },
+      { "@type": "City", "name": "Santa Pola" },
+      { "@type": "City", "name": "El Campello" },
+      { "@type": "City", "name": "Torrevieja" }
+    ],
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": [
@@ -64,7 +74,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               Especialistas en higiene industrial y seguridad contra incendios en cocinas profesionales en la provincia de Alicante.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
             <div className="flex flex-col gap-4">
               <span className="text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest">Legal</span>
@@ -75,37 +85,37 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div className="flex flex-col gap-4">
               <span className="text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest">Contacto</span>
               <a href="tel:+34622064101" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors">+34 622 06 41 01</a>
-              <a href={`mailto:${email}`} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors">{email}</a>
+              <a href={`mailto:${email}`} className="text-slate-500 dark:text-slate-400 hover:text-primary text-[11px] sm:text-sm font-medium transition-colors break-all">{email}</a>
               <span className="text-slate-500 dark:text-slate-400 text-sm">Lun - Vie: 8:00 - 20:00</span>
             </div>
           </div>
         </div>
-        
+
         <div className="w-full h-px bg-slate-100 dark:bg-slate-800 mb-8"></div>
-        
+
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-slate-400 dark:text-slate-500 text-sm">
           <p className="font-medium">
             © 2025 Afondo. Todos los derechos reservados. | Diseño web por <a href="https://odoonto.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary font-bold transition-colors">odoonto.com</a>
           </p>
           <div className="flex items-center gap-4">
-            <a 
-              href="https://www.boe.es/buscar/doc.php?id=BOE-A-2007-15813" 
-              target="_blank" 
-              rel="nofollow" 
+            <a
+              href="https://www.boe.es/buscar/doc.php?id=BOE-A-2007-15813"
+              target="_blank"
+              rel="nofollow"
               className="flex items-center gap-1.5 hover:text-primary transition-colors font-bold"
               title="Normativa UNE sobre limpieza de sistemas de extracción"
             >
-              <span className="material-symbols-outlined text-[18px]">verified</span> 
+              <span className="material-symbols-outlined text-[18px]">verified</span>
               UNE 100165
             </a>
-            <a 
-              href="https://www.codigotecnico.org/Documentos/SeguridadIncendio.html" 
-              target="_blank" 
-              rel="nofollow" 
+            <a
+              href="https://www.codigotecnico.org/Documentos/SeguridadIncendio.html"
+              target="_blank"
+              rel="nofollow"
               className="flex items-center gap-1.5 hover:text-primary transition-colors font-bold"
               title="Código Técnico de la Edificación - Seguridad en caso de Incendio"
             >
-              <span className="material-symbols-outlined text-[18px]">security</span> 
+              <span className="material-symbols-outlined text-[18px]">security</span>
               CTE DB-SI
             </a>
           </div>
