@@ -59,8 +59,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
-          <div className="max-w-xs">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-12">
+          <div className="max-w-sm">
             <button onClick={() => onNavigate('home')} className="flex items-center gap-3 text-left focus:outline-none mb-6">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white">
                 <span className="material-symbols-outlined text-2xl font-bold">cleaning_services</span>
@@ -75,18 +75,18 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
-            <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 min-w-0">
+            <div className="flex flex-col gap-4 min-w-[180px]">
               <span className="text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest">Legal</span>
               <button onClick={() => onNavigate('aviso-legal')} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Aviso Legal</button>
               <button onClick={() => onNavigate('privacidad')} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Privacidad</button>
               <button onClick={() => onNavigate('cookies')} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Cookies</button>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 min-w-0">
               <span className="text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest">Contacto</span>
-              <a href="tel:+34622064101" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors">+34 622 06 41 01</a>
-              <a href={`mailto:${email}`} className="text-slate-500 dark:text-slate-400 hover:text-primary text-[11px] sm:text-sm font-medium transition-colors break-all">{email}</a>
-              <span className="text-slate-500 dark:text-slate-400 text-sm">Lun - Vie: 8:00 - 20:00</span>
+              <a href="tel:+34622064101" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors whitespace-nowrap">+34 622 06 41 01</a>
+              <a href={`mailto:${email}`} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors break-words">{email}</a>
+              <span className="text-slate-500 dark:text-slate-400 text-sm whitespace-nowrap">Lun - Vie: 8:00 - 20:00</span>
             </div>
           </div>
         </div>
