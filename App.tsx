@@ -17,6 +17,7 @@ import Privacidad from './components/legal/Privacidad';
 import Cookies from './components/legal/Cookies';
 import Breadcrumbs from './components/Breadcrumbs';
 import FAQSection from './components/FAQSection';
+import TestimonialsSection from './components/TestimonialsSection';
 
 type View = 'home' | 'aviso-legal' | 'privacidad' | 'cookies' | 'calculadora' | 'contacto';
 
@@ -96,6 +97,9 @@ const App: React.FC = () => {
                 </button>
               </div>
             </section>
+            <div id="testimonios">
+              <TestimonialsSection />
+            </div>
             <div id="faq">
               <FAQSection />
             </div>
