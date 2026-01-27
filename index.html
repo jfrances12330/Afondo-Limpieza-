@@ -52,15 +52,36 @@
   <meta name="geo.position" content="38.3976;-0.5215" />
   <meta name="ICBM" content="38.3976, -0.5215" />
 
-  <!-- Fonts - Cargadas de forma optimizada -->
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    rel="stylesheet" />
+  <!-- Preconnect to external resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://lh3.googleusercontent.com" />
 
-  <!-- Tailwind CDN con Configuración personalizada para restaurar diseño -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Preload critical fonts -->
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap"
+    as="style" />
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+    as="style" />
+
+  <!-- Fonts - Non-blocking with font-display swap -->
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" media="print" onload="this.media='all'" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+    rel="stylesheet" media="print" onload="this.media='all'" />
+
+  <!-- Fallback for users with JS disabled -->
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+      rel="stylesheet" />
+  </noscript>
+  <!-- Tailwind CDN - Deferred loading -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
