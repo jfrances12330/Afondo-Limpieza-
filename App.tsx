@@ -104,42 +104,43 @@ const App: React.FC = () => {
             </div>
             <div id="contacto-seccion">
               <ContactSection onNavigate={() => navigateTo('contacto')} />
-            </>
-            );
+            </div>
+          </>
+        );
     }
   };
 
-            return (
-            <div className="flex flex-col min-h-screen">
-              <Navbar
-                onToggleDarkMode={toggleDarkMode}
-                isDarkMode={isDarkMode}
-                onNavigateHome={() => navigateTo('home')}
-                onNavigateCalculadora={() => navigateTo('calculadora')}
-                onNavigateContacto={() => navigateTo('contacto')}
-                onNavigateServices={() => scrollToSection('servicios')}
-                currentView={currentView}
-              />
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Navbar
+        onToggleDarkMode={toggleDarkMode}
+        isDarkMode={isDarkMode}
+        onNavigateHome={() => navigateTo('home')}
+        onNavigateCalculadora={() => navigateTo('calculadora')}
+        onNavigateContacto={() => navigateTo('contacto')}
+        onNavigateServices={() => scrollToSection('servicios')}
+        currentView={currentView}
+      />
 
-              <main className="flex-1">
-                {renderContent()}
-              </main>
+      <main className="flex-1">
+        {renderContent()}
+      </main>
 
-              <Footer onNavigate={navigateTo} />
+      <Footer onNavigate={navigateTo} />
 
-              <CookieBanner onManage={() => navigateTo('cookies')} />
+      <CookieBanner onManage={() => navigateTo('cookies')} />
 
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-green-500 text-white shadow-[0_10px_25px_rgba(34,197,94,0.4)] transition-all hover:scale-110 active:scale-95 group"
-                aria-label="Contactar por WhatsApp"
-              >
-                <span className="material-symbols-outlined text-4xl group-hover:rotate-12 transition-transform">chat</span>
-              </a>
-            </div>
-            );
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-green-500 text-white shadow-[0_10px_25px_rgba(34,197,94,0.4)] transition-all hover:scale-110 active:scale-95 group"
+        aria-label="Contactar por WhatsApp"
+      >
+        <span className="material-symbols-outlined text-4xl group-hover:rotate-12 transition-transform">chat</span>
+      </a>
+    </div>
+  );
 };
 
-            export default App;
+export default App;
