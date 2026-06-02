@@ -394,13 +394,13 @@ const CertificateGenerator: React.FC = () => {
           {/* ── FORMULARIO ── */}
           <div style={{ background: '#fff', borderRadius: 18, padding: 22, boxShadow: '0 4px 20px rgba(15,23,42,.06)' }}>
             <div style={{ display: 'flex', gap: 12 }}>
-              <div style={{ flex: 1 }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
                 <label style={{ ...label, marginTop: 0 }}>Nº informe</label>
                 <input style={input} value={nInforme} onChange={(e) => setNInforme(e.target.value)} />
               </div>
-              <div style={{ flex: 1 }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
                 <label style={{ ...label, marginTop: 0 }}>Fecha</label>
-                <input style={input} type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
+                <input style={{ ...input, maxWidth: '100%' }} type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
               </div>
             </div>
 
@@ -451,8 +451,8 @@ const CertificateGenerator: React.FC = () => {
           </div>
 
           {/* ── PREVIEW / PDF (escalado para caber) ── */}
-          <div ref={frameRef} style={{ position: 'relative', width: '100%', height: frameH }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, width: 794, transform: `scale(${scale})`, transformOrigin: 'top left' }}>
+          <div ref={frameRef} style={{ position: 'relative', width: '100%', height: frameH, overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, width: 794, transform: `scale(${scale})`, transformOrigin: 'top left', overflow: 'hidden' }}>
               <div
                 ref={previewRef}
                 id="afondo-pdf-root"
