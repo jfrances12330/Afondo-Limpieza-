@@ -62,6 +62,7 @@ const CertificateGenerator: React.FC = () => {
     'La instalación queda limpia de acumulación de grasa y en condiciones seguras de uso, reduciendo el riesgo de incendio y favoreciendo el cumplimiento de las condiciones de higiene del establecimiento.'
   );
   const [validez, setValidez] = useState('6 meses (revisión recomendada)');
+  const [factura, setFactura] = useState('');
   const [fotos, setFotos] = useState<Foto[]>([]);
   const [generando, setGenerando] = useState(false);
 
@@ -88,7 +89,7 @@ const CertificateGenerator: React.FC = () => {
       ro.disconnect();
       window.removeEventListener('resize', recompute);
     };
-  }, [fotos, instalacion, metodologia, productos, conclusion, cliente, direccionCliente, actividad, validez, unlocked]);
+  }, [fotos, instalacion, metodologia, productos, conclusion, cliente, direccionCliente, actividad, validez, factura, unlocked]);
 
   const tryUnlock = () => {
     if (codigo.trim() === ACCESS_CODE) {
@@ -395,6 +396,9 @@ const CertificateGenerator: React.FC = () => {
             <label style={label}>Validez / próxima revisión</label>
             <input style={input} value={validez} onChange={(e) => setValidez(e.target.value)} />
 
+            <label style={label}>Nº de factura asociada (opcional)</label>
+            <input style={input} value={factura} onChange={(e) => setFactura(e.target.value)} placeholder="Ej. F-2026/045" />
+
             <label style={label}>Fotos ({n}/8)</label>
             <input type="file" accept="image/*" multiple onChange={(e) => { onFiles(e.target.files); e.target.value = ''; }} style={{ fontSize: 14 }} />
             {n > 0 && (
@@ -520,6 +524,12 @@ const CertificateGenerator: React.FC = () => {
                       <div style={{ fontSize: 9, fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1 }}>Fecha del servicio</div>
                       <div style={{ fontSize: 15, fontWeight: 800 }}>{fecha.split('-').reverse().join('/')}</div>
                     </div>
+                    {factura && (
+                      <div>
+                        <div style={{ fontSize: 9, fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1 }}>Factura asociada</div>
+                        <div style={{ fontSize: 15, fontWeight: 800 }}>{factura}</div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
