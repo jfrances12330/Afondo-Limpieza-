@@ -1,12 +1,12 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useLayoutEffect } from 'react';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
-// ── Acceso ──────────────────────────────────────────────────────────────
+// ── Acceso ───────────────────────────────────────────────────────────
 // Código que solo conocéis Jaime y Jorge. Para cambiarlo, edita esta línea.
 const ACCESS_CODE = 'afondo2026';
 
-// ── Datos fijos de la empresa ───────────────────────────────────────────
+// ── Datos fijos de la empresa ──────────────────────────────────────
 const EMPRESA = {
   nombre: 'Afondo Limpieza de Campanas',
   tecnico: 'Jaime Gascón López',
@@ -19,7 +19,10 @@ const EMPRESA = {
 
 const BRAND = '#6A65E3';
 const BRAND_DARK = '#4f48b8';
+const NAVY = '#0b1020';
 const INK = '#0f172a';
+const GOLD = '#d4af37';
+const GOLD_LIGHT = '#f3d98b';
 
 interface Foto {
   dataUrl: string;
@@ -63,6 +66,29 @@ const CertificateGenerator: React.FC = () => {
   const [generando, setGenerando] = useState(false);
 
   const previewRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [frameH, setFrameH] = useState(0);
+
+  // Escala la maqueta para que quepa entera en su columna (sin recorte)
+  useLayoutEffect(() => {
+    const recompute = () => {
+      if (!frameRef.current || !previewRef.current) return;
+      const w = frameRef.current.clientWidth;
+      const s = Math.min(1, w / 794);
+      setScale(s);
+      setFrameH(previewRef.current.offsetHeight * s);
+    };
+    recompute();
+    const ro = new ResizeObserver(recompute);
+    if (frameRef.current) ro.observe(frameRef.current);
+    if (previewRef.current) ro.observe(previewRef.current);
+    window.addEventListener('resize', recompute);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', recompute);
+    };
+  }, [fotos, instalacion, metodologia, productos, conclusion, cliente, direccionCliente, actividad, validez, unlocked]);
 
   const tryUnlock = () => {
     if (codigo.trim() === ACCESS_CODE) {
@@ -115,7 +141,7 @@ const CertificateGenerator: React.FC = () => {
   const setEtiqueta = (i: number, et: string) =>
     setFotos((prev) => prev.map((f, idx) => (idx === i ? { ...f, etiqueta: et } : f)));
 
-  const colsFotos = (n: number) => (n <= 2 ? 2 : n <= 4 ? 2 : n <= 6 ? 3 : 4);
+  const colsFotos = (num: number) => (num <= 2 ? 2 : num <= 4 ? 2 : num <= 6 ? 3 : 4);
 
   const generarPDF = async () => {
     if (!previewRef.current) return;
@@ -152,7 +178,7 @@ const CertificateGenerator: React.FC = () => {
     }
   };
 
-  // ── Pantalla de acceso ──────────────────────────────────────────────
+  // ── Pantalla de acceso ──────────────────────────────────────────
   if (!unlocked) {
     return (
       <div
@@ -161,7 +187,7 @@ const CertificateGenerator: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: `linear-gradient(135deg, ${INK}, ${BRAND_DARK})`,
+          background: `radial-gradient(circle at 30% 20%, ${BRAND_DARK}, ${NAVY})`,
           fontFamily: '"Public Sans", system-ui, sans-serif',
           padding: 24,
         }}
@@ -173,13 +199,12 @@ const CertificateGenerator: React.FC = () => {
             padding: 40,
             width: '100%',
             maxWidth: 380,
-            boxShadow: '0 25px 60px rgba(0,0,0,.35)',
+            boxShadow: '0 25px 60px rgba(0,0,0,.45)',
             textAlign: 'center',
+            borderTop: `4px solid ${GOLD}`,
           }}
         >
-          <div style={{ fontWeight: 900, fontSize: 28, color: INK, letterSpacing: 1 }}>
-            AFONDO
-          </div>
+          <div style={{ fontWeight: 900, fontSize: 30, color: INK, letterSpacing: 1 }}>AFONDO</div>
           <div
             style={{
               fontSize: 11,
@@ -206,11 +231,10 @@ const CertificateGenerator: React.FC = () => {
               fontSize: 16,
               outline: 'none',
               marginBottom: 12,
+              boxSizing: 'border-box',
             }}
           />
-          {error && (
-            <div style={{ color: '#dc2626', fontSize: 13, marginBottom: 12 }}>{error}</div>
-          )}
+          {error && <div style={{ color: '#dc2626', fontSize: 13, marginBottom: 12 }}>{error}</div>}
           <button
             onClick={tryUnlock}
             style={{
@@ -232,7 +256,7 @@ const CertificateGenerator: React.FC = () => {
     );
   }
 
-  // ── Estilos reutilizables ────────────────────────────────────────────
+  // ── Estilos del formulario ─────────────────────────────────────
   const label: React.CSSProperties = {
     display: 'block',
     fontSize: 12,
@@ -257,27 +281,45 @@ const CertificateGenerator: React.FC = () => {
   const n = fotos.length;
   const cols = colsFotos(n);
 
-  // Sección de bloque del PDF
-  const Bloque: React.FC<{ titulo: string; children: React.ReactNode }> = ({
+  // Bloque de sección del informe (numerado, premium)
+  const Bloque: React.FC<{ num: number; titulo: string; children: React.ReactNode }> = ({
+    num,
     titulo,
     children,
   }) => (
-    <div style={{ marginTop: 18, breakInside: 'avoid' }}>
-      <div
-        style={{
-          fontSize: 11,
-          fontWeight: 900,
-          color: BRAND,
-          textTransform: 'uppercase',
-          letterSpacing: 1.2,
-          borderBottom: `2px solid ${BRAND}`,
-          paddingBottom: 5,
-          marginBottom: 10,
-        }}
-      >
-        {titulo}
+    <div style={{ marginTop: 20, breakInside: 'avoid', position: 'relative' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 9 }}>
+        <div
+          style={{
+            width: 22,
+            height: 22,
+            borderRadius: '50%',
+            background: `linear-gradient(135deg, ${BRAND}, ${BRAND_DARK})`,
+            color: '#fff',
+            fontSize: 11,
+            fontWeight: 900,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          {num}
+        </div>
+        <div
+          style={{
+            fontSize: 11.5,
+            fontWeight: 900,
+            color: INK,
+            textTransform: 'uppercase',
+            letterSpacing: 1.4,
+          }}
+        >
+          {titulo}
+        </div>
+        <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, #e2e8f0, transparent)' }} />
       </div>
-      <div style={{ fontSize: 13, color: '#334155', lineHeight: 1.55 }}>{children}</div>
+      <div style={{ fontSize: 13, color: '#334155', lineHeight: 1.6, paddingLeft: 32 }}>{children}</div>
     </div>
   );
 
@@ -285,12 +327,12 @@ const CertificateGenerator: React.FC = () => {
     <div
       style={{
         minHeight: '100vh',
-        background: '#eef0f6',
+        background: '#e9ebf2',
         fontFamily: '"Public Sans", system-ui, sans-serif',
         padding: '24px 16px 80px',
       }}
     >
-      <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+      <div style={{ maxWidth: 1220, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18, flexWrap: 'wrap', gap: 12 }}>
           <div>
             <div style={{ fontWeight: 900, fontSize: 22, color: INK }}>AFONDO · Generador de Informes</div>
@@ -301,7 +343,7 @@ const CertificateGenerator: React.FC = () => {
             disabled={generando || n < 2}
             style={{
               padding: '14px 26px',
-              background: n < 2 ? '#94a3b8' : BRAND,
+              background: n < 2 ? '#94a3b8' : `linear-gradient(135deg, ${BRAND}, ${BRAND_DARK})`,
               color: '#fff',
               border: 'none',
               borderRadius: 12,
@@ -315,7 +357,7 @@ const CertificateGenerator: React.FC = () => {
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(320px, 420px) 1fr', gap: 24, alignItems: 'start' }} className="afondo-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 400px) 1fr', gap: 24, alignItems: 'start' }} className="afondo-grid">
           {/* ── FORMULARIO ── */}
           <div style={{ background: '#fff', borderRadius: 18, padding: 22, boxShadow: '0 4px 20px rgba(15,23,42,.06)' }}>
             <div style={{ display: 'flex', gap: 12 }}>
@@ -372,71 +414,138 @@ const CertificateGenerator: React.FC = () => {
             )}
           </div>
 
-          {/* ── PREVIEW / PDF ── */}
-          <div style={{ overflowX: 'auto' }}>
-            <div style={{ width: 794, transformOrigin: 'top left' }} className="afondo-preview-wrap">
+          {/* ── PREVIEW / PDF (escalado para caber) ── */}
+          <div ref={frameRef} style={{ position: 'relative', width: '100%', height: frameH }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, width: 794, transform: `scale(${scale})`, transformOrigin: 'top left' }}>
               <div
                 ref={previewRef}
                 id="afondo-pdf-root"
                 style={{
                   width: 794,
                   background: '#fff',
-                  boxShadow: '0 10px 40px rgba(15,23,42,.12)',
+                  boxShadow: '0 18px 50px rgba(15,23,42,.18)',
                   color: INK,
                   boxSizing: 'border-box',
+                  position: 'relative',
+                  overflow: 'hidden',
                 }}
               >
-                {/* Cabecera */}
-                <div style={{ background: `linear-gradient(120deg, ${BRAND_DARK}, ${BRAND})`, color: '#fff', padding: '26px 36px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                  <div>
-                    <div style={{ fontSize: 30, fontWeight: 900, letterSpacing: 1, lineHeight: 1 }}>AFONDO</div>
-                    <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, opacity: 0.85, textTransform: 'uppercase' }}>Higiene Industrial</div>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: 16, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5 }}>Informe Técnico</div>
-                    <div style={{ fontSize: 12, opacity: 0.85 }}>de Limpieza y Desengrase</div>
-                  </div>
+                {/* Marca de agua */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 360,
+                    left: -40,
+                    fontSize: 150,
+                    fontWeight: 900,
+                    color: 'rgba(106,101,227,0.04)',
+                    transform: 'rotate(-24deg)',
+                    letterSpacing: 6,
+                    pointerEvents: 'none',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  AFONDO
                 </div>
 
+                {/* Cabecera */}
+                <div style={{ position: 'relative', background: `linear-gradient(125deg, ${NAVY} 0%, ${BRAND_DARK} 60%, ${BRAND} 100%)`, color: '#fff', padding: '30px 40px 28px', overflow: 'hidden' }}>
+                  <div style={{ position: 'absolute', top: -70, right: -50, width: 220, height: 220, borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }} />
+                  <div style={{ position: 'absolute', bottom: -90, right: 90, width: 180, height: 180, borderRadius: '50%', background: 'rgba(255,255,255,0.05)' }} />
+                  <div style={{ position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                      <div style={{ width: 50, height: 50, borderRadius: 14, background: 'rgba(255,255,255,0.12)', border: `1.5px solid ${GOLD}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={GOLD_LIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M3 9l9-6 9 6" />
+                          <path d="M5 9v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9" />
+                          <path d="M9 18v-5h6v5" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 32, fontWeight: 900, letterSpacing: 1.5, lineHeight: 1 }}>AFONDO</div>
+                        <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: 4, opacity: 0.8, textTransform: 'uppercase' }}>Higiene Industrial</div>
+                      </div>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontSize: 17, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5 }}>Informe Técnico</div>
+                      <div style={{ fontSize: 11.5, opacity: 0.85 }}>de Limpieza y Desengrase</div>
+                      <div style={{ display: 'inline-block', marginTop: 8, background: 'rgba(255,255,255,0.14)', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 20, padding: '3px 12px', fontSize: 11, fontWeight: 800 }}>
+                        Nº {nInforme}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Filo dorado */}
+                <div style={{ height: 4, background: `linear-gradient(90deg, ${GOLD}, ${GOLD_LIGHT}, ${GOLD})` }} />
+
                 {/* Franja datos empresa */}
-                <div style={{ background: INK, color: '#cbd5e1', padding: '8px 36px', fontSize: 10.5, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
+                <div style={{ background: INK, color: '#cbd5e1', padding: '9px 40px', fontSize: 10.5, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
                   <span>{EMPRESA.tecnico} · NIF {EMPRESA.nif}</span>
                   <span>{EMPRESA.tel} · {EMPRESA.email}</span>
                 </div>
 
-                <div style={{ padding: '24px 36px 36px' }}>
+                <div style={{ position: 'relative', padding: '26px 40px 0' }}>
+                  {/* Sello verificado */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 8,
+                      right: 36,
+                      width: 96,
+                      height: 96,
+                      borderRadius: '50%',
+                      border: `2px solid ${GOLD}`,
+                      background: 'radial-gradient(circle, #fffdf5, #fbf3da)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transform: 'rotate(-10deg)',
+                      boxShadow: '0 6px 16px rgba(212,175,55,.25)',
+                    }}
+                  >
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    <div style={{ fontSize: 7.5, fontWeight: 900, color: '#9a7b1f', textTransform: 'uppercase', letterSpacing: 0.8, textAlign: 'center', marginTop: 3, lineHeight: 1.2 }}>Servicio<br />Verificado</div>
+                  </div>
+
                   {/* Meta */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: 14 }}>
+                  <div style={{ display: 'flex', gap: 40, borderBottom: '1px solid #e2e8f0', paddingBottom: 16 }}>
                     <div>
                       <div style={{ fontSize: 9, fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1 }}>Nº de informe</div>
                       <div style={{ fontSize: 15, fontWeight: 800 }}>{nInforme}</div>
                     </div>
-                    <div style={{ textAlign: 'right' }}>
+                    <div>
                       <div style={{ fontSize: 9, fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1 }}>Fecha del servicio</div>
                       <div style={{ fontSize: 15, fontWeight: 800 }}>{fecha.split('-').reverse().join('/')}</div>
                     </div>
                   </div>
+                </div>
 
+                <div style={{ position: 'relative', padding: '4px 40px 36px' }}>
                   {/* Datos cliente */}
-                  <Bloque titulo="Datos del establecimiento">
-                    <div style={{ fontSize: 15, fontWeight: 800, color: INK }}>{cliente || '—'}</div>
-                    {direccionCliente && <div>{direccionCliente}</div>}
-                    {actividad && <div style={{ color: '#64748b' }}>{actividad}</div>}
+                  <Bloque num={1} titulo="Datos del establecimiento">
+                    <div style={{ background: 'linear-gradient(135deg, rgba(106,101,227,0.07), rgba(106,101,227,0.02))', border: '1px solid rgba(106,101,227,0.18)', borderRadius: 12, padding: '12px 16px' }}>
+                      <div style={{ fontSize: 16, fontWeight: 800, color: INK }}>{cliente || '—'}</div>
+                      {direccionCliente && <div style={{ marginTop: 2 }}>{direccionCliente}</div>}
+                      {actividad && <div style={{ color: '#64748b', marginTop: 2 }}>{actividad}</div>}
+                    </div>
                   </Bloque>
 
-                  <Bloque titulo="Descripción de la instalación">{instalacion}</Bloque>
-                  <Bloque titulo="Metodología técnica aplicada">{metodologia}</Bloque>
-                  <Bloque titulo="Productos utilizados">{productos}</Bloque>
+                  <Bloque num={2} titulo="Descripción de la instalación">{instalacion}</Bloque>
+                  <Bloque num={3} titulo="Metodología técnica aplicada">{metodologia}</Bloque>
+                  <Bloque num={4} titulo="Productos utilizados">{productos}</Bloque>
 
                   {/* Fotos */}
                   {n > 0 && (
-                    <Bloque titulo="Reportaje fotográfico">
-                      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: 10 }}>
+                    <Bloque num={5} titulo="Reportaje fotográfico">
+                      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: 12 }}>
                         {fotos.map((f, i) => (
-                          <div key={i} style={{ position: 'relative', borderRadius: 10, overflow: 'hidden', border: '1px solid #e2e8f0', aspectRatio: '4 / 3' }}>
+                          <div key={i} style={{ position: 'relative', borderRadius: 12, overflow: 'hidden', border: '3px solid #fff', boxShadow: '0 4px 14px rgba(15,23,42,.16)', aspectRatio: '4 / 3' }}>
                             <img src={f.dataUrl} alt={`foto ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                             {f.etiqueta && (
-                              <span style={{ position: 'absolute', bottom: 6, left: 6, background: f.etiqueta === 'Antes' ? '#dc2626' : '#16a34a', color: '#fff', fontSize: 9, fontWeight: 800, textTransform: 'uppercase', padding: '2px 7px', borderRadius: 5 }}>{f.etiqueta}</span>
+                              <span style={{ position: 'absolute', bottom: 8, left: 8, background: f.etiqueta === 'Antes' ? 'linear-gradient(135deg,#ef4444,#b91c1c)' : 'linear-gradient(135deg,#22c55e,#15803d)', color: '#fff', fontSize: 9.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.5, padding: '3px 9px', borderRadius: 6, boxShadow: '0 2px 6px rgba(0,0,0,.25)' }}>{f.etiqueta}</span>
                             )}
                           </div>
                         ))}
@@ -444,25 +553,31 @@ const CertificateGenerator: React.FC = () => {
                     </Bloque>
                   )}
 
-                  <Bloque titulo="Conclusión">{conclusion}</Bloque>
+                  <Bloque num={n > 0 ? 6 : 5} titulo="Conclusión">{conclusion}</Bloque>
 
                   {/* Validez + firma */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 26, paddingTop: 16, borderTop: '1px solid #e2e8f0' }}>
-                    <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 10, padding: '10px 14px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 30, paddingTop: 18, borderTop: '2px solid #f1f5f9' }}>
+                    <div style={{ background: 'linear-gradient(135deg,#f0fdf4,#dcfce7)', border: '1px solid #bbf7d0', borderRadius: 12, padding: '12px 16px' }}>
                       <div style={{ fontSize: 9, fontWeight: 900, color: '#16a34a', textTransform: 'uppercase', letterSpacing: 1 }}>Validez recomendada</div>
-                      <div style={{ fontSize: 14, fontWeight: 900, color: '#15803d' }}>{validez}</div>
+                      <div style={{ fontSize: 15, fontWeight: 900, color: '#15803d' }}>{validez}</div>
                     </div>
-                    <div style={{ textAlign: 'center' }}>
-                      <div style={{ width: 180, borderBottom: '1.5px solid #94a3b8', marginBottom: 6 }} />
+                    <div style={{ textAlign: 'center', position: 'relative' }}>
+                      <div style={{ position: 'absolute', top: -34, left: '50%', transform: 'translateX(-50%) rotate(-8deg)', width: 70, height: 70, borderRadius: '50%', border: `1.5px dashed ${BRAND}`, opacity: 0.25 }} />
+                      <div style={{ fontFamily: '"Brush Script MT", cursive', fontSize: 22, color: BRAND_DARK, lineHeight: 1, marginBottom: 4 }}>Afondo</div>
+                      <div style={{ width: 190, borderBottom: '1.5px solid #94a3b8', marginBottom: 6 }} />
                       <div style={{ fontSize: 12, fontWeight: 900 }}>{EMPRESA.tecnico}</div>
                       <div style={{ fontSize: 10, color: '#64748b' }}>Técnico responsable · Afondo</div>
                     </div>
                   </div>
+                </div>
 
-                  {/* Pie legal */}
-                  <div style={{ marginTop: 22, background: '#f8fafc', borderRadius: 10, padding: '12px 14px', fontSize: 9.5, color: '#94a3b8', lineHeight: 1.5 }}>
-                    Empresa con seguro de Responsabilidad Civil en vigor. Este documento es un informe técnico privado del servicio de limpieza y desengrase realizado, con valor probatorio ante compañías aseguradoras y autoridades sanitarias. Acredita el mantenimiento higiénico y la reducción del riesgo de incendio por acumulación de grasa (CTE DB-SI · Reg. CE 852/2004). {EMPRESA.direccion} · {EMPRESA.web}
+                {/* Pie corporativo */}
+                <div style={{ background: NAVY, color: '#94a3b8', padding: '14px 40px', fontSize: 9.5, lineHeight: 1.55 }}>
+                  <div style={{ color: GOLD_LIGHT, fontWeight: 800, letterSpacing: 1, textTransform: 'uppercase', fontSize: 9.5, marginBottom: 4 }}>
+                    Empresa con seguro de Responsabilidad Civil en vigor
                   </div>
+                  Informe técnico privado del servicio de limpieza y desengrase realizado, con valor probatorio ante compañías aseguradoras y autoridades sanitarias. Acredita el mantenimiento higiénico y la reducción del riesgo de incendio por acumulación de grasa (CTE DB-SI · Reg. CE 852/2004).
+                  <div style={{ marginTop: 6, color: '#cbd5e1' }}>{EMPRESA.direccion} · {EMPRESA.tel} · {EMPRESA.web}</div>
                 </div>
               </div>
             </div>
@@ -473,7 +588,6 @@ const CertificateGenerator: React.FC = () => {
       <style>{`
         @media (max-width: 900px) {
           .afondo-grid { grid-template-columns: 1fr !important; }
-          .afondo-preview-wrap { transform: scale(.46); height: auto; }
         }
       `}</style>
     </div>
