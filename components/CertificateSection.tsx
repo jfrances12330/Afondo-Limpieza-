@@ -1,12 +1,11 @@
-
 import React from 'react';
 
 const CertificateSection: React.FC = () => {
   const points = [
-    "Certificado de Limpieza firmado por técnico competente.",
+    "Informe técnico de limpieza firmado por técnico competente.",
     "Informe fotográfico del 'Antes y Después' detallado.",
-    "Detalle de productos desengrasantes alcalinos certificados.",
-    "Metodología aplicada según norma UNE.",
+    "Detalle de productos desengrasantes alcalinos profesionales.",
+    "Documento válido para presentar a tu seguro y a Sanidad.",
     "Pegatina de 'Campana Limpia' con fecha de próxima revisión."
   ];
 
@@ -24,10 +23,10 @@ const CertificateSection: React.FC = () => {
               <span>Valor Diferencial</span>
             </div>
             <h2 id="certificado-titulo" className="text-4xl md:text-5xl font-black text-white mb-8 leading-tight">
-              Tu Certificado Oficial <br /> de Limpieza
+              Tu Informe Técnico <br /> de Limpieza
             </h2>
             <p className="text-white/80 text-lg mb-10">
-              No solo limpiamos, certificamos. Al finalizar el trabajo, recibirás un informe técnico completo que tu seguro y Sanidad te exigirán para cumplir la normativa.
+              No solo limpiamos, lo documentamos. Al finalizar el trabajo, recibirás un informe técnico completo con reportaje fotográfico, válido para presentar a tu seguro y a Sanidad.
             </p>
             
             <ul className="space-y-4">
@@ -74,7 +73,7 @@ const CertificateSection: React.FC = () => {
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
                 <span className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-wider">Metodología Técnica</span>
                 <p className="text-[10px] text-slate-600 leading-relaxed font-medium">
-                  Limpieza técnica de sistema de extracción según norma <span className="text-primary font-bold">UNE 100165</span>. Aplicación de espuma activa alcalina con cepillado mecánico y aclarado a alta presión (80ºC). Desengrase de plenum y conductos horizontales (14m).
+                  Limpieza técnica de sistema de extracción mediante aplicación de espuma activa alcalina con cepillado mecánico y aclarado a alta presión (80ºC). Desengrase de plenum y conductos horizontales (14m).
                 </p>
               </div>
               
@@ -95,7 +94,7 @@ const CertificateSection: React.FC = () => {
                     className="w-full h-full object-cover opacity-80"
                     loading="lazy"
                   />
-                  <span className="absolute bottom-2 left-2 bg-green-500 text-white text-[8px] px-2 py-0.5 rounded font-bold uppercase">Estado Certificado</span>
+                  <span className="absolute bottom-2 left-2 bg-green-500 text-white text-[8px] px-2 py-0.5 rounded font-bold uppercase">Estado Final</span>
                 </div>
               </div>
               
