@@ -149,11 +149,23 @@ const CertificateGenerator: React.FC = () => {
     if (!previewRef.current) return;
     setGenerando(true);
     try {
-      const canvas = await html2canvas(previewRef.current, {
-        scale: 2,
+      const node = previewRef.current;
+      // iOS Safari limita el lado de un canvas a ~4096px y el área total a ~16.7M px.
+      // El informe es alto (794px de ancho × varios miles de alto); a scale 2 se pasa
+      // del límite, toDataURL devuelve vacío y el PDF falla. Calculamos un scale que
+      // mantenga ambos lados por debajo de 4000px.
+      const maxSide = 4000;
+      const w = node.offsetWidth || 794;
+      const h = node.offsetHeight || 1123;
+      const scale = Math.max(1, Math.min(2, maxSide / w, maxSide / h));
+      const canvas = await html2canvas(node, {
+        scale,
         useCORS: true,
         backgroundColor: '#ffffff',
         logging: false,
+        imageTimeout: 0,
+        windowWidth: w,
+        windowHeight: h,
       });
       const pdf = new jsPDF('p', 'mm', 'a4');
       const imgW = 210;
@@ -366,28 +378,9 @@ const CertificateGenerator: React.FC = () => {
       }}
     >
       <div style={{ maxWidth: 1220, margin: '0 auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18, flexWrap: 'wrap', gap: 12 }}>
-          <div>
-            <div style={{ fontWeight: 900, fontSize: 22, color: INK }}>AFONDO · Generador de Informes</div>
-            <div style={{ fontSize: 13, color: '#64748b' }}>Rellena los datos, sube de 2 a 8 fotos y descarga el PDF.</div>
-          </div>
-          <button
-            onClick={generarPDF}
-            disabled={generando || n < 2}
-            style={{
-              padding: '14px 26px',
-              background: n < 2 ? '#94a3b8' : `linear-gradient(135deg, ${BRAND}, ${BRAND_DARK})`,
-              color: '#fff',
-              border: 'none',
-              borderRadius: 12,
-              fontSize: 15,
-              fontWeight: 800,
-              cursor: n < 2 ? 'not-allowed' : 'pointer',
-              boxShadow: '0 8px 20px rgba(106,101,227,.35)',
-            }}
-          >
-            {generando ? 'Generando…' : n < 2 ? 'Sube al menos 2 fotos' : 'Descargar PDF'}
-          </button>
+        <div style={{ marginBottom: 18 }}>
+          <div style={{ fontWeight: 900, fontSize: 22, color: INK }}>AFONDO · Generador de Informes</div>
+          <div style={{ fontSize: 13, color: '#64748b' }}>Rellena los datos, sube de 2 a 8 fotos y pulsa “Descargar PDF” al final.</div>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 400px) 1fr', gap: 24, alignItems: 'start' }} className="afondo-grid">
@@ -432,7 +425,7 @@ const CertificateGenerator: React.FC = () => {
             <input style={input} value={factura} onChange={(e) => setFactura(e.target.value)} placeholder="Ej. F-2026/045" />
 
             <label style={label}>Fotos ({n}/8)</label>
-            <input type="file" accept="image/*" multiple onChange={(e) => { onFiles(e.target.files); e.target.value = ''; }} style={{ fontSize: 14 }} />
+            <input type="file" accept="image/*" multiple onChange={(e) => { onFiles(e.target.files); e.target.value = ''; }} style={{ fontSize: 14, width: '100%', maxWidth: '100%', boxSizing: 'border-box' }} />
             {n > 0 && (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 10, marginTop: 12 }}>
                 {fotos.map((f, i) => (
@@ -448,6 +441,27 @@ const CertificateGenerator: React.FC = () => {
                 ))}
               </div>
             )}
+
+            {/* Botón principal: al final, tras rellenar los datos */}
+            <button
+              onClick={generarPDF}
+              disabled={generando || n < 2}
+              style={{
+                width: '100%',
+                marginTop: 22,
+                padding: '16px 26px',
+                background: n < 2 ? '#94a3b8' : `linear-gradient(135deg, ${BRAND}, ${BRAND_DARK})`,
+                color: '#fff',
+                border: 'none',
+                borderRadius: 12,
+                fontSize: 16,
+                fontWeight: 800,
+                cursor: generando || n < 2 ? 'not-allowed' : 'pointer',
+                boxShadow: n < 2 ? 'none' : '0 8px 20px rgba(106,101,227,.35)',
+              }}
+            >
+              {generando ? 'Generando…' : n < 2 ? 'Sube al menos 2 fotos' : 'Descargar PDF'}
+            </button>
           </div>
 
           {/* ── PREVIEW / PDF (escalado para caber) ── */}
