@@ -629,8 +629,10 @@ const CertificateGenerator: React.FC = () => {
 
       <style>{`
         @media (max-width: 900px) {
-          .afondo-grid { grid-template-columns: 1fr !important; }
+          .afondo-grid { grid-template-columns: minmax(0, 1fr) !important; }
         }
+        .afondo-grid > * { min-width: 0; }
+        .afondo-grid input[type="date"] { -webkit-appearance: none; appearance: none; }
       `}</style>
     </div>
   );
