@@ -150,23 +150,42 @@ const CertificateGenerator: React.FC = () => {
     setGenerando(true);
     try {
       const node = previewRef.current;
-      // iOS Safari limita el lado de un canvas a ~4096px y el área total a ~16.7M px.
-      // El informe es alto (794px de ancho × varios miles de alto); a scale 2 se pasa
-      // del límite, toDataURL devuelve vacío y el PDF falla. Calculamos un scale que
-      // mantenga ambos lados por debajo de 4000px.
+      // La maqueta se muestra encogida con `transform: scale(<1)` (ver wrapper en el
+      // render) para que quepa en su columna. html2canvas hereda ese scale del ancestro
+      // y reduce los elementos de 1px (filo dorado, separadores) a una fracción de píxel:
+      // genera un canvas de alto 0 y `createPattern` lanza "width or height of 0", de ahí
+      // el fallo. En móvil el scale es ~0.45 y SIEMPRE falla; en escritorio es ~1 y por eso
+      // ahí funcionaba. Lo neutralizamos solo en el clon que html2canvas rasteriza, sin
+      // tocar lo que ve el usuario.
       const maxSide = 4000;
       const w = node.offsetWidth || 794;
       const h = node.offsetHeight || 1123;
-      const scale = Math.max(1, Math.min(2, maxSide / w, maxSide / h));
+      const scale = Math.min(2, maxSide / w, maxSide / h);
       const canvas = await html2canvas(node, {
         scale,
         useCORS: true,
         backgroundColor: '#ffffff',
         logging: false,
-        imageTimeout: 0,
+        imageTimeout: 15000,
         windowWidth: w,
         windowHeight: h,
+        onclone: (doc) => {
+          const cloned = doc.getElementById('afondo-pdf-root');
+          const wrapper = cloned?.parentElement;
+          if (wrapper) {
+            wrapper.style.transform = 'none';
+            wrapper.style.overflow = 'visible';
+            const frame = wrapper.parentElement;
+            if (frame) {
+              frame.style.height = 'auto';
+              frame.style.overflow = 'visible';
+            }
+          }
+        },
       });
+      if (!canvas.width || !canvas.height) {
+        throw new Error('el informe se rasterizó vacío');
+      }
       const pdf = new jsPDF('p', 'mm', 'a4');
       const imgW = 210;
       const pageH = 297;
@@ -185,8 +204,9 @@ const CertificateGenerator: React.FC = () => {
       const safe = (cliente || 'informe').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
       pdf.save(`afondo-informe-${nInforme}-${safe}.pdf`);
     } catch (err) {
-      alert('No se pudo generar el PDF. Inténtalo de nuevo.');
-      console.error(err);
+      const motivo = err instanceof Error && err.message ? `\n\nMotivo: ${err.message}` : '';
+      alert(`No se pudo generar el PDF. Inténtalo de nuevo.${motivo}`);
+      console.error('Afondo · error al generar PDF:', err);
     } finally {
       setGenerando(false);
     }
