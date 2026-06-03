@@ -466,9 +466,10 @@ const CertificateGenerator: React.FC = () => {
             color: '#fff',
             fontSize: 11,
             fontWeight: 900,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            // Centrado por line-height/text-align (no flex): html2canvas baja el
+            // glifo cuando se centra con flex; line-height fijo lo clava al medio.
+            lineHeight: '22px',
+            textAlign: 'center',
             flexShrink: 0,
           }}
         >
