@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useLayoutEffect } from 'react';
+import React, { useState, useRef, useCallback, useLayoutEffect, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -66,6 +66,15 @@ const CertificateGenerator: React.FC = () => {
   const [factura, setFactura] = useState('');
   const [fotos, setFotos] = useState<Foto[]>([]);
   const [generando, setGenerando] = useState(false);
+  const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
+  const [pdfName, setPdfName] = useState('');
+  const [aviso, setAviso] = useState('');
+
+  // Si el usuario cambia datos o fotos, el PDF anterior deja de ser válido
+  useEffect(() => {
+    setPdfBlob(null);
+    setAviso('');
+  }, [fotos, nInforme, fecha, cliente, direccionCliente, actividad, instalacion, metodologia, productos, conclusion, validez, factura]);
 
   const previewRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -145,9 +154,43 @@ const CertificateGenerator: React.FC = () => {
 
   const colsFotos = (num: number) => (num <= 2 ? 2 : num <= 4 ? 2 : num <= 6 ? 3 : 4);
 
+  // Entrega el PDF al usuario. En móvil (iOS/Android) usa la hoja nativa de
+  // compartir → "Guardar en Archivos" / WhatsApp. En escritorio descarga directa.
+  // jsPDF.save() por sí solo en iOS Safari abre el visor pero NO descarga el archivo.
+  const deliver = async (blob: Blob, name: string): Promise<'shared' | 'downloaded' | 'cancelled'> => {
+    const file = new File([blob], name, { type: 'application/pdf' });
+    const nav = navigator as Navigator & {
+      canShare?: (data?: { files?: File[] }) => boolean;
+      share?: (data: { files?: File[]; title?: string }) => Promise<void>;
+    };
+    if (nav.canShare && nav.share && nav.canShare({ files: [file] })) {
+      try {
+        await nav.share({ files: [file], title: name });
+        return 'shared';
+      } catch (e) {
+        // Si el usuario cancela la hoja de compartir, no forzamos descarga
+        if (e instanceof Error && e.name === 'AbortError') return 'cancelled';
+        // Cualquier otro fallo (p.ej. gesto caducado en iOS) → caemos a descarga
+      }
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      a.remove();
+      URL.revokeObjectURL(url);
+    }, 4000);
+    return 'downloaded';
+  };
+
   const generarPDF = async () => {
     if (!previewRef.current) return;
     setGenerando(true);
+    setAviso('');
     try {
       const node = previewRef.current;
       // La maqueta se muestra encogida con `transform: scale(<1)` (ver wrapper en el
@@ -160,9 +203,22 @@ const CertificateGenerator: React.FC = () => {
       const maxSide = 4000;
       const w = node.offsetWidth || 794;
       const h = node.offsetHeight || 1123;
-      const scale = Math.min(2, maxSide / w, maxSide / h);
+      const escala = Math.min(2, maxSide / w, maxSide / h);
+
+      // Posición (como fracción 0..1 de la altura) del borde superior e inferior de cada
+      // bloque que NO debe partirse entre páginas. Se mide sobre el DOM real; al usar
+      // fracciones, la escala de visualización del móvil se cancela.
+      const rootRect = node.getBoundingClientRect();
+      const Hreal = rootRect.height || 1;
+      const lineas = new Set<number>([0, 1]);
+      node.querySelectorAll('[data-pdf-block]').forEach((el) => {
+        const r = (el as HTMLElement).getBoundingClientRect();
+        lineas.add((r.top - rootRect.top) / Hreal);
+        lineas.add((r.bottom - rootRect.top) / Hreal);
+      });
+
       const canvas = await html2canvas(node, {
-        scale,
+        scale: escala,
         useCORS: true,
         backgroundColor: '#ffffff',
         logging: false,
@@ -186,23 +242,62 @@ const CertificateGenerator: React.FC = () => {
       if (!canvas.width || !canvas.height) {
         throw new Error('el informe se rasterizó vacío');
       }
+
       const pdf = new jsPDF('p', 'mm', 'a4');
       const imgW = 210;
       const pageH = 297;
-      const imgH = (canvas.height * imgW) / canvas.width;
-      const imgData = canvas.toDataURL('image/jpeg', 0.92);
-      let heightLeft = imgH;
-      let pos = 0;
-      pdf.addImage(imgData, 'JPEG', 0, pos, imgW, imgH);
-      heightLeft -= pageH;
-      while (heightLeft > 0) {
-        pos = heightLeft - imgH;
-        pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, pos, imgW, imgH);
-        heightLeft -= pageH;
+      // Alto de canvas (px) que llena una página A4 completa
+      const pageCanvasH = canvas.width * (pageH / imgW);
+
+      // Líneas de corte seguras (bordes de bloque) en px de canvas, ordenadas
+      const cortes = [...lineas].map((f) => f * canvas.height).sort((a, b) => a - b);
+
+      // Reparte en páginas cortando SIEMPRE en un borde de bloque cuando es posible,
+      // para que ningún bloque ni foto quede partido entre dos páginas.
+      const paginas: Array<[number, number]> = [];
+      let y = 0;
+      const minAvance = pageCanvasH * 0.15; // evita páginas casi vacías / bucle infinito
+      while (y < canvas.height - 1) {
+        const objetivo = y + pageCanvasH;
+        if (objetivo >= canvas.height) {
+          paginas.push([y, canvas.height]);
+          break;
+        }
+        let corte = -1;
+        for (const ln of cortes) {
+          if (ln > y + minAvance && ln <= objetivo) corte = ln;
+        }
+        if (corte < 0) corte = objetivo; // un bloque más alto que una página: corte forzado
+        paginas.push([y, corte]);
+        y = corte;
       }
+
+      paginas.forEach(([y0, y1], i) => {
+        const ph = Math.max(1, Math.round(y1 - y0));
+        const tmp = document.createElement('canvas');
+        tmp.width = canvas.width;
+        tmp.height = ph;
+        const tctx = tmp.getContext('2d');
+        if (tctx) {
+          tctx.fillStyle = '#ffffff';
+          tctx.fillRect(0, 0, tmp.width, tmp.height);
+          tctx.drawImage(canvas, 0, y0, canvas.width, ph, 0, 0, canvas.width, ph);
+        }
+        const img = tmp.toDataURL('image/jpeg', 0.92);
+        const hmm = (ph * imgW) / canvas.width;
+        if (i > 0) pdf.addPage();
+        pdf.addImage(img, 'JPEG', 0, 0, imgW, hmm);
+      });
+
       const safe = (cliente || 'informe').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
-      pdf.save(`afondo-informe-${nInforme}-${safe}.pdf`);
+      const name = `afondo-informe-${nInforme}-${safe}.pdf`;
+      const blob = pdf.output('blob');
+      setPdfBlob(blob);
+      setPdfName(name);
+      const res = await deliver(blob, name);
+      if (res !== 'shared') {
+        setAviso('Si no se ha guardado solo, pulsa “Guardar / Compartir PDF”.');
+      }
     } catch (err) {
       const motivo = err instanceof Error && err.message ? `\n\nMotivo: ${err.message}` : '';
       alert(`No se pudo generar el PDF. Inténtalo de nuevo.${motivo}`);
@@ -352,7 +447,7 @@ const CertificateGenerator: React.FC = () => {
     titulo,
     children,
   }) => (
-    <div style={{ marginTop: 20, breakInside: 'avoid', position: 'relative' }}>
+    <div data-pdf-block style={{ marginTop: 20, breakInside: 'avoid', position: 'relative' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 9 }}>
         <div
           style={{
@@ -482,6 +577,32 @@ const CertificateGenerator: React.FC = () => {
             >
               {generando ? 'Generando…' : n < 2 ? 'Sube al menos 2 fotos' : 'Descargar PDF'}
             </button>
+
+            {pdfBlob && (
+              <button
+                onClick={() => deliver(pdfBlob, pdfName)}
+                style={{
+                  width: '100%',
+                  marginTop: 12,
+                  padding: '14px 26px',
+                  background: 'linear-gradient(135deg, #16a34a, #15803d)',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: 12,
+                  fontSize: 15,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 20px rgba(22,163,74,.30)',
+                }}
+              >
+                Guardar / Compartir PDF
+              </button>
+            )}
+            {aviso && (
+              <div style={{ fontSize: 12, color: '#64748b', marginTop: 8, textAlign: 'center', lineHeight: 1.4 }}>
+                {aviso}
+              </div>
+            )}
           </div>
 
           {/* ── PREVIEW / PDF (escalado para caber) ── */}
@@ -519,7 +640,7 @@ const CertificateGenerator: React.FC = () => {
                 </div>
 
                 {/* Cabecera */}
-                <div style={{ position: 'relative', background: `linear-gradient(125deg, ${NAVY} 0%, ${BRAND_DARK} 60%, ${BRAND} 100%)`, color: '#fff', padding: '30px 40px 28px', overflow: 'hidden' }}>
+                <div data-pdf-block style={{ position: 'relative', background: `linear-gradient(125deg, ${NAVY} 0%, ${BRAND_DARK} 60%, ${BRAND} 100%)`, color: '#fff', padding: '30px 40px 28px', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', top: -70, right: -50, width: 220, height: 220, borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }} />
                   <div style={{ position: 'absolute', bottom: -90, right: 90, width: 180, height: 180, borderRadius: '50%', background: 'rgba(255,255,255,0.05)' }} />
                   <div style={{ position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -549,12 +670,12 @@ const CertificateGenerator: React.FC = () => {
                 <div style={{ height: 4, background: `linear-gradient(90deg, ${GOLD}, ${GOLD_LIGHT}, ${GOLD})` }} />
 
                 {/* Franja datos empresa */}
-                <div style={{ background: INK, color: '#cbd5e1', padding: '9px 40px', fontSize: 10.5, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
+                <div data-pdf-block style={{ background: INK, color: '#cbd5e1', padding: '9px 40px', fontSize: 10.5, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
                   <span>{EMPRESA.tecnico} · NIF {EMPRESA.nif}</span>
                   <span>{EMPRESA.tel} · {EMPRESA.email}</span>
                 </div>
 
-                <div style={{ position: 'relative', padding: '26px 40px 0' }}>
+                <div data-pdf-block style={{ position: 'relative', padding: '26px 40px 0' }}>
                   {/* Sello verificado */}
                   <div
                     style={{
@@ -618,7 +739,7 @@ const CertificateGenerator: React.FC = () => {
                     <Bloque num={5} titulo="Reportaje fotográfico">
                       <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: 12 }}>
                         {fotos.map((f, i) => (
-                          <div key={i} style={{ position: 'relative', borderRadius: 12, overflow: 'hidden', border: '3px solid #fff', boxShadow: '0 4px 14px rgba(15,23,42,.16)', aspectRatio: '4 / 3' }}>
+                          <div key={i} data-pdf-block style={{ position: 'relative', borderRadius: 12, overflow: 'hidden', border: '3px solid #fff', boxShadow: '0 4px 14px rgba(15,23,42,.16)', aspectRatio: '4 / 3' }}>
                             <img src={f.dataUrl} alt={`foto ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                             {f.etiqueta && (
                               <span style={{ position: 'absolute', bottom: 8, left: 8, background: f.etiqueta === 'Antes' ? 'linear-gradient(135deg,#ef4444,#b91c1c)' : 'linear-gradient(135deg,#22c55e,#15803d)', color: '#fff', fontSize: 9.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.5, padding: '3px 9px', borderRadius: 6, boxShadow: '0 2px 6px rgba(0,0,0,.25)' }}>{f.etiqueta}</span>
@@ -632,7 +753,7 @@ const CertificateGenerator: React.FC = () => {
                   <Bloque num={n > 0 ? 6 : 5} titulo="Conclusión">{conclusion}</Bloque>
 
                   {/* Validez + firma */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 30, paddingTop: 18, borderTop: '2px solid #f1f5f9' }}>
+                  <div data-pdf-block style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 30, paddingTop: 18, borderTop: '2px solid #f1f5f9' }}>
                     <div style={{ background: 'linear-gradient(135deg,#f0fdf4,#dcfce7)', border: '1px solid #bbf7d0', borderRadius: 12, padding: '12px 16px' }}>
                       <div style={{ fontSize: 9, fontWeight: 900, color: '#16a34a', textTransform: 'uppercase', letterSpacing: 1 }}>Validez recomendada</div>
                       <div style={{ fontSize: 15, fontWeight: 900, color: '#15803d' }}>{validez}</div>
@@ -648,7 +769,7 @@ const CertificateGenerator: React.FC = () => {
                 </div>
 
                 {/* Pie corporativo */}
-                <div style={{ background: NAVY, color: '#94a3b8', padding: '14px 40px', fontSize: 9.5, lineHeight: 1.55 }}>
+                <div data-pdf-block style={{ background: NAVY, color: '#94a3b8', padding: '14px 40px', fontSize: 9.5, lineHeight: 1.55 }}>
                   <div style={{ color: GOLD_LIGHT, fontWeight: 800, letterSpacing: 1, textTransform: 'uppercase', fontSize: 9.5, marginBottom: 4 }}>
                     Empresa con seguro de Responsabilidad Civil en vigor
                   </div>
