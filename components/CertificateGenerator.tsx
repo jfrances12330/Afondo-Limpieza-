@@ -248,6 +248,11 @@ const CertificateGenerator: React.FC = () => {
       const pageH = 297;
       // Alto de canvas (px) que llena una página A4 completa
       const pageCanvasH = canvas.width * (pageH / imgW);
+      // Margen superior (mm) para la 2ª página en adelante: aire para que el
+      // contenido respire y no quede pegado al borde de arriba. La 1ª empieza
+      // a tope porque ahí va la cabecera con su propio diseño.
+      const margenTopMm = 12;
+      const margenTopPx = canvas.width * (margenTopMm / imgW);
 
       // Líneas de corte seguras (bordes de bloque) en px de canvas, ordenadas
       const cortes = [...lineas].map((f) => f * canvas.height).sort((a, b) => a - b);
@@ -256,9 +261,11 @@ const CertificateGenerator: React.FC = () => {
       // para que ningún bloque ni foto quede partido entre dos páginas.
       const paginas: Array<[number, number]> = [];
       let y = 0;
-      const minAvance = pageCanvasH * 0.15; // evita páginas casi vacías / bucle infinito
       while (y < canvas.height - 1) {
-        const objetivo = y + pageCanvasH;
+        // En páginas 2+ el alto útil se reduce por el margen superior.
+        const disp = paginas.length === 0 ? pageCanvasH : pageCanvasH - margenTopPx;
+        const minAvance = disp * 0.15; // evita páginas casi vacías / bucle infinito
+        const objetivo = y + disp;
         if (objetivo >= canvas.height) {
           paginas.push([y, canvas.height]);
           break;
@@ -285,8 +292,9 @@ const CertificateGenerator: React.FC = () => {
         }
         const img = tmp.toDataURL('image/jpeg', 0.92);
         const hmm = (ph * imgW) / canvas.width;
+        const offTop = i === 0 ? 0 : margenTopMm;
         if (i > 0) pdf.addPage();
-        pdf.addImage(img, 'JPEG', 0, 0, imgW, hmm);
+        pdf.addImage(img, 'JPEG', 0, offTop, imgW, hmm);
       });
 
       const safe = (cliente || 'informe').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
