@@ -463,17 +463,27 @@ const CertificateGenerator: React.FC = () => {
             height: 22,
             borderRadius: '50%',
             background: `linear-gradient(135deg, ${BRAND}, ${BRAND_DARK})`,
-            color: '#fff',
-            fontSize: 11,
-            fontWeight: 900,
-            // Centrado por line-height/text-align (no flex): html2canvas baja el
-            // glifo cuando se centra con flex; line-height fijo lo clava al medio.
-            lineHeight: '22px',
-            textAlign: 'center',
             flexShrink: 0,
           }}
         >
-          {num}
+          {/* El número se dibuja como <text> SVG con dominant-baseline=central:
+              html2canvas rasteriza el SVG con el motor nativo del navegador y lo
+              centra de forma exacta. Su motor de texto normal ignoraba line-height
+              y margin y dejaba el dígito caído hacia abajo, fuera del centro. */}
+          <svg width="22" height="22" viewBox="0 0 22 22" style={{ display: 'block' }}>
+            <text
+              x="11"
+              y="11.5"
+              textAnchor="middle"
+              dominantBaseline="central"
+              fill="#fff"
+              fontSize="11"
+              fontWeight="900"
+              fontFamily="'Public Sans', system-ui, sans-serif"
+            >
+              {num}
+            </text>
+          </svg>
         </div>
         <div
           style={{
