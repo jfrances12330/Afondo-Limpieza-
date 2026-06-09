@@ -51,6 +51,10 @@ const Navbar: React.FC<NavbarProps> = ({
             Calculadora
           </button>
           <button onClick={onNavigateContacto} className={`${linkColor} transition-colors text-sm font-bold uppercase tracking-wider`}>Contacto</button>
+          <a href="#/certificado" title="Zona privada — acceso técnicos" className={`${linkColor} transition-colors text-sm font-bold uppercase tracking-wider flex items-center gap-1.5`}>
+            <span className="material-symbols-outlined text-base">lock</span>
+            Zona privada
+          </a>
         </div>
 
         <div className="flex items-center gap-4">
