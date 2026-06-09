@@ -6,7 +6,7 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
-  const email = "afondolimpiezadecampanas@gmail.com";
+  const email = "hola@afondolimpiezadecampanas.com";
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -15,7 +15,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
     "@id": "https://afondolimpiezadecampanas.com",
     "url": "https://afondolimpiezadecampanas.com",
     "telephone": "+34622064101",
-    "email": "afondolimpiezadecampanas@gmail.com",
+    "email": "hola@afondolimpiezadecampanas.com",
     "priceRange": "€€",
     "address": {
       "@type": "PostalAddress",

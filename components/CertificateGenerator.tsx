@@ -13,7 +13,7 @@ const EMPRESA = {
   nif: '53978208-Z',
   direccion: 'Partida Canastell, E-17, 03690 San Vicente del Raspeig (Alicante)',
   tel: '622 064 101',
-  email: 'afondolimpiezadecampanas@gmail.com',
+  email: 'hola@afondolimpiezadecampanas.com',
   web: 'afondolimpiezadecampanas.com',
 };
 
