@@ -17,6 +17,140 @@ const EMPRESA = {
   web: 'afondolimpiezadecampanas.com',
 };
 
+// ── Tipos de servicio ──────────────────────────────────────────────
+// Jaime marca lo que ha hecho y los textos técnicos se rellenan solos
+// (siguen siendo editables). Puede marcar uno o varios a la vez.
+type Servicio = {
+  key: string;
+  grupo: string;
+  label: string;
+  subtitulo: string;
+  instalacion: string;
+  metodologia: string;
+  productos: string;
+  conclusion: string;
+  footer: string;
+};
+
+const GRUPOS = [
+  '🧽 Limpieza y mantenimiento',
+  '🔧 Reparación y sustitución',
+  '🏗️ Instalación',
+  '🔇 Insonorización',
+  '🧗 Trabajos verticales',
+];
+
+const SERVICIOS: Servicio[] = [
+  {
+    key: 'limpieza_completa',
+    grupo: '🧽 Limpieza y mantenimiento',
+    label: 'Limpieza completa: campana + conductos + turbina',
+    subtitulo: 'de Limpieza y Desengrase',
+    instalacion: 'Se ha intervenido sobre el sistema completo de extracción de humos de la cocina, compuesto por campana mural con filtros metálicos tipo baffle, red de conductos de extracción y turbina/extractor centrífugo de impulsión al exterior. La instalación presentaba acumulación de grasa adherida en superficies interiores derivada del uso continuado en cocina profesional. Se documenta el estado previo de cada elemento antes de iniciar la intervención.',
+    metodologia: 'La actuación se ha desarrollado en fases sucesivas. En primer lugar se ha protegido la zona de trabajo y desconectado eléctricamente el equipo. Se han desmontado y limpiado los filtros de la campana, procediendo al desengrase de su superficie interior y bandeja de recogida. A continuación se ha limpiado el interior de los conductos accediendo por registros y aberturas practicadas, aplicando desengrasante y arrastre mecánico de los depósitos. Finalmente se ha desengrasado la turbina y su carcasa, comprobando tras el remontaje el correcto funcionamiento y caudal de aspiración del conjunto.',
+    productos: 'Se han empleado desengrasantes alcalinos de uso profesional aptos para entornos alimentarios, aplicados mediante pulverización y espuma activa, junto con útiles de arrastre mecánico (cepillos, rasquetas y bayetas de microfibra). El aclarado se ha realizado con agua a presión controlada y los residuos grasos se han retirado y gestionado conforme a la normativa de residuos. No se han utilizado productos abrasivos que puedan dañar las superficies metálicas de la instalación.',
+    conclusion: 'Se certifica que el sistema de extracción de humos ha quedado limpio y desengrasado en su totalidad, eliminando la acumulación de grasa que constituye el principal foco de riesgo de incendio en este tipo de instalaciones. La intervención mejora las condiciones higiénico-sanitarias de la cocina y restablece el rendimiento de aspiración del conjunto. El mantenimiento realizado contribuye al cumplimiento de las exigencias de seguridad frente a incendio y de higiene alimentaria aplicables al establecimiento.',
+    footer: 'El presente certificado acredita el mantenimiento higiénico y la reducción del riesgo de incendio del sistema de extracción, en línea con el CTE DB-SI (seguridad en caso de incendio) y el Reglamento (CE) 852/2004 sobre higiene de los productos alimenticios.',
+  },
+  {
+    key: 'limpieza_conductos',
+    grupo: '🧽 Limpieza y mantenimiento',
+    label: 'Limpieza de conductos de extracción',
+    subtitulo: 'de Limpieza de Conductos',
+    instalacion: 'Se ha intervenido sobre la red de conductos de extracción de humos del establecimiento, encargada de conducir el aire cargado de grasas y vapores desde la campana hasta el punto de expulsión al exterior. Los conductos presentaban depósitos de grasa adheridos en su interior, propios del funcionamiento prolongado de la cocina. La actuación se ha limitado a la tubería de extracción, sin intervención sobre campana ni turbina.',
+    metodologia: 'Se ha realizado una inspección previa del trazado para localizar los puntos de acceso. Se han abierto los registros existentes y, donde ha sido necesario, se han practicado aberturas adicionales para acceder a tramos ciegos. El interior de los conductos se ha tratado con desengrasante de contacto y se ha eliminado la grasa mediante arrastre mecánico y limpieza manual de las paredes. Tras la intervención se han sellado y cerrado las aberturas practicadas, devolviendo los conductos a su estado estanco original.',
+    productos: 'Se han utilizado desengrasantes alcalinos profesionales de uso alimentario aplicados por pulverización, así como cepillos, rasquetas y útiles de limpieza adaptados a la sección de los conductos. Los residuos grasos retirados se han recogido y gestionado adecuadamente. El sellado de las aberturas de acceso se ha realizado con materiales aptos para el rango de temperatura del conducto.',
+    conclusion: 'Se certifica que la red de conductos de extracción ha quedado libre de la acumulación de grasa que reducía la sección útil y aumentaba el riesgo de propagación de incendio a través del trazado. La limpieza mejora el tiro y la evacuación de humos, y reduce el principal factor de riesgo asociado a los conductos. La actuación contribuye al cumplimiento de las exigencias de seguridad frente a incendio aplicables a la instalación.',
+    footer: 'Este certificado acredita la limpieza de los conductos de extracción y la consiguiente reducción del riesgo de incendio, conforme al CTE DB-SI y al Reglamento (CE) 852/2004 en materia de higiene alimentaria.',
+  },
+  {
+    key: 'desmontaje_turbina_limpieza',
+    grupo: '🧽 Limpieza y mantenimiento',
+    label: 'Desmontaje y limpieza en profundidad de turbina',
+    subtitulo: 'de Limpieza de Turbina',
+    instalacion: 'Se ha intervenido sobre la turbina/extractor centrífugo del sistema de extracción de humos, elemento responsable de la aspiración y expulsión del aire de la cocina al exterior. El rodete y la carcasa presentaban una acumulación significativa de grasa que comprometía el equilibrado y el rendimiento del equipo. Dada la imposibilidad de una limpieza eficaz in situ, se ha procedido a su desmontaje completo para tratamiento en profundidad.',
+    metodologia: 'Tras la desconexión eléctrica y el bloqueo del equipo, se ha desmontado la turbina de su emplazamiento, separando el rodete y la carcasa para su limpieza individualizada. Cada componente se ha desengrasado a fondo eliminando los depósitos adheridos al rodete, álabes y voluta, prestando especial atención al equilibrado del conjunto. Una vez limpios y secos, los elementos se han vuelto a montar respetando su posición original. Finalmente se ha conectado el equipo y se ha realizado una prueba de funcionamiento, verificando ausencia de vibraciones anómalas, sentido de giro y caudal de aspiración correctos.',
+    productos: 'Se han empleado desengrasantes alcalinos profesionales aptos para uso alimentario, aplicados por inmersión y pulverización, junto con útiles de arrastre mecánico para el rodete y la carcasa. Para el remontaje se han revisado y, en su caso, repuesto los elementos de fijación y juntas necesarios para garantizar la estanqueidad y la sujeción del equipo. Los residuos grasos se han gestionado conforme a la normativa aplicable.',
+    conclusion: 'Se certifica que la turbina de extracción ha sido desmontada, limpiada en profundidad y remontada, recuperando su rendimiento de aspiración y eliminando la acumulación de grasa que afectaba a su equilibrado y constituía un riesgo de incendio. La prueba de funcionamiento posterior confirma la operatividad correcta del equipo, sin vibraciones ni ruidos anómalos. La intervención mejora la seguridad y la eficiencia del sistema de extracción.',
+    footer: 'El presente certificado acredita la limpieza en profundidad y la verificación funcional del equipo de extracción, contribuyendo a la seguridad frente a incendio (CTE DB-SI) y a la higiene alimentaria (Reglamento (CE) 852/2004).',
+  },
+  {
+    key: 'cambio_turbina',
+    grupo: '🔧 Reparación y sustitución',
+    label: 'Sustitución de turbina/motor por avería',
+    subtitulo: 'de Sustitución de Turbina',
+    instalacion: 'El sistema objeto de la intervención corresponde a una campana extractora de cocina profesional dotada de turbina de extracción centrífuga conectada a la red de conductos de evacuación de humos. En la inspección previa se constató avería del motor del extractor, con ausencia o insuficiencia de caudal de aspiración y funcionamiento anómalo (ruido, vibración y/o parada del equipo). El resto de la instalación de conductos y campana se verificó apto para continuar en servicio una vez restablecido el grupo motor.',
+    metodologia: 'Se ha procedido al corte y bloqueo de la alimentación eléctrica del equipo conforme a las medidas de seguridad aplicables. Se ha desmontado la turbina/motor averiado, desconectando el cableado y liberando las fijaciones mecánicas y los acoplamientos al conducto. Se ha instalado el nuevo grupo motor-turbina de características equivalentes o superiores a las del equipo sustituido, asegurando su anclaje, alineación y estanqueidad en la unión al conducto. Finalizado el montaje, se ha realizado la reconexión eléctrica y la prueba de funcionamiento, comprobando el sentido de giro, el caudal de aspiración y la ausencia de vibraciones o fugas anómalas.',
+    productos: 'Turbina/motor de extracción de sustitución de potencia y caudal acordes al sistema existente, elementos de fijación y antivibración, material de conexión eléctrica, juntas y material de sellado para garantizar la estanqueidad del acoplamiento al conducto. Equipos de medida para la verificación de caudal y funcionamiento.',
+    conclusion: 'Se ha verificado que, tras la sustitución, el sistema de extracción queda plenamente operativo, restableciendo el caudal de aspiración y la correcta evacuación de humos y vapores de la cocina. La instalación recupera sus condiciones de funcionamiento y de renovación del aire interior conforme a lo dispuesto en el CTE DB-HS3, contribuyendo asimismo a las condiciones de higiene exigidas por el Reglamento (CE) 852/2004. El equipo se entrega en correcto estado de servicio.',
+    footer: 'El presente documento acredita la correcta ejecución de los trabajos de sustitución del grupo motor de extracción descritos y tiene valor a efectos de justificación técnica ante compañías aseguradoras y autoridades sanitarias, en el marco del CTE DB-HS3 y del Reglamento (CE) 852/2004.',
+  },
+  {
+    key: 'reparacion_conductos',
+    grupo: '🔧 Reparación y sustitución',
+    label: 'Reparación de conductos (medidas correctoras)',
+    subtitulo: 'de Medidas Correctoras',
+    instalacion: 'La instalación intervenida corresponde a la red de conductos de evacuación de humos de una cocina profesional, conectada a la campana extractora y a la salida exterior. En la inspección previa se detectaron deficiencias de estanqueidad en uno o varios tramos del conducto (fugas de humo y/o olores hacia el interior del local o hacia zonas colindantes), motivo por el cual se ejecutan las medidas correctoras necesarias para restablecer la correcta evacuación y la estanqueidad del sistema.',
+    metodologia: 'Se ha procedido a la localización de los puntos de fuga mediante inspección del trazado de conductos. Se han reparado las uniones y juntas defectuosas y se ha sustituido el tramo o tramos de conducto dañados por elementos nuevos de igual o mayor sección. Todas las uniones se han sellado con material resistente a alta temperatura, restableciendo la estanqueidad del conjunto. Finalizada la reparación, se ha comprobado en funcionamiento la ausencia de fugas y la correcta evacuación de humos hacia el punto de descarga exterior.',
+    productos: 'Tramos de conducto de sustitución, abrazaderas y elementos de unión, juntas y masilla/sellante resistente a alta temperatura para uniones estancas, así como material de fijación y soporte. Equipos de verificación de estanqueidad y evacuación.',
+    conclusion: 'Una vez ejecutadas las medidas correctoras, se ha verificado que el sistema de conductos queda estanco y que la evacuación de humos y olores se realiza correctamente hacia el exterior, eliminando las fugas detectadas. La instalación cumple las condiciones de evacuación y ventilación exigibles conforme al CTE DB-HS3 y, en materia de protección frente a incendio, al CTE DB-SI, garantizando además las condiciones de higiene previstas en el Reglamento (CE) 852/2004. El sistema se entrega operativo y libre de fugas.',
+    footer: 'El presente documento acredita las medidas correctoras ejecutadas sobre el sistema de extracción de humos a efectos de su presentación ante la autoridad municipal y los servicios técnicos competentes, así como ante compañías aseguradoras, en cumplimiento del CTE DB-HS3, el CTE DB-SI y el Reglamento (CE) 852/2004.',
+  },
+  {
+    key: 'instalacion_completa',
+    grupo: '🏗️ Instalación',
+    label: 'Instalación completa de campana y extracción',
+    subtitulo: 'de Instalación de Extracción',
+    instalacion: 'La actuación consiste en la instalación nueva de un sistema completo de extracción de humos para cocina profesional, integrado por campana extractora, red de conductos, turbina/grupo motor de extracción y salida de evacuación a cubierta o fachada. Previo a la ejecución se ha evaluado el emplazamiento y el trazado más adecuado para garantizar el caudal de aspiración y la correcta descarga al exterior.',
+    metodologia: 'Se ha instalado la campana extractora con sus fijaciones y se ha montado la red de conductos siguiendo el trazado proyectado, ejecutando uniones estancas con sellante resistente a alta temperatura. Se ha instalado y conectado la turbina/grupo motor de extracción y se ha resuelto la salida de evacuación a cubierta o fachada con su correspondiente terminal. Finalizado el montaje, se ha realizado la conexión eléctrica y la puesta en marcha, comprobando el sentido de giro, el caudal de aspiración, la estanqueidad del conjunto y la correcta evacuación de humos al exterior.',
+    productos: 'Campana extractora, conductos y accesorios de unión, turbina/grupo motor de extracción, terminal de salida a cubierta/fachada, elementos de fijación y antivibración, juntas y sellante resistente a alta temperatura, y material de conexión eléctrica. Equipos de medida para la verificación de caudal y estanqueidad.',
+    conclusion: 'Se ha verificado que el sistema de extracción instalado queda plenamente operativo, estanco y con la evacuación de humos correctamente dirigida al exterior. La instalación se ha ejecutado conforme a las exigencias de ventilación y calidad del aire interior del CTE DB-HS3 y a las de seguridad en caso de incendio del CTE DB-SI, garantizando asimismo las condiciones de higiene del Reglamento (CE) 852/2004. El sistema se entrega en correcto estado de funcionamiento.',
+    footer: 'El presente documento acredita la correcta ejecución de la instalación del sistema de extracción de humos descrito y tiene valor a efectos de justificación técnica ante compañías aseguradoras y autoridades sanitarias y municipales, en el marco del CTE DB-HS3, el CTE DB-SI y el Reglamento (CE) 852/2004.',
+  },
+  {
+    key: 'insonorizacion',
+    grupo: '🔇 Insonorización',
+    label: 'Insonorización de campana o turbina',
+    subtitulo: 'de Aislamiento Acústico',
+    instalacion: 'Se ha intervenido sobre los elementos del sistema de extracción de humos generadores de ruido y vibraciones —turbina/extractor y, en su caso, campana y conductos asociados— a fin de reducir la emisión sonora transmitida al entorno. La actuación responde a la necesidad de minimizar las molestias acústicas percibidas en las edificaciones colindantes derivadas del funcionamiento del equipo. Se ha evaluado el estado previo de los anclajes y la transmisión de vibraciones a la estructura.',
+    metodologia: 'En primer lugar se ha realizado una medición del nivel sonoro emitido por el equipo en funcionamiento para establecer la situación de partida. Sobre la turbina se han instalado elementos antivibratorios (soportes elásticos y silentblocks) para desacoplarla de la estructura del edificio y se ha aplicado material absorbente y aislante acústico sobre la carcasa y los tramos de conducto más emisores. Donde ha sido necesario se han incorporado conexiones flexibles y silenciadores en línea para reducir el ruido aerodinámico. Finalizada la intervención se ha repetido la medición sonora para verificar la reducción obtenida respecto al nivel inicial.',
+    productos: 'Se han empleado materiales de aislamiento y absorción acústica (paneles y espumas técnicas), elementos antivibratorios tipo silentblock y soportes elásticos, conexiones flexibles para conductos y, en su caso, silenciadores en línea dimensionados para la instalación. Todos los materiales son adecuados para el entorno de trabajo y compatibles con las temperaturas y condiciones del sistema de extracción.',
+    conclusion: 'Se certifica la ejecución de las medidas correctoras de aislamiento acústico y antivibratorio sobre el sistema de extracción, con una reducción medible del nivel sonoro y de las vibraciones transmitidas al entorno. La intervención está orientada a situar los niveles de inmisión dentro de los límites establecidos por la normativa de contaminación acústica y las ordenanzas municipales aplicables, dando respuesta a las molestias detectadas en el vecindario. Se recomienda conservar las mediciones realizadas como soporte ante eventuales requerimientos.',
+    footer: 'Este certificado acredita las medidas correctoras de aislamiento acústico ejecutadas y la reducción del nivel sonoro (inmisión NAE), a efectos de la normativa de contaminación acústica y las ordenanzas municipales aplicables.',
+  },
+  {
+    key: 'trabajos_verticales',
+    grupo: '🧗 Trabajos verticales',
+    label: 'Trabajos verticales en conductos de fachada',
+    subtitulo: 'de Trabajos Verticales',
+    instalacion: 'La intervención se desarrolla sobre conductos de evacuación de humos situados en fachada o zona elevada, no accesibles mediante medios convencionales, por lo que se ejecuta mediante técnicas de acceso y posicionamiento por cuerda. En la inspección previa se han identificado las deficiencias a corregir en el tramo de conducto en altura y se ha evaluado el entorno para la instalación de los puntos de anclaje y el desarrollo seguro de los trabajos.',
+    metodologia: 'Los trabajos se han ejecutado mediante técnicas de acceso y posicionamiento por cuerda, con personal con la formación específica y empleando línea de trabajo y línea de seguridad independientes. Se ha intervenido sobre el tramo de conducto en altura reparando las uniones y elementos afectados y restableciendo la estanqueidad del sistema, conforme a la metodología técnica aplicable a este tipo de actuaciones. Durante toda la ejecución se han mantenido las medidas de prevención y delimitación de la zona de trabajo, retirándose los equipos una vez finalizada la intervención.',
+    productos: 'Equipos de protección individual anticaídas y sistema de acceso por cuerda (arnés, cuerdas de trabajo y seguridad, dispositivos de ascenso/descenso y anclajes) conformes a la normativa de aplicación, junto con los materiales de reparación del conducto: elementos de unión, juntas y sellante resistente a alta temperatura, y material de fijación.',
+    conclusion: 'Se ha verificado que la intervención en altura ha restablecido la estanqueidad y la correcta evacuación de humos del tramo de conducto afectado. Los trabajos se han ejecutado en condiciones de seguridad conforme al RD 2177/2004 sobre trabajos temporales en altura y a la normativa de equipos anticaídas (EN 363), en el marco general de la prevención de riesgos laborales, y la instalación recupera las condiciones de evacuación exigibles según el CTE DB-HS3. El sistema se entrega operativo.',
+    footer: 'El presente documento acredita la correcta ejecución de los trabajos en altura descritos y las medidas correctoras aplicadas al conducto, así como su realización en condiciones de seguridad conforme al RD 2177/2004 y la norma EN 363, teniendo valor a efectos de justificación ante compañías aseguradoras y autoridades municipales y sanitarias en el marco del CTE DB-HS3.',
+  },
+];
+
+const SUBTITULO_DEFECTO = 'de Limpieza y Desengrase';
+const SUBTITULO_MULTI = 'de Actuación Técnica';
+const FOOTER_DEFECTO = 'Informe técnico privado del servicio de limpieza y desengrase realizado, con valor probatorio ante compañías aseguradoras y autoridades sanitarias. Acredita el mantenimiento higiénico y la reducción del riesgo de incendio por acumulación de grasa (CTE DB-SI · Reg. CE 852/2004).';
+const FOOTER_MULTI = 'Documento técnico privado de las actuaciones descritas sobre el sistema de extracción de humos, con valor probatorio ante compañías aseguradoras y autoridades sanitarias y municipales. Acredita la correcta ejecución de los trabajos y, en su caso, de las medidas correctoras ejecutadas (CTE DB-SI · CTE DB-HS3 · Reg. CE 852/2004).';
+
+// Combina los textos de los servicios marcados (uno o varios) en cada bloque.
+const componer = (keys: string[]) => {
+  const sel = SERVICIOS.filter((s) => keys.includes(s.key));
+  const join = (f: 'instalacion' | 'metodologia' | 'productos' | 'conclusion') =>
+    sel.map((s) => s[f]).join('\n\n');
+  return {
+    instalacion: join('instalacion'),
+    metodologia: join('metodologia'),
+    productos: join('productos'),
+    conclusion: join('conclusion'),
+    subtitulo: sel.length === 1 ? sel[0].subtitulo : SUBTITULO_MULTI,
+    footer: sel.length === 1 ? sel[0].footer : FOOTER_MULTI,
+  };
+};
+
 const BRAND = '#6A65E3';
 const BRAND_DARK = '#4f48b8';
 const NAVY = '#0b1020';
@@ -70,11 +204,35 @@ const CertificateGenerator: React.FC = () => {
   const [pdfName, setPdfName] = useState('');
   const [aviso, setAviso] = useState('');
 
+  // Servicios marcados con checkbox → autorrellenan los textos (editables)
+  const [serviciosSel, setServiciosSel] = useState<string[]>([]);
+  const [subtituloDoc, setSubtituloDoc] = useState(SUBTITULO_DEFECTO);
+  const [footerTexto, setFooterTexto] = useState(FOOTER_DEFECTO);
+
+  const toggleServicio = (key: string) => {
+    setServiciosSel((prev) => {
+      const next = prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key];
+      if (next.length > 0) {
+        const c = componer(next);
+        setInstalacion(c.instalacion);
+        setMetodologia(c.metodologia);
+        setProductos(c.productos);
+        setConclusion(c.conclusion);
+        setSubtituloDoc(c.subtitulo);
+        setFooterTexto(c.footer);
+      } else {
+        setSubtituloDoc(SUBTITULO_DEFECTO);
+        setFooterTexto(FOOTER_DEFECTO);
+      }
+      return next;
+    });
+  };
+
   // Si el usuario cambia datos o fotos, el PDF anterior deja de ser válido
   useEffect(() => {
     setPdfBlob(null);
     setAviso('');
-  }, [fotos, nInforme, fecha, cliente, direccionCliente, actividad, instalacion, metodologia, productos, conclusion, validez, factura]);
+  }, [fotos, nInforme, fecha, cliente, direccionCliente, actividad, instalacion, metodologia, productos, conclusion, validez, factura, subtituloDoc, footerTexto]);
 
   const previewRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -514,12 +672,58 @@ const CertificateGenerator: React.FC = () => {
       <div style={{ maxWidth: 1220, margin: '0 auto' }}>
         <div style={{ marginBottom: 18 }}>
           <div style={{ fontWeight: 900, fontSize: 22, color: INK }}>AFONDO · Generador de Informes</div>
-          <div style={{ fontSize: 13, color: '#64748b' }}>Rellena los datos, sube de 2 a 8 fotos y pulsa “Descargar PDF” al final.</div>
+          <div style={{ fontSize: 13, color: '#64748b' }}>Marca el servicio, revisa los datos, añade fotos si quieres (opcional) y pulsa “Descargar PDF”.</div>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 400px) 1fr', gap: 24, alignItems: 'start' }} className="afondo-grid">
           {/* ── FORMULARIO ── */}
           <div style={{ background: '#fff', borderRadius: 18, padding: 22, boxShadow: '0 4px 20px rgba(15,23,42,.06)' }}>
+            {/* ── ¿Qué has hecho? Checkboxes que autorrellenan los textos ── */}
+            <div style={{ marginBottom: 4 }}>
+              <div style={{ fontSize: 16, fontWeight: 900, color: INK }}>1 · ¿Qué has hecho hoy?</div>
+              <div style={{ fontSize: 12.5, color: '#64748b', marginBottom: 10, lineHeight: 1.45 }}>
+                Marca lo que has hecho (puedes marcar varios). El texto del certificado se rellena solo y luego puedes cambiarlo.
+              </div>
+            </div>
+            {GRUPOS.map((g) => {
+              const items = SERVICIOS.filter((s) => s.grupo === g);
+              if (items.length === 0) return null;
+              return (
+                <div key={g} style={{ marginBottom: 12 }}>
+                  <div style={{ fontSize: 11.5, fontWeight: 800, color: BRAND_DARK, marginBottom: 7, letterSpacing: 0.3 }}>{g}</div>
+                  {items.map((s) => {
+                    const on = serviciosSel.includes(s.key);
+                    return (
+                      <label
+                        key={s.key}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 11,
+                          padding: '11px 13px',
+                          marginBottom: 7,
+                          border: `1.5px solid ${on ? BRAND : '#e2e8f0'}`,
+                          background: on ? 'rgba(106,101,227,0.08)' : '#fff',
+                          borderRadius: 11,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={on}
+                          onChange={() => toggleServicio(s.key)}
+                          style={{ width: 19, height: 19, accentColor: BRAND, flexShrink: 0, cursor: 'pointer' }}
+                        />
+                        <span style={{ fontSize: 13.5, fontWeight: 700, color: INK, lineHeight: 1.3 }}>{s.label}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              );
+            })}
+            <div style={{ height: 1, background: '#e2e8f0', margin: '8px 0 18px' }} />
+            <div style={{ fontSize: 16, fontWeight: 900, color: INK, marginBottom: 12 }}>2 · Datos del informe</div>
+
             <div style={{ display: 'flex', gap: 12 }}>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <label style={{ ...label, marginTop: 0 }}>Nº informe</label>
@@ -558,7 +762,7 @@ const CertificateGenerator: React.FC = () => {
             <label style={label}>Nº de factura asociada (opcional)</label>
             <input style={input} value={factura} onChange={(e) => setFactura(e.target.value)} placeholder="Ej. F-2026/045" />
 
-            <label style={label}>Fotos ({n}/8)</label>
+            <label style={label}>Fotos — opcional ({n}/8)</label>
             <input type="file" accept="image/*" multiple onChange={(e) => { onFiles(e.target.files); e.target.value = ''; }} style={{ fontSize: 14, width: '100%', maxWidth: '100%', boxSizing: 'border-box' }} />
             {n > 0 && (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 10, marginTop: 12 }}>
@@ -579,22 +783,22 @@ const CertificateGenerator: React.FC = () => {
             {/* Botón principal: al final, tras rellenar los datos */}
             <button
               onClick={generarPDF}
-              disabled={generando || n < 2}
+              disabled={generando}
               style={{
                 width: '100%',
                 marginTop: 22,
                 padding: '16px 26px',
-                background: n < 2 ? '#94a3b8' : `linear-gradient(135deg, ${BRAND}, ${BRAND_DARK})`,
+                background: `linear-gradient(135deg, ${BRAND}, ${BRAND_DARK})`,
                 color: '#fff',
                 border: 'none',
                 borderRadius: 12,
                 fontSize: 16,
                 fontWeight: 800,
-                cursor: generando || n < 2 ? 'not-allowed' : 'pointer',
-                boxShadow: n < 2 ? 'none' : '0 8px 20px rgba(106,101,227,.35)',
+                cursor: generando ? 'not-allowed' : 'pointer',
+                boxShadow: '0 8px 20px rgba(106,101,227,.35)',
               }}
             >
-              {generando ? 'Generando…' : n < 2 ? 'Sube al menos 2 fotos' : 'Descargar PDF'}
+              {generando ? 'Generando…' : 'Descargar PDF'}
             </button>
 
             {pdfBlob && (
@@ -678,7 +882,7 @@ const CertificateGenerator: React.FC = () => {
                     </div>
                     <div style={{ textAlign: 'right' }}>
                       <div style={{ fontSize: 17, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5 }}>Informe Técnico</div>
-                      <div style={{ fontSize: 11.5, opacity: 0.85 }}>de Limpieza y Desengrase</div>
+                      <div style={{ fontSize: 11.5, opacity: 0.85 }}>{subtituloDoc}</div>
                       <div style={{ display: 'inline-block', marginTop: 8, background: 'rgba(255,255,255,0.14)', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 20, padding: '3px 12px', fontSize: 11, fontWeight: 800 }}>
                         Nº {nInforme}
                       </div>
@@ -792,7 +996,7 @@ const CertificateGenerator: React.FC = () => {
                   <div style={{ color: GOLD_LIGHT, fontWeight: 800, letterSpacing: 1, textTransform: 'uppercase', fontSize: 9.5, marginBottom: 4 }}>
                     Empresa con seguro de Responsabilidad Civil en vigor
                   </div>
-                  Informe técnico privado del servicio de limpieza y desengrase realizado, con valor probatorio ante compañías aseguradoras y autoridades sanitarias. Acredita el mantenimiento higiénico y la reducción del riesgo de incendio por acumulación de grasa (CTE DB-SI · Reg. CE 852/2004).
+                  {footerTexto}
                   <div style={{ marginTop: 6, color: '#cbd5e1' }}>{EMPRESA.direccion} · {EMPRESA.tel} · {EMPRESA.web}</div>
                 </div>
               </div>
