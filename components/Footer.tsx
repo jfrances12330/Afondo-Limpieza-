@@ -81,6 +81,10 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <button onClick={() => onNavigate('aviso-legal')} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Aviso Legal</button>
               <button onClick={() => onNavigate('privacidad')} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Privacidad</button>
               <button onClick={() => onNavigate('cookies')} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Cookies</button>
+              <a href="#/certificado" title="Zona privada — acceso técnicos" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-base">lock</span>
+                Zona privada
+              </a>
             </div>
             <div className="flex flex-col gap-4 min-w-0">
               <span className="text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest">Contacto</span>
