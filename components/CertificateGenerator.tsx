@@ -40,6 +40,11 @@ const GRUPOS = [
   '🧗 Trabajos verticales',
 ];
 
+// Productos comunes a los 4 servicios de limpieza (Jorge pasará la lista detallada
+// por tipo de limpieza; mientras tanto, texto común editable).
+const PRODUCTOS_LIMPIEZA =
+  'Desengrasantes alcalinos profesionales de uso industrial aptos para superficies en contacto con instalaciones alimentarias, aplicados con útiles de cepillado y arrastre mecánico. Los residuos grasos retirados se gestionan conforme a la normativa de residuos vigente.';
+
 const SERVICIOS: Servicio[] = [
   {
     key: 'limpieza_completa',
@@ -48,9 +53,20 @@ const SERVICIOS: Servicio[] = [
     subtitulo: 'de Limpieza y Desengrase',
     instalacion: 'Sistema completo de extracción de cocina profesional formado por campana mural con filtros tipo malla metálica, plenum, red de conductos y turbina de extracción. Por el uso continuado presentaba acumulación de grasa en filtros, paredes interiores y rodete que reducía el caudal de aspiración y aumentaba el riesgo de incendio.',
     metodologia: 'Desmontaje y desengrase de filtros por inmersión y aplicación de espuma alcalina activa con arrastre mecánico en campana, plenum y paredes interiores de los conductos accesibles por registros. Desengrase de turbina y carcasa, remontaje y prueba de funcionamiento final verificando caudal y ausencia de vibraciones.',
-    productos: 'Desengrasantes alcalinos profesionales de uso industrial aptos para superficies en contacto con instalaciones alimentarias, aplicados con útiles de cepillado y arrastre mecánico. Los residuos grasos retirados se gestionan conforme a la normativa de residuos vigente.',
+    productos: PRODUCTOS_LIMPIEZA,
     conclusion: 'El sistema queda limpio y desengrasado en toda su longitud accesible, eliminando el principal foco de riesgo de incendio por grasa y restableciendo el rendimiento de aspiración. La actuación sigue los criterios de la norma UNE 100165 y contribuye al cumplimiento del CTE DB-SI (seguridad frente a incendio) y del Reglamento (CE) 852/2004 de higiene alimentaria. Se recomienda mantener la periodicidad de limpieza según el uso de la cocina.',
     footer: 'El presente certificado acredita el mantenimiento higiénico y la reducción del riesgo de incendio del sistema de extracción, en línea con el CTE DB-SI (seguridad en caso de incendio) y el Reglamento (CE) 852/2004 sobre higiene de los productos alimenticios.',
+  },
+  {
+    key: 'limpieza_campanas',
+    grupo: '🧽 Limpieza y mantenimiento',
+    label: 'Limpieza de campana (filtros y plenum)',
+    subtitulo: 'de Limpieza de Campana',
+    instalacion: 'Campana extractora de cocina profesional con filtros tipo malla metálica y plenum, con acumulación de grasa en filtros y superficies interiores por el uso continuado. La actuación se centra en la campana, sin intervenir la red de conductos ni la turbina.',
+    metodologia: 'Desmontaje de los filtros y desengrase por inmersión, aplicación de espuma alcalina activa con arrastre mecánico en plenum y superficies interiores y exteriores de la campana, aclarado y retirada de residuos. Remontaje de los filtros y comprobación final del estado de la campana.',
+    productos: PRODUCTOS_LIMPIEZA,
+    conclusion: 'La campana y sus filtros quedan limpios y desengrasados, restableciendo la capacidad de captación de grasas y reduciendo el riesgo de incendio en el punto de mayor acumulación del sistema. La actuación sigue los criterios de la norma UNE 100165 y contribuye al cumplimiento del CTE DB-SI (seguridad frente a incendio) y del Reglamento (CE) 852/2004 de higiene alimentaria.',
+    footer: 'Este certificado acredita la limpieza de la campana extractora y la consiguiente reducción del riesgo de incendio, conforme al CTE DB-SI y al Reglamento (CE) 852/2004 en materia de higiene alimentaria.',
   },
   {
     key: 'limpieza_conductos',
@@ -59,7 +75,7 @@ const SERVICIOS: Servicio[] = [
     subtitulo: 'de Limpieza de Conductos',
     instalacion: 'Red de conductos de extracción de la cocina, desde la campana hasta la salida al exterior, con depósitos de grasa adheridos a las paredes interiores por el uso prolongado. La actuación se limita a la tubería, sin intervenir campana ni turbina.',
     metodologia: 'Apertura o práctica de registros de inspección a lo largo del trazado, aplicación de desengrasante de contacto y arrastre mecánico de las paredes interiores hasta retirar la costra de grasa. Se sellan posteriormente las aberturas practicadas y se comprueba el tiro.',
-    productos: 'Desengrasantes alcalinos profesionales de uso alimentario y útiles de cepillado adaptados a la sección del conducto. El sellado de los registros se realiza con material resistente a la temperatura de trabajo del sistema.',
+    productos: PRODUCTOS_LIMPIEZA,
     conclusion: 'Los conductos quedan libres de grasa en los tramos accesibles, mejorando el tiro y la evacuación de humos y reduciendo el riesgo de propagación de incendio por el interior de la red. La limpieza sigue los criterios de la norma UNE 100165 y contribuye al cumplimiento del CTE DB-SI y del Reglamento (CE) 852/2004.',
     footer: 'Este certificado acredita la limpieza de los conductos de extracción y la consiguiente reducción del riesgo de incendio, conforme al CTE DB-SI y al Reglamento (CE) 852/2004 en materia de higiene alimentaria.',
   },
@@ -70,7 +86,7 @@ const SERVICIOS: Servicio[] = [
     subtitulo: 'de Limpieza de Turbina',
     instalacion: 'Turbina o extractor centrífugo del sistema de extracción, con acumulación de grasa en rodete, álabes y carcasa. Esta acumulación desequilibraba el rodete y comprometía el rendimiento de aspiración, generando vibraciones y sobreesfuerzo del motor.',
     metodologia: 'Corte de alimentación y desmontaje completo del grupo, desengrase a fondo de rodete, álabes y carcasa por inmersión y arrastre mecánico. Remontaje con revisión de fijaciones y juntas, y prueba de funcionamiento verificando sentido de giro, caudal y ausencia de vibraciones.',
-    productos: 'Desengrasantes alcalinos profesionales aptos para uso alimentario aplicados sobre rodete y carcasa. En caso necesario se reponen juntas y elementos de fijación para garantizar la estanqueidad y la correcta sujeción del equipo.',
+    productos: PRODUCTOS_LIMPIEZA,
     conclusion: 'La turbina recupera su rendimiento de aspiración y funciona sin vibraciones ni ruidos anómalos, eliminando la grasa acumulada que constituía un foco de riesgo de incendio. La actuación contribuye al cumplimiento del CTE DB-SI en materia de seguridad frente a incendio y del Reglamento (CE) 852/2004 de higiene alimentaria.',
     footer: 'El presente certificado acredita la limpieza en profundidad y la verificación funcional del equipo de extracción, contribuyendo a la seguridad frente a incendio (CTE DB-SI) y a la higiene alimentaria (Reglamento (CE) 852/2004).',
   },
@@ -238,6 +254,10 @@ const CertificateGenerator: React.FC = () => {
   const frameRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [frameH, setFrameH] = useState(0);
+  // Vista previa colapsable: al redactar, el protagonista es el formulario.
+  // Oculta, la maqueta sigue montada off-screen a ancho real (794) para que
+  // html2canvas pueda rasterizarla igual al generar el PDF.
+  const [verPreview, setVerPreview] = useState(false);
 
   // Escala la maqueta para que quepa entera en su columna (sin recorte)
   useLayoutEffect(() => {
@@ -603,6 +623,13 @@ const CertificateGenerator: React.FC = () => {
     fontFamily: 'inherit',
     boxSizing: 'border-box',
   };
+  const ayuda: React.CSSProperties = {
+    fontSize: 12.5,
+    color: '#94a3b8',
+    marginTop: -2,
+    marginBottom: 7,
+    lineHeight: 1.4,
+  };
 
   const n = fotos.length;
   const cols = colsFotos(n);
@@ -669,15 +696,41 @@ const CertificateGenerator: React.FC = () => {
         padding: '24px 16px 80px',
       }}
     >
-      <div style={{ maxWidth: 1220, margin: '0 auto' }}>
-        <div style={{ marginBottom: 18 }}>
-          <div style={{ fontWeight: 900, fontSize: 22, color: INK }}>AFONDO · Generador de Informes</div>
-          <div style={{ fontSize: 13, color: '#64748b' }}>Marca el servicio, revisa los datos, añade fotos si quieres (opcional) y pulsa “Descargar PDF”.</div>
+      <div style={{ maxWidth: verPreview ? 1340 : 860, margin: '0 auto' }}>
+        <div style={{ marginBottom: 18, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+          <div>
+            <div style={{ fontWeight: 900, fontSize: 22, color: INK }}>AFONDO · Generador de Informes</div>
+            <div style={{ fontSize: 13, color: '#64748b' }}>Marca el servicio, revisa los datos, añade fotos si quieres (opcional) y pulsa “Descargar PDF”.</div>
+          </div>
+          <button
+            onClick={() => setVerPreview((v) => !v)}
+            style={{
+              padding: '10px 16px',
+              background: verPreview ? '#fff' : `linear-gradient(135deg, ${BRAND}, ${BRAND_DARK})`,
+              color: verPreview ? INK : '#fff',
+              border: verPreview ? '1.5px solid #e2e8f0' : 'none',
+              borderRadius: 10,
+              fontSize: 13.5,
+              fontWeight: 800,
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {verPreview ? '✕ Ocultar vista previa' : '👁 Ver vista previa'}
+          </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 400px) 1fr', gap: 24, alignItems: 'start' }} className="afondo-grid">
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: verPreview ? 'minmax(420px, 1.25fr) minmax(360px, 1fr)' : 'minmax(0, 1fr)',
+            gap: 24,
+            alignItems: 'start',
+          }}
+          className="afondo-grid"
+        >
           {/* ── FORMULARIO ── */}
-          <div style={{ background: '#fff', borderRadius: 18, padding: 22, boxShadow: '0 4px 20px rgba(15,23,42,.06)' }}>
+          <div style={{ background: '#fff', borderRadius: 18, padding: 26, boxShadow: '0 4px 20px rgba(15,23,42,.06)' }}>
             {/* ── ¿Qué has hecho? Checkboxes que autorrellenan los textos ── */}
             <div style={{ marginBottom: 4 }}>
               <div style={{ fontSize: 16, fontWeight: 900, color: INK }}>1 · ¿Qué has hecho hoy?</div>
@@ -744,19 +797,32 @@ const CertificateGenerator: React.FC = () => {
             <label style={label}>Actividad (opcional)</label>
             <input style={input} value={actividad} onChange={(e) => setActividad(e.target.value)} placeholder="Restaurante / cocina industrial" />
 
+            <div style={{ height: 1, background: '#e2e8f0', margin: '20px 0 16px' }} />
+            <div style={{ fontSize: 16, fontWeight: 900, color: INK, marginBottom: 2 }}>3 · Redacción del informe</div>
+            <div style={{ fontSize: 12.5, color: '#64748b', marginBottom: 6, lineHeight: 1.45 }}>
+              Los textos vienen rellenos según lo que has marcado arriba. Repásalos y cambia lo que quieras.
+            </div>
+
             <label style={label}>Descripción de la instalación</label>
-            <textarea style={{ ...input, minHeight: 70, resize: 'vertical' }} value={instalacion} onChange={(e) => setInstalacion(e.target.value)} />
+            <div style={ayuda}>Qué sistema había y en qué estado estaba al llegar.</div>
+            <textarea style={{ ...input, minHeight: 130, resize: 'vertical', lineHeight: 1.5 }} value={instalacion} onChange={(e) => setInstalacion(e.target.value)} />
 
             <label style={label}>Metodología aplicada</label>
-            <textarea style={{ ...input, minHeight: 80, resize: 'vertical' }} value={metodologia} onChange={(e) => setMetodologia(e.target.value)} />
+            <div style={ayuda}>Qué habéis hecho y cómo, paso a paso.</div>
+            <textarea style={{ ...input, minHeight: 140, resize: 'vertical', lineHeight: 1.5 }} value={metodologia} onChange={(e) => setMetodologia(e.target.value)} />
 
             <label style={label}>Productos utilizados</label>
-            <textarea style={{ ...input, minHeight: 60, resize: 'vertical' }} value={productos} onChange={(e) => setProductos(e.target.value)} />
+            <div style={ayuda}>Con qué productos y materiales se ha trabajado.</div>
+            <textarea style={{ ...input, minHeight: 110, resize: 'vertical', lineHeight: 1.5 }} value={productos} onChange={(e) => setProductos(e.target.value)} />
 
             <label style={label}>Conclusión</label>
-            <textarea style={{ ...input, minHeight: 70, resize: 'vertical' }} value={conclusion} onChange={(e) => setConclusion(e.target.value)} />
+            <div style={ayuda}>Cómo queda la instalación y qué acredita el informe.</div>
+            <textarea style={{ ...input, minHeight: 130, resize: 'vertical', lineHeight: 1.5 }} value={conclusion} onChange={(e) => setConclusion(e.target.value)} />
 
-            <label style={label}>Validez / próxima revisión</label>
+            <div style={{ height: 1, background: '#e2e8f0', margin: '20px 0 16px' }} />
+            <div style={{ fontSize: 16, fontWeight: 900, color: INK, marginBottom: 12 }}>4 · Cierre y descarga</div>
+
+            <label style={{ ...label, marginTop: 0 }}>Validez / próxima revisión</label>
             <input style={input} value={validez} onChange={(e) => setValidez(e.target.value)} />
 
             <label style={label}>Nº de factura asociada (opcional)</label>
@@ -828,8 +894,16 @@ const CertificateGenerator: React.FC = () => {
             )}
           </div>
 
-          {/* ── PREVIEW / PDF (escalado para caber) ── */}
-          <div ref={frameRef} style={{ position: 'relative', width: '100%', height: frameH, overflow: 'hidden' }}>
+          {/* ── PREVIEW / PDF (escalado para caber; oculta = montada off-screen
+                a ancho real 794 para que html2canvas rasterice igual) ── */}
+          <div
+            ref={frameRef}
+            style={
+              verPreview
+                ? { position: 'relative', width: '100%', height: frameH, overflow: 'hidden' }
+                : { position: 'fixed', left: -3000, top: 0, width: 794, height: 0, overflow: 'hidden', pointerEvents: 'none' }
+            }
+          >
             <div style={{ position: 'absolute', top: 0, left: 0, width: 794, transform: `scale(${scale})`, transformOrigin: 'top left', overflow: 'hidden' }}>
               <div
                 ref={previewRef}
