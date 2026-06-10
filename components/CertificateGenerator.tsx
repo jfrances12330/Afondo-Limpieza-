@@ -40,10 +40,17 @@ const GRUPOS = [
   '🧗 Trabajos verticales',
 ];
 
-// Productos comunes a los 4 servicios de limpieza (Jorge pasará la lista detallada
-// por tipo de limpieza; mientras tanto, texto común editable).
-const PRODUCTOS_LIMPIEZA =
-  'Desengrasantes alcalinos profesionales de uso industrial aptos para superficies en contacto con instalaciones alimentarias, aplicados con útiles de cepillado y arrastre mecánico. Los residuos grasos retirados se gestionan conforme a la normativa de residuos vigente.';
+// Productos reales que usa Jaime (fotos enviadas por Jorge 2026-06-10).
+// El desengrasante va en los servicios de limpieza; la masilla de poliuretano
+// se usa para sellar en TODOS los servicios. La mención a las FDS cubre
+// inspecciones de sanidad o policía local.
+const DESENGRASANTE_PL =
+  'Desengrasante alcalino profesional DETERGRAS PL (Droguería Valiente), de gran poder desengrasante e ininflamable, indicado para planchas, hornos y sistemas de extracción de cocinas profesionales; aplicado por pulverización, inmersión o cepillado según el grado de incrustación, con aclarado posterior. Los residuos grasos retirados se gestionan conforme a la normativa vigente.';
+const MASILLA_PU =
+  'Para el sellado de registros, uniones y remates se emplea masilla de poliuretano blanca (Unecol), sellador monocomponente de curado por humedad y elasticidad permanente que garantiza la estanqueidad de las juntas tratadas.';
+const FICHAS_FDS =
+  'Se dispone de ficha técnica y ficha de datos de seguridad (FDS) de los productos utilizados, a disposición de la autoridad sanitaria o inspección competente.';
+const PRODUCTOS_LIMPIEZA = `${DESENGRASANTE_PL} ${MASILLA_PU} ${FICHAS_FDS}`;
 
 const SERVICIOS: Servicio[] = [
   {
@@ -97,7 +104,7 @@ const SERVICIOS: Servicio[] = [
     subtitulo: 'de Sustitución de Turbina',
     instalacion: 'Campana de cocina profesional cuya turbina centrífuga presentaba avería (ausencia de caudal o ruido y vibración excesivos). Comprobado que campana y conductos se encontraban en estado apto, la actuación se centra en la sustitución del grupo motor-turbina.',
     metodologia: 'Corte y bloqueo de la alimentación eléctrica, desmontaje del grupo averiado e instalación de un nuevo motor-turbina de caudal equivalente. Reconexión eléctrica, sellado de la unión al conducto y prueba de funcionamiento verificando caudal, sentido de giro y ausencia de vibraciones.',
-    productos: 'Grupo motor-turbina de sustitución con caudal acorde al dimensionado del sistema, elementos de fijación y antivibratorios, y material eléctrico y de sellado para la unión al conducto. Todos los materiales son de uso profesional y compatibles con la instalación existente.',
+    productos: `Grupo motor-turbina de sustitución con caudal acorde al dimensionado del sistema, elementos de fijación y antivibratorios, y material eléctrico de conexión. Todos los materiales son de uso profesional y compatibles con la instalación existente. ${MASILLA_PU} ${FICHAS_FDS}`,
     conclusion: 'Tras la sustitución el sistema queda operativo, restableciendo el caudal de aspiración y la correcta evacuación de humos al exterior. La instalación funciona conforme a las exigencias de ventilación del CTE DB-HS3 y a las condiciones de higiene del Reglamento (CE) 852/2004, quedando documentada la reparación a efectos de garantía y seguro.',
     footer: 'El presente documento acredita la correcta ejecución de los trabajos de sustitución del grupo motor de extracción descritos y tiene valor a efectos de justificación técnica ante compañías aseguradoras y autoridades sanitarias, en el marco del CTE DB-HS3 y del Reglamento (CE) 852/2004.',
   },
@@ -108,7 +115,7 @@ const SERVICIOS: Servicio[] = [
     subtitulo: 'de Medidas Correctoras',
     instalacion: 'Red de conductos de evacuación de humos con deficiencias de estanqueidad en uno o varios tramos, que provocaban fugas de humo y olores hacia el interior del local o zonas colindantes. Las deficiencias se corrigen mediante medidas correctoras sobre los tramos afectados.',
     metodologia: 'Inspección y localización de los puntos de fuga, reparación de uniones y sustitución de los tramos dañados, con sellado resistente a alta temperatura. Comprobación final de la estanqueidad y de la correcta evacuación de humos al exterior.',
-    productos: 'Tramos de conducto, abrazaderas y uniones, juntas y sellante resistente a alta temperatura, y material de fijación y soporte. Todos los componentes son aptos para conductos de extracción de cocina y compatibles con la instalación.',
+    productos: `Tramos de conducto, abrazaderas y uniones, juntas resistentes a alta temperatura, y material de fijación y soporte. Todos los componentes son aptos para conductos de extracción de cocina y compatibles con la instalación. ${MASILLA_PU} ${FICHAS_FDS}`,
     conclusion: 'El sistema queda estanco y evacúa correctamente al exterior, eliminando las fugas de humo y olores detectadas. Las medidas correctoras se ajustan a las exigencias de ventilación del CTE DB-HS3 y de seguridad frente a incendio del CTE DB-SI, junto con la higiene del Reglamento (CE) 852/2004.',
     footer: 'El presente documento acredita las medidas correctoras ejecutadas sobre el sistema de extracción de humos a efectos de su presentación ante la autoridad municipal y los servicios técnicos competentes, así como ante compañías aseguradoras, en cumplimiento del CTE DB-HS3, el CTE DB-SI y el Reglamento (CE) 852/2004.',
   },
@@ -119,7 +126,7 @@ const SERVICIOS: Servicio[] = [
     subtitulo: 'de Instalación de Extracción',
     instalacion: 'Instalación nueva de un sistema completo de extracción para cocina profesional, compuesto por campana con filtros, red de conductos, turbina de extracción y salida de evacuación al exterior. Dimensionado acorde a la potencia y al uso previsto de la cocina.',
     metodologia: 'Montaje de campana y red de conductos con uniones estancas, instalación de la turbina y de la salida de evacuación a cubierta o fachada, y conexionado eléctrico. Puesta en marcha con comprobación de caudal de aspiración, estanqueidad y ausencia de vibraciones.',
-    productos: 'Campana, conductos y accesorios, turbina, terminal de salida, fijaciones y antivibratorios, juntas y sellante resistente a alta temperatura, y material de conexión eléctrica. Materiales de uso profesional adecuados a la sección y temperatura de trabajo del sistema.',
+    productos: `Campana, conductos y accesorios, turbina, terminal de salida, fijaciones y antivibratorios, juntas resistentes a alta temperatura, y material de conexión eléctrica. Materiales de uso profesional adecuados a la sección y temperatura de trabajo del sistema. ${MASILLA_PU} ${FICHAS_FDS}`,
     conclusion: 'El sistema instalado queda operativo y estanco, con el caudal de aspiración verificado y la evacuación de humos resuelta al exterior. La instalación cumple las exigencias de ventilación del CTE DB-HS3, de seguridad frente a incendio del CTE DB-SI y de higiene del Reglamento (CE) 852/2004.',
     footer: 'El presente documento acredita la correcta ejecución de la instalación del sistema de extracción de humos descrito y tiene valor a efectos de justificación técnica ante compañías aseguradoras y autoridades sanitarias y municipales, en el marco del CTE DB-HS3, el CTE DB-SI y el Reglamento (CE) 852/2004.',
   },
@@ -130,7 +137,7 @@ const SERVICIOS: Servicio[] = [
     subtitulo: 'de Aislamiento Acústico',
     instalacion: 'Elementos del sistema de extracción generadores de ruido y vibraciones —principalmente la turbina y, en su caso, campana y conductos— que transmitían molestias acústicas al local y a las viviendas o locales colindantes.',
     metodologia: 'Medición del nivel sonoro inicial, instalación de soportes antivibratorios y material absorbente y, donde procede, conexiones flexibles y silenciadores en línea para reducir la transmisión por vía aérea y estructural. Medición final para verificar la reducción obtenida.',
-    productos: 'Materiales de aislamiento y absorción acústica, antivibratorios tipo silentblock y soportes elásticos, conexiones flexibles y, en su caso, silenciadores en línea. Materiales seleccionados según el rango de frecuencias y el nivel de reducción requerido.',
+    productos: `Materiales de aislamiento y absorción acústica, antivibratorios tipo silentblock y soportes elásticos, conexiones flexibles y, en su caso, silenciadores en línea. Materiales seleccionados según el rango de frecuencias y el nivel de reducción requerido. ${MASILLA_PU} ${FICHAS_FDS}`,
     conclusion: 'Se reduce de forma medible el nivel sonoro y las vibraciones transmitidas al entorno. La actuación está orientada a situar la inmisión (NAE) dentro de los límites de la normativa de contaminación acústica y de las ordenanzas municipales aplicables, debiendo verificarse con la medición reglamentaria cuando proceda.',
     footer: 'Este certificado acredita las medidas correctoras de aislamiento acústico ejecutadas y la reducción del nivel sonoro (inmisión NAE), a efectos de la normativa de contaminación acústica y las ordenanzas municipales aplicables.',
   },
@@ -141,7 +148,7 @@ const SERVICIOS: Servicio[] = [
     subtitulo: 'de Trabajos Verticales',
     instalacion: 'Conductos de evacuación situados en fachada o en altura, no accesibles por medios convencionales como andamios o plataformas. La intervención se ejecuta mediante técnicas de acceso y posicionamiento por cuerda.',
     metodologia: 'Trabajos por cuerda con doble línea independiente de trabajo y de seguridad, accediendo a los tramos en altura para reparar uniones y elementos afectados. Se restablece la estanqueidad del tramo y se comprueba la evacuación.',
-    productos: 'EPI anticaídas y equipo de acceso por cuerda (arnés, cuerdas, dispositivos y anclajes) conforme a normativa, y materiales de reparación: uniones, juntas, sellante resistente a alta temperatura y material de fijación. El equipo de seguridad se revisa antes de cada intervención.',
+    productos: `EPI anticaídas y equipo de acceso por cuerda (arnés, cuerdas, dispositivos y anclajes) conforme a normativa, y materiales de reparación: uniones, juntas resistentes a alta temperatura y material de fijación. El equipo de seguridad se revisa antes de cada intervención. ${MASILLA_PU} ${FICHAS_FDS}`,
     conclusion: 'Se restablece la estanqueidad y la correcta evacuación de humos del tramo intervenido. Los trabajos en altura se han ejecutado en condiciones de seguridad conforme al RD 2177/2004 y a la norma EN 363, recuperando las condiciones de ventilación exigidas por el CTE DB-HS3.',
     footer: 'El presente documento acredita la correcta ejecución de los trabajos en altura descritos y las medidas correctoras aplicadas al conducto, así como su realización en condiciones de seguridad conforme al RD 2177/2004 y la norma EN 363, teniendo valor a efectos de justificación ante compañías aseguradoras y autoridades municipales y sanitarias en el marco del CTE DB-HS3.',
   },
