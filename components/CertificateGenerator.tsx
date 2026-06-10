@@ -45,11 +45,11 @@ const GRUPOS = [
 // se usa para sellar en TODOS los servicios. La mención a las FDS cubre
 // inspecciones de sanidad o policía local.
 const DESENGRASANTE_PL =
-  'Desengrasante alcalino profesional DETERGRAS PL (Droguería Valiente), de gran poder desengrasante e ininflamable, indicado para planchas, hornos y sistemas de extracción de cocinas profesionales; aplicado por pulverización, inmersión o cepillado según el grado de incrustación, con aclarado posterior. Los residuos grasos retirados se gestionan conforme a la normativa vigente.';
+  'Desengrasante: DETERGRAS PL (Droguería Valiente), desengrasante alcalino profesional para planchas, hornos y sistemas de extracción.';
 const MASILLA_PU =
-  'Para el sellado de registros, uniones y remates se emplea masilla de poliuretano blanca (Unecol), sellador monocomponente de curado por humedad y elasticidad permanente que garantiza la estanqueidad de las juntas tratadas.';
+  'Sellado: Masilla de Poliuretano Blanca (Unecol, ref. 7801) — ficha del producto: unecol.com/productos/public/ver/?idp=67';
 const FICHAS_FDS =
-  'Se dispone de ficha técnica y ficha de datos de seguridad (FDS) de los productos utilizados, a disposición de la autoridad sanitaria o inspección competente.';
+  'Ficha técnica y ficha de datos de seguridad (FDS) de los productos a disposición de la autoridad sanitaria o inspección competente.';
 const PRODUCTOS_LIMPIEZA = `${DESENGRASANTE_PL} ${MASILLA_PU} ${FICHAS_FDS}`;
 
 const SERVICIOS: Servicio[] = [
