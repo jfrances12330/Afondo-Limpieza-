@@ -423,6 +423,24 @@ const CertificateGenerator: React.FC = () => {
               frame.style.overflow = 'visible';
             }
           }
+          // html2canvas 1.4.1 pinta cada linear-gradient en un canvas temporal cuyo
+          // tamaño es el float CSS del elemento: si queda entre 0 y 1px, `canvas.width`
+          // se trunca a 0 pero pasa el guard interno `width > 0` y createPattern lanza
+          // "width or height of 0" (bug upstream #2775). Saneamos el clon: gradientes en
+          // elementos sub-píxel fuera, y elementos reemplazados de tamaño 0 ocultos.
+          if (cloned) {
+            const win = doc.defaultView || window;
+            cloned.querySelectorAll<HTMLElement>('*').forEach((el) => {
+              const r = el.getBoundingClientRect();
+              if (r.width < 1 || r.height < 1) {
+                const bg = win.getComputedStyle(el).backgroundImage;
+                if (bg && bg !== 'none') el.style.backgroundImage = 'none';
+                if (el instanceof win.HTMLImageElement || el instanceof win.HTMLCanvasElement || el.tagName.toLowerCase() === 'svg') {
+                  el.style.display = 'none';
+                }
+              }
+            });
+          }
         },
       });
       if (!canvas.width || !canvas.height) {
