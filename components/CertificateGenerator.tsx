@@ -206,6 +206,7 @@ const CertificateGenerator: React.FC = () => {
   const [fecha, setFecha] = useState(HOY);
   const [cliente, setCliente] = useState('');
   const [direccionCliente, setDireccionCliente] = useState('');
+  const [nifCliente, setNifCliente] = useState('');
   const [actividad, setActividad] = useState('');
   const [instalacion, setInstalacion] = useState(
     'Sistema de extracción de humos compuesto por campana mural, conductos y turbina de extracción. Filtros tipo malla metálica.'
@@ -255,7 +256,7 @@ const CertificateGenerator: React.FC = () => {
   useEffect(() => {
     setPdfBlob(null);
     setAviso('');
-  }, [fotos, nInforme, fecha, cliente, direccionCliente, actividad, instalacion, metodologia, productos, conclusion, validez, factura, subtituloDoc, footerTexto]);
+  }, [fotos, nInforme, fecha, cliente, direccionCliente, nifCliente, actividad, instalacion, metodologia, productos, conclusion, validez, factura, subtituloDoc, footerTexto]);
 
   const previewRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -284,7 +285,7 @@ const CertificateGenerator: React.FC = () => {
       ro.disconnect();
       window.removeEventListener('resize', recompute);
     };
-  }, [fotos, instalacion, metodologia, productos, conclusion, cliente, direccionCliente, actividad, validez, factura, unlocked]);
+  }, [fotos, instalacion, metodologia, productos, conclusion, cliente, direccionCliente, nifCliente, actividad, validez, factura, unlocked]);
 
   const tryUnlock = () => {
     if (codigo.trim() === ACCESS_CODE) {
@@ -801,6 +802,9 @@ const CertificateGenerator: React.FC = () => {
             <label style={label}>Dirección del establecimiento</label>
             <input style={input} value={direccionCliente} onChange={(e) => setDireccionCliente(e.target.value)} placeholder="C/ ..., Alicante" />
 
+            <label style={label}>NIF / CIF</label>
+            <input style={input} value={nifCliente} onChange={(e) => setNifCliente(e.target.value)} placeholder="B12345678" />
+
             <label style={label}>Actividad (opcional)</label>
             <input style={input} value={actividad} onChange={(e) => setActividad(e.target.value)} placeholder="Restaurante / cocina industrial" />
 
@@ -1030,6 +1034,7 @@ const CertificateGenerator: React.FC = () => {
                     <div style={{ background: 'linear-gradient(135deg, rgba(106,101,227,0.07), rgba(106,101,227,0.02))', border: '1px solid rgba(106,101,227,0.18)', borderRadius: 12, padding: '12px 16px' }}>
                       <div style={{ fontSize: 16, fontWeight: 800, color: INK }}>{cliente || '—'}</div>
                       {direccionCliente && <div style={{ marginTop: 2 }}>{direccionCliente}</div>}
+                      {nifCliente && <div style={{ marginTop: 2 }}>NIF/CIF: {nifCliente}</div>}
                       {actividad && <div style={{ color: '#64748b', marginTop: 2 }}>{actividad}</div>}
                     </div>
                   </Bloque>
