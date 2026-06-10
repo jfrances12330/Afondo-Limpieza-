@@ -340,25 +340,10 @@ const CertificateGenerator: React.FC = () => {
 
   const colsFotos = (num: number) => (num <= 2 ? 2 : num <= 4 ? 2 : num <= 6 ? 3 : 4);
 
-  // Entrega el PDF al usuario. En móvil (iOS/Android) usa la hoja nativa de
-  // compartir → "Guardar en Archivos" / WhatsApp. En escritorio descarga directa.
-  // jsPDF.save() por sí solo en iOS Safari abre el visor pero NO descarga el archivo.
-  const deliver = async (blob: Blob, name: string): Promise<'shared' | 'downloaded' | 'cancelled'> => {
-    const file = new File([blob], name, { type: 'application/pdf' });
-    const nav = navigator as Navigator & {
-      canShare?: (data?: { files?: File[] }) => boolean;
-      share?: (data: { files?: File[]; title?: string }) => Promise<void>;
-    };
-    if (nav.canShare && nav.share && nav.canShare({ files: [file] })) {
-      try {
-        await nav.share({ files: [file], title: name });
-        return 'shared';
-      } catch (e) {
-        // Si el usuario cancela la hoja de compartir, no forzamos descarga
-        if (e instanceof Error && e.name === 'AbortError') return 'cancelled';
-        // Cualquier otro fallo (p.ej. gesto caducado en iOS) → caemos a descarga
-      }
-    }
+  // Descarga directa: ancla con `download` → el navegador lo deja en su carpeta
+  // de Descargas, sin hoja de compartir por medio. (jsPDF.save() por sí solo en
+  // iOS Safari abre el visor pero NO descarga; el ancla sí funciona.)
+  const descargarPDF = (blob: Blob, name: string) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -370,7 +355,29 @@ const CertificateGenerator: React.FC = () => {
       a.remove();
       URL.revokeObjectURL(url);
     }, 4000);
-    return 'downloaded';
+  };
+
+  // Compartir: hoja nativa del sistema con el PDF adjunto — ahí se elige WhatsApp.
+  // La web no puede abrir WhatsApp directamente con un archivo (wa.me solo admite
+  // texto), así que la hoja del sistema es el camino más corto posible.
+  const compartirPDF = async (blob: Blob, name: string) => {
+    const file = new File([blob], name, { type: 'application/pdf' });
+    const nav = navigator as Navigator & {
+      canShare?: (data?: { files?: File[] }) => boolean;
+      share?: (data: { files?: File[]; title?: string }) => Promise<void>;
+    };
+    if (nav.canShare && nav.share && nav.canShare({ files: [file] })) {
+      try {
+        await nav.share({ files: [file], title: name });
+        return;
+      } catch (e) {
+        // Si el usuario cancela la hoja de compartir, no hacemos nada más
+        if (e instanceof Error && e.name === 'AbortError') return;
+        // Cualquier otro fallo (p.ej. gesto caducado en iOS) → caemos a descarga
+      }
+    }
+    descargarPDF(blob, name);
+    setAviso('Este navegador no permite compartir directo: el PDF se ha descargado — adjúntalo en WhatsApp desde Descargas.');
   };
 
   const generarPDF = async () => {
@@ -506,10 +513,8 @@ const CertificateGenerator: React.FC = () => {
       const blob = pdf.output('blob');
       setPdfBlob(blob);
       setPdfName(name);
-      const res = await deliver(blob, name);
-      if (res !== 'shared') {
-        setAviso('Si no se ha guardado solo, pulsa “Guardar / Compartir PDF”.');
-      }
+      descargarPDF(blob, name);
+      setAviso('PDF descargado. Para enviarlo por WhatsApp, pulsa «Compartir PDF».');
     } catch (err) {
       const motivo = err instanceof Error && err.message ? `\n\nMotivo: ${err.message}` : '';
       alert(`No se pudo generar el PDF. Inténtalo de nuevo.${motivo}`);
@@ -898,7 +903,7 @@ const CertificateGenerator: React.FC = () => {
 
             {pdfBlob && (
               <button
-                onClick={() => deliver(pdfBlob, pdfName)}
+                onClick={() => compartirPDF(pdfBlob, pdfName)}
                 style={{
                   width: '100%',
                   marginTop: 12,
@@ -913,7 +918,7 @@ const CertificateGenerator: React.FC = () => {
                   boxShadow: '0 8px 20px rgba(22,163,74,.30)',
                 }}
               >
-                Guardar / Compartir PDF
+                📲 Compartir PDF (WhatsApp)
               </button>
             )}
             {aviso && (
