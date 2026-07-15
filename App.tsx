@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ProblemSection from './components/ProblemSection';
@@ -12,25 +13,25 @@ import ContactPage from './components/ContactPage';
 import Footer from './components/Footer';
 import CookieBanner from './components/CookieBanner';
 import Calculadora from './components/Calculadora';
-import AvisoLegal from './components/legal/AvisoLegal';
-import Privacidad from './components/legal/Privacidad';
-import Cookies from './components/legal/Cookies';
-import Breadcrumbs from './components/Breadcrumbs';
 import FAQSection from './components/FAQSection';
+// Legales (AvisoLegal / Privacidad / Cookies) migradas a rutas propias en index.tsx desde Tanda 1.
 // TestimonialsSection desactivado en tanda 0 (testimonios inventados). Reintroducir con reseñas REALES.
 
-type View = 'home' | 'aviso-legal' | 'privacidad' | 'cookies' | 'calculadora' | 'contacto';
+// Sub-vistas que siguen viviendo dentro de "/" como estado interno (no tienen ruta propia
+// todavía — decisión Tanda 1, punto 3 del OK de Jorge).
+type SubView = 'home' | 'calculadora' | 'contacto';
 
 const App: React.FC = () => {
+  const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [currentView, setCurrentView] = useState<View>('home');
+  const [currentView, setCurrentView] = useState<SubView>('home');
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
     document.documentElement.classList.toggle('dark');
   };
 
-  const navigateTo = (view: View) => {
+  const navigateTo = (view: SubView) => {
     setCurrentView(view);
     window.scrollTo(0, 0);
   };
@@ -52,12 +53,6 @@ const App: React.FC = () => {
 
   const renderContent = () => {
     switch (currentView) {
-      case 'aviso-legal':
-        return <AvisoLegal onBack={() => navigateTo('home')} />;
-      case 'privacidad':
-        return <Privacidad onBack={() => navigateTo('home')} />;
-      case 'cookies':
-        return <Cookies onBack={() => navigateTo('home')} />;
       case 'calculadora':
         return <Calculadora onBack={() => navigateTo('home')} />;
       case 'contacto':
@@ -128,9 +123,9 @@ const App: React.FC = () => {
         {renderContent()}
       </main>
 
-      <Footer onNavigate={navigateTo} />
+      <Footer onNavigateLegal={(path) => navigate(path)} />
 
-      <CookieBanner onManage={() => navigateTo('cookies')} />
+      <CookieBanner onManage={() => navigate('/cookies')} />
 
       <a
         href={whatsappUrl}

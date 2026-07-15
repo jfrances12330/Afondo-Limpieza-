@@ -1,11 +1,14 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface FooterProps {
-  onNavigate: (view: 'home' | 'aviso-legal' | 'privacidad' | 'cookies') => void;
+  // Legacy: se conserva por si algún futuro llamador de fuera lo usara para navegar a home.
+  // En la árbol actual (App.tsx) Footer solo usa <Link> para las rutas legales.
+  onNavigateLegal?: (path: string) => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+const Footer: React.FC<FooterProps> = () => {
   const email = "hola@afondolimpiezadecampanas.com";
   const schemaData = {
     "@context": "https://schema.org",
@@ -31,12 +34,24 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       "longitude": -0.5215
     },
     "areaServed": [
+      // Cobertura Tanda 1: UNIÓN de las que ya posicionaban + las 10 canónicas del brief.
+      // Se conservan todas las existentes (por SEO ya ganado) y se alinea con LocationSection.
       { "@type": "City", "name": "Alicante" },
-      { "@type": "City", "name": "San Vicente del Raspeig" },
-      { "@type": "City", "name": "Elche" },
-      { "@type": "City", "name": "Santa Pola" },
+      { "@type": "City", "name": "Alcoy" },
+      { "@type": "City", "name": "Altea" },
+      { "@type": "City", "name": "Benidorm" },
+      { "@type": "City", "name": "Dénia" },
       { "@type": "City", "name": "El Campello" },
-      { "@type": "City", "name": "Torrevieja" }
+      { "@type": "City", "name": "Elche" },
+      { "@type": "City", "name": "Elda" },
+      { "@type": "City", "name": "Guardamar" },
+      { "@type": "City", "name": "Jávea" },
+      { "@type": "City", "name": "Orihuela" },
+      { "@type": "City", "name": "San Vicente del Raspeig" },
+      { "@type": "City", "name": "Santa Pola" },
+      { "@type": "City", "name": "Torrevieja" },
+      { "@type": "City", "name": "Villajoyosa" },
+      { "@type": "AdministrativeArea", "name": "Provincia de Alicante" }
     ],
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
@@ -61,7 +76,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-12">
           <div className="max-w-sm">
-            <button onClick={() => onNavigate('home')} className="flex items-center gap-3 text-left focus:outline-none mb-6">
+            <Link to="/" className="flex items-center gap-3 text-left focus:outline-none mb-6">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white">
                 <span className="material-symbols-outlined text-2xl font-bold">cleaning_services</span>
               </div>
@@ -69,7 +84,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <span className="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight uppercase">Afondo</span>
                 <span className="text-slate-500 dark:text-slate-400 text-xs font-normal">Higiene Industrial</span>
               </div>
-            </button>
+            </Link>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
               Especialistas en higiene industrial y seguridad contra incendios en cocinas profesionales en la provincia de Alicante.
             </p>
@@ -78,13 +93,13 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 min-w-0">
             <div className="flex flex-col gap-4 min-w-[180px]">
               <span className="text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest">Legal</span>
-              <button onClick={() => onNavigate('aviso-legal')} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Aviso Legal</button>
-              <button onClick={() => onNavigate('privacidad')} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Privacidad</button>
-              <button onClick={() => onNavigate('cookies')} className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Cookies</button>
-              <a href="#/certificado" title="Zona privada — acceso técnicos" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left flex items-center gap-1.5">
+              <Link to="/aviso-legal" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Aviso Legal</Link>
+              <Link to="/privacidad" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Privacidad</Link>
+              <Link to="/cookies" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Cookies</Link>
+              <Link to="/certificado" title="Zona privada — acceso técnicos" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-base">lock</span>
                 Zona privada
-              </a>
+              </Link>
             </div>
             <div className="flex flex-col gap-4 min-w-0">
               <span className="text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest">Contacto</span>
