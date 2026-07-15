@@ -17,7 +17,7 @@ import Privacidad from './components/legal/Privacidad';
 import Cookies from './components/legal/Cookies';
 import Breadcrumbs from './components/Breadcrumbs';
 import FAQSection from './components/FAQSection';
-import TestimonialsSection from './components/TestimonialsSection';
+// TestimonialsSection desactivado en tanda 0 (testimonios inventados). Reintroducir con reseñas REALES.
 
 type View = 'home' | 'aviso-legal' | 'privacidad' | 'cookies' | 'calculadora' | 'contacto';
 
@@ -97,9 +97,7 @@ const App: React.FC = () => {
                 </button>
               </div>
             </section>
-            <div id="testimonios">
-              <TestimonialsSection />
-            </div>
+            {/* Sección testimonios desactivada en tanda 0 — reintroducir con reseñas reales de Google Business */}
             <div id="faq">
               <FAQSection />
             </div>
