@@ -2,10 +2,12 @@
 import React from 'react';
 
 const LocationSection: React.FC = () => {
+  // Cobertura Tanda 1: UNIÓN de las que ya posicionaban + las 10 canónicas del brief.
+  // Se conservan todas las existentes (por SEO ya ganado) y se añaden Altea, Guardamar y Jávea.
   const locations = [
-    "Alicante Capital", "Elche", "Benidorm", "Torrevieja", 
-    "Orihuela", "Alcoy", "Elda", "Dénia", 
-    "San Vicente del Raspeig", "Santa Pola", "Villajoyosa"
+    "Alicante Capital", "Alcoy", "Altea", "Benidorm", "Dénia",
+    "Elche", "Elda", "Guardamar", "Jávea", "Orihuela",
+    "San Vicente del Raspeig", "Santa Pola", "Torrevieja", "Villajoyosa"
   ];
 
   return (
