@@ -21,7 +21,7 @@ const ProblemSection: React.FC = () => {
     },
     {
       title: "Garantía ante Inspecciones",
-      description: "Entregamos un Certificado de Limpieza Oficial válido para presentar ante Sanidad, auditorías de calidad y compañías de seguros.",
+      description: "Entregamos un informe técnico de limpieza (soporte documental ante Sanidad, auditorías de calidad y compañías de seguros).",
       icon: "description",
       status: "Certificación",
       statusIcon: "verified",

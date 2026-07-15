@@ -189,7 +189,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
     doc.setFontSize(8);
     doc.setFont("helvetica", "italic");
     doc.text("* Este documento es una estimación sujeta a validación física por técnicos de AFONDO.", 20, 280);
-    doc.text("* Incluye Certificado de Higienización oficial para Sanidad y Seguros.", 20, 285);
+    doc.text("* Incluye Informe técnico de higienización — soporte documental ante Sanidad y Seguros.", 20, 285);
 
     doc.save(`Presupuesto_Afondo_${budgetRef}.pdf`);
   };

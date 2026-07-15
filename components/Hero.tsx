@@ -82,7 +82,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
             <div className="flex h-10 w-10 md:h-14 md:w-14 items-center justify-center rounded-xl md:rounded-2xl bg-primary/20 text-primary border border-primary/30 shrink-0">
               <span className="material-symbols-outlined text-2xl md:text-3xl">verified</span>
             </div>
-            <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest text-left leading-tight">Certificado <br className="hidden md:block" /> Oficial UNE</span>
+            <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest text-left leading-tight">Certificado <br className="hidden md:block" /> técnico UNE</span>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex h-10 w-10 md:h-14 md:w-14 items-center justify-center rounded-xl md:rounded-2xl bg-orange-500/20 text-orange-400 border border-orange-500/30 shrink-0">

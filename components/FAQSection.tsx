@@ -9,7 +9,7 @@ const FAQSection: React.FC = () => {
         },
         {
             question: "¿Qué normativa regula la limpieza de campanas extractoras?",
-            answer: "La normativa UNE 100165 establece los requisitos de limpieza para sistemas de extracción de cocinas. Además, el CTE DB-SI (Código Técnico de la Edificación) exige mantenimiento periódico para prevenir incendios. Entregamos certificado oficial válido para Sanidad y Seguros."
+            answer: "La normativa UNE 100165 establece los requisitos de limpieza para sistemas de extracción de cocinas. Además, el CTE DB-SI (Código Técnico de la Edificación) exige mantenimiento periódico para prevenir incendios. Entregamos informe técnico de limpieza, soporte documental ante Sanidad y Seguros."
         },
         {
             question: "¿Cada cuánto tiempo debo limpiar mi campana extractora?",
@@ -17,7 +17,7 @@ const FAQSection: React.FC = () => {
         },
         {
             question: "¿Qué incluye el servicio de limpieza de campanas?",
-            answer: "Limpieza completa de campana, filtros, plenum y conductos accesibles. Desengrasado con productos profesionales, limpieza de turbina si se contrata, y entrega de Certificado UNE 100165 oficial. Todo listo para inspecciones."
+            answer: "Limpieza completa de campana, filtros, plenum y conductos accesibles. Desengrasado con productos profesionales, limpieza de turbina si se contrata, y entrega de Certificado técnico según UNE 100165. Todo listo para inspecciones."
         },
         {
             question: "¿Trabajan en toda la provincia de Alicante?",

@@ -157,7 +157,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                   Servicio Autorizado
                 </h3>
                 <p className="text-white/70 text-sm leading-relaxed font-medium">
-                  Empresa líder en desengrase técnico en la CV. Emitimos <strong className="text-white">certificados oficiales</strong> de limpieza técnica válidos para Sanidad y auditorías.
+                  Empresa líder en desengrase técnico en la CV. Emitimos <strong className="text-white">informes técnicos</strong> de limpieza como soporte documental ante Sanidad y auditorías.
                 </p>
               </div>
             </div>
