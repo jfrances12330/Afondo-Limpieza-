@@ -107,37 +107,10 @@
       rel="stylesheet" />
   </noscript>
 
-  <!-- Tailwind CDN - Async loading -->
-  <script>
-    (function () { var s = document.createElement('script'); s.src = 'https://cdn.tailwindcss.com'; s.async = true; document.head.appendChild(s); })();
-  </script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            primary: {
-              DEFAULT: '#6A65E3',
-              dark: '#5950CC'
-            }
-          },
-          fontFamily: {
-            sans: ['"Public Sans"', 'system-ui', '-apple-system', 'sans-serif']
-          },
-          fontWeight: {
-            'light': '400',
-            'normal': '400',
-            'medium': '400',
-            'semibold': '700',
-            'bold': '700',
-            'extrabold': '900',
-            'black': '900'
-          }
-        }
-      }
-    }
-  </script>
+  <!-- Tailwind: se genera 100% desde el build local (tailwind.config.js).
+       El CDN cdn.tailwindcss.com y la config inline se retiraron en Tanda 1 (unidad 6)
+       para eliminar el doble Tailwind y la doble definición de primary (CDN #6A65E3 vs
+       build #1a1aff). El color visible en producción era #1a1aff → se conserva. -->
 
   <script type="importmap">
     {
