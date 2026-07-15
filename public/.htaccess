@@ -54,3 +54,19 @@
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
 </IfModule>
+
+# ─────────────────────────────────────────────────────────────
+# SPA fallback + prerender-aware routing (Tanda 1)
+# Regla: si el request corresponde a un fichero o directorio existente
+# (asset, dist/<ruta>/index.html prerenderizado, /llms.txt, /sitemap.xml…),
+# se sirve tal cual. Cualquier otra ruta cae a /index.html (home) y el
+# router del cliente decide (incluyendo el <Route path="*" element={<Navigate to="/" />}>).
+# NADA de redirects de dominio/https: eso lo gestiona Hostinger.
+# ─────────────────────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule ^ /index.html [L]
+</IfModule>
