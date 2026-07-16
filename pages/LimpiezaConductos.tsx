@@ -15,38 +15,21 @@ import CookieBanner from '../components/CookieBanner';
 const HERO_IMG =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuBMJSp4bqbkiqdVdN-PE_YlaJHONjVHgCTgeIXkj1gDryN2gS3yVKhMWd8rQ-wKLVQ4xYbfqvVfZa34T4DjHfyMCn2vV8GvNtQSKLXYyPx7EmA8Oy2Hg9n6d1DBEyS2TwgIdhDjtimS7341ch-8c49zOmtcjuaf5Qz5j9iOUJgyuzUNg1njEOzUR_eAtzJgF9T0pMlKdwXtuFatTM2zml4jJIIMhl3OnRe4mA0RjVHuZY7a4Dz9dI8qggimQ8jintFWvzpKCEgcAzM";
 
-// ─── Scroll reveal ──────────────────────────────────────────────────────────
-// Al montar: si el elemento YA está en viewport, se marca visible inmediatamente
-// (evita "flash" en above-the-fold y bugs de headless / velocidad muy alta).
-const useInView = <T extends HTMLElement>() => {
-  const ref = useRef<T | null>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    if (!ref.current || inView) return;
-    // Check inicial: si ya está visible en el primer render, dispara ya.
-    const rect = ref.current.getBoundingClientRect();
-    const inViewportInitial = rect.top < window.innerHeight && rect.bottom > 0;
-    if (inViewportInitial) {
-      requestAnimationFrame(() => setInView(true));
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) { setInView(true); io.disconnect(); } }),
-      { threshold: 0.15 },
-    );
-    io.observe(ref.current);
-    return () => io.disconnect();
-  }, [inView]);
-  return { ref, inView };
-};
-
+// ─── Reveal ─────────────────────────────────────────────────────────────────
+// Siempre visible desde el arranque (opacity-100). El "reveal" se hace con una
+// animación CSS pura que arranca al mount, así el contenido nunca queda oculto
+// por bugs de IntersectionObserver / render lento / headless. Delay opcional
+// para efecto staggered.
 type RevealProps = PropsWithChildren<{ delay?: number; className?: string }>;
 const Reveal: React.FC<RevealProps> = ({ children, delay = 0, className = '' }) => {
-  const { ref, inView } = useInView<HTMLDivElement>();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 20);
+    return () => clearTimeout(t);
+  }, []);
   return (
     <div
-      ref={ref}
-      className={`transition-all duration-700 ease-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
+      className={`transition-all duration-700 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
