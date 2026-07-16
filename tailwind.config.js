@@ -6,6 +6,9 @@ export default {
     "./index.tsx",
     "./App.tsx",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./routes.meta.ts",
+    "./data/**/*.{js,ts}",
     "./src/**/*.{js,ts,jsx,tsx}"
   ],
   darkMode: 'class',
