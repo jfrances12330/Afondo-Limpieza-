@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface ServicesSectionProps {
   onNavigateCalculadora: () => void;
@@ -23,7 +24,12 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
       items: ["Cepillado neumático robotizado", "Apertura de registros estancos", "Eliminación de riesgos ocultos"],
       icon: "hvac",
       img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBMJSp4bqbkiqdVdN-PE_YlaJHONjVHgCTgeIXkj1gDryN2gS3yVKhMWd8rQ-wKLVQ4xYbfqvVfZa34T4DjHfyMCn2vV8GvNtQSKLXYyPx7EmA8Oy2Hg9n6d1DBEyS2TwgIdhDjtimS7341ch-8c49zOmtcjuaf5Qz5j9iOUJgyuzUNg1njEOzUR_eAtzJgF9T0pMlKdwXtuFatTM2zml4jJIIMhl3OnRe4mA0RjVHuZY7a4Dz9dI8qggimQ8jintFWvzpKCEgcAzM",
-      alt: "Limpieza técnica de conductos de extracción de humos bajo normativa UNE 100165"
+      alt: "Limpieza técnica de conductos de extracción de humos bajo normativa UNE 100165",
+      // Tanda 2 · Unidad 3.1: anchor SEO hacia la landing nueva de conductos.
+      // Segundo anchor del brief ("desengrase interior de conductos") DIFERIDO —
+      // no encaja natural en el copy actual sin reescribir frases; se activará al
+      // rediseñar la descripción en tanda de contenido.
+      landing: { href: "/limpieza-conductos-extraccion-alicante", anchor: "limpieza de conductos de extracción en Alicante" },
     },
     {
       title: "Mantenimiento de Turbinas",
@@ -66,9 +72,16 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
                   <span className="material-symbols-outlined text-primary text-2xl" aria-hidden="true">{service.icon}</span>
                   <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{service.title}</h3>
                 </div>
-                <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 mb-2 text-sm leading-relaxed">
                   {service.description}
                 </p>
+                {(service as any).landing && (
+                  <p className="mb-6 text-sm">
+                    <Link to={(service as any).landing.href} className="text-primary hover:underline font-semibold">
+                      {(service as any).landing.anchor} →
+                    </Link>
+                  </p>
+                )}
                 <ul className="space-y-3 mb-8 flex-1">
                   {service.items.map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
