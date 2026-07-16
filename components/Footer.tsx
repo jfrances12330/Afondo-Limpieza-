@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { areaServedSchema } from '../data/cobertura';
 
 interface FooterProps {
   // Legacy: se conserva por si algún futuro llamador de fuera lo usara para navegar a home.
@@ -33,26 +34,8 @@ const Footer: React.FC<FooterProps> = () => {
       "latitude": 38.3976,
       "longitude": -0.5215
     },
-    "areaServed": [
-      // Cobertura Tanda 1: UNIÓN de las que ya posicionaban + las 10 canónicas del brief.
-      // Se conservan todas las existentes (por SEO ya ganado) y se alinea con LocationSection.
-      { "@type": "City", "name": "Alicante" },
-      { "@type": "City", "name": "Alcoy" },
-      { "@type": "City", "name": "Altea" },
-      { "@type": "City", "name": "Benidorm" },
-      { "@type": "City", "name": "Dénia" },
-      { "@type": "City", "name": "El Campello" },
-      { "@type": "City", "name": "Elche" },
-      { "@type": "City", "name": "Elda" },
-      { "@type": "City", "name": "Guardamar" },
-      { "@type": "City", "name": "Jávea" },
-      { "@type": "City", "name": "Orihuela" },
-      { "@type": "City", "name": "San Vicente del Raspeig" },
-      { "@type": "City", "name": "Santa Pola" },
-      { "@type": "City", "name": "Torrevieja" },
-      { "@type": "City", "name": "Villajoyosa" },
-      { "@type": "AdministrativeArea", "name": "Provincia de Alicante" }
-    ],
+    // Cobertura desde constante única data/cobertura.ts (Tanda 2, unidad 6).
+    "areaServed": areaServedSchema(),
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": [
@@ -90,7 +73,13 @@ const Footer: React.FC<FooterProps> = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 min-w-0">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 min-w-0">
+            <div className="flex flex-col gap-4 min-w-[180px]">
+              <span className="text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest">Servicios</span>
+              <Link to="/" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Limpieza de campanas</Link>
+              <Link to="/limpieza-conductos-extraccion-alicante" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Limpieza de conductos</Link>
+              {/* TODO tanda 3-5: añadir aquí Certificado, Instalación, Servicio técnico */}
+            </div>
             <div className="flex flex-col gap-4 min-w-[180px]">
               <span className="text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest">Legal</span>
               <Link to="/aviso-legal" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Aviso Legal</Link>

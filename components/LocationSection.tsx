@@ -1,14 +1,12 @@
 
 import React from 'react';
+import { CIUDADES } from '../data/cobertura';
 
 const LocationSection: React.FC = () => {
-  // Cobertura Tanda 1: UNIÓN de las que ya posicionaban + las 10 canónicas del brief.
-  // Se conservan todas las existentes (por SEO ya ganado) y se añaden Altea, Guardamar y Jávea.
-  const locations = [
-    "Alicante Capital", "Alcoy", "Altea", "Benidorm", "Dénia",
-    "Elche", "Elda", "Guardamar", "Jávea", "Orihuela",
-    "San Vicente del Raspeig", "Santa Pola", "Torrevieja", "Villajoyosa"
-  ];
+  // Fuente única de verdad: data/cobertura.ts (Tanda 2, unidad 6).
+  // Cambio visual vs versión anterior: "Alicante Capital" pasa a "Alicante" para
+  // unificar el display con la constante y el schema. Sin otras diferencias.
+  const locations = CIUDADES.map((c) => c.name);
 
   return (
     <section className="bg-white dark:bg-slate-900 py-24">
@@ -19,7 +17,7 @@ const LocationSection: React.FC = () => {
         <p className="text-slate-500 dark:text-slate-400 text-lg mb-16 max-w-2xl mx-auto">
           Servicio rápido de urgencia 24h para hostelería. Llegamos a cualquier cocina industrial de la provincia sin costes extra de desplazamiento.
         </p>
-        
+
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
           {locations.map((location, idx) => (
             <div key={idx} className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 p-4 rounded-2xl flex items-center justify-center gap-2 hover:border-primary/50 transition-colors group">

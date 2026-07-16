@@ -21,7 +21,7 @@ const FAQSection: React.FC = () => {
         },
         {
             question: "¿Trabajan en toda la provincia de Alicante?",
-            answer: "Sí, atendemos Alicante capital, San Vicente del Raspeig, Elche, Benidorm, Altea, Calpe, Santa Pola, El Campello, Torrevieja y toda la provincia. Servicio a domicilio sin coste adicional en zona metropolitana."
+            answer: "Sí, atendemos en Alicante, Elche, Benidorm, Torrevieja y en general toda la provincia de Alicante. Servicio a domicilio sin coste adicional en zona metropolitana."
         },
         {
             question: "¿Cuánto tiempo tarda el servicio de limpieza?",
