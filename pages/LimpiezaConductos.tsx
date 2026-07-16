@@ -16,11 +16,20 @@ const HERO_IMG =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuBMJSp4bqbkiqdVdN-PE_YlaJHONjVHgCTgeIXkj1gDryN2gS3yVKhMWd8rQ-wKLVQ4xYbfqvVfZa34T4DjHfyMCn2vV8GvNtQSKLXYyPx7EmA8Oy2Hg9n6d1DBEyS2TwgIdhDjtimS7341ch-8c49zOmtcjuaf5Qz5j9iOUJgyuzUNg1njEOzUR_eAtzJgF9T0pMlKdwXtuFatTM2zml4jJIIMhl3OnRe4mA0RjVHuZY7a4Dz9dI8qggimQ8jintFWvzpKCEgcAzM";
 
 // ─── Scroll reveal ──────────────────────────────────────────────────────────
+// Al montar: si el elemento YA está en viewport, se marca visible inmediatamente
+// (evita "flash" en above-the-fold y bugs de headless / velocidad muy alta).
 const useInView = <T extends HTMLElement>() => {
   const ref = useRef<T | null>(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
     if (!ref.current || inView) return;
+    // Check inicial: si ya está visible en el primer render, dispara ya.
+    const rect = ref.current.getBoundingClientRect();
+    const inViewportInitial = rect.top < window.innerHeight && rect.bottom > 0;
+    if (inViewportInitial) {
+      requestAnimationFrame(() => setInView(true));
+      return;
+    }
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) { setInView(true); io.disconnect(); } }),
       { threshold: 0.15 },
@@ -170,9 +179,9 @@ const LimpiezaConductos: React.FC = () => {
         {/* ═══ HERO ═══ */}
         <section className="relative flex min-h-screen w-full flex-col justify-center items-center overflow-hidden bg-slate-950">
           <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110" style={{ backgroundImage: `url("${HERO_IMG}")` }} aria-hidden="true" />
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-950/80 to-slate-950" aria-hidden="true"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-transparent to-slate-950/60" aria-hidden="true"></div>
+            <div className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110 opacity-70" style={{ backgroundImage: `url("${HERO_IMG}")` }} aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/50 to-slate-950" aria-hidden="true"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/60 via-transparent to-slate-950/60" aria-hidden="true"></div>
             <Orb className="bg-primary/40 w-[600px] h-[600px] -top-40 -left-40 animate-pulse" />
             <Orb className="bg-orange-500/20 w-[500px] h-[500px] bottom-0 -right-40" />
             <GridPattern />
