@@ -101,7 +101,17 @@ function prerenderHeads(): Plugin {
           html = html.replace(/<script[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>\s*/gi, '');
         }
 
-        // 6) Escribir dist/<path>/index.html
+        // 6) Inyectar JSON-LD si la ruta trae uno (schema.org). Se inserta ANTES
+        //    del cierre de </head> para que aparezca dentro del <head> del HTML servido.
+        if (r.jsonLd) {
+          const ld = JSON.stringify(r.jsonLd);
+          html = html.replace(
+            /<\/head>/i,
+            `  <script type="application/ld+json">${ld}</script>\n</head>`
+          );
+        }
+
+        // 7) Escribir dist/<path>/index.html
         const outDir = path.join(distDir, r.path.replace(/^\//, ''));
         fs.mkdirSync(outDir, { recursive: true });
         fs.writeFileSync(path.join(outDir, 'index.html'), html, 'utf8');
