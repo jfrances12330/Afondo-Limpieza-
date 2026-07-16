@@ -9,6 +9,9 @@ const CertificateGenerator = lazy(() => import('./components/CertificateGenerato
 const AvisoLegal = lazy(() => import('./components/legal/AvisoLegal'));
 const Privacidad = lazy(() => import('./components/legal/Privacidad'));
 const Cookies = lazy(() => import('./components/legal/Cookies'));
+const Calculadora = lazy(() => import('./components/Calculadora'));
+const ContactPage = lazy(() => import('./components/ContactPage'));
+const LimpiezaConductos = lazy(() => import('./pages/LimpiezaConductos'));
 
 // Compatibilidad con URLs con hash previas (#/certificado, #/aviso-legal, etc.)
 // Al montar, si la URL trae hash tipo "#/algo", redirige a "/algo" preservando historial.
@@ -23,8 +26,9 @@ const HashRedirect: React.FC = () => {
   return null;
 };
 
-// Wrapper simple para las páginas legales: al usuario le pasamos onBack que navega a "/".
-const LegalPage: React.FC<{ Page: React.ComponentType<{ onBack: () => void }> }> = ({ Page }) => {
+// Wrapper genérico para páginas cuyo prop `onBack` era el navigateTo interno:
+// al pasar a ruta propia, "atrás" navega a "/" con react-router.
+const RoutedBack: React.FC<{ Page: React.ComponentType<{ onBack: () => void }> }> = ({ Page }) => {
   const navigate = useNavigate();
   return <Page onBack={() => navigate('/')} />;
 };
@@ -40,9 +44,12 @@ const Root: React.FC = () => (
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/certificado" element={<CertificateGenerator />} />
-        <Route path="/aviso-legal" element={<LegalPage Page={AvisoLegal} />} />
-        <Route path="/privacidad" element={<LegalPage Page={Privacidad} />} />
-        <Route path="/cookies" element={<LegalPage Page={Cookies} />} />
+        <Route path="/aviso-legal" element={<RoutedBack Page={AvisoLegal} />} />
+        <Route path="/privacidad" element={<RoutedBack Page={Privacidad} />} />
+        <Route path="/cookies" element={<RoutedBack Page={Cookies} />} />
+        <Route path="/calculadora" element={<RoutedBack Page={Calculadora} />} />
+        <Route path="/contacto" element={<RoutedBack Page={ContactPage} />} />
+        <Route path="/limpieza-conductos-extraccion-alicante" element={<LimpiezaConductos />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>
