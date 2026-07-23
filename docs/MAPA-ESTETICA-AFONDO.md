@@ -3,6 +3,8 @@
 > Auditoría read-only del repo `Afondo-Limpieza-` (branch `main`, último commit `b378ae1` · 2026-07-16 · "tanda 2.5 · vuelta a 2.3.3 dark BOLD conservando bloque Informe técnico light validado").
 > Stack real verificado: **Vite + React 19 + TypeScript + Tailwind** (`darkMode: 'class'`), PDF 100% cliente (`jsPDF` + `html2canvas`). Sin backend.
 > **Regla de evidencia:** todo dato lleva `archivo:línea`. Lo indeterminable va como **NO VERIFICADO**.
+>
+> **✅ CORREGIDO 2026-07-23 (dónde vive la web):** la **web pública `afondolimpiezadecampanas.com` SÍ es el build de ESTE repo**, compilado por **Hostinger** (no Vercel — no existe proyecto Vercel para Afondo). El generador `/certificado` es una ruta más de la MISMA app: un solo `vite build` = web pública + generador. Investigación completa y evidencia en **`docs/AFONDO-DONDE-VIVE-LA-WEB.md`**. Esto zanja el "conflicto histórico Vercel vs Hostinger" que abajo quedaba "no resuelto".
 
 El producto tiene **TRES caras** que se documentan por separado en cada sección:
 
@@ -33,7 +35,7 @@ El commit habla de "dark BOLD conservando bloque Informe técnico light". **Se c
 **Conclusiones FASE 0:**
 1. **No existe guía de estilo formal de Afondo** en repo ni en vault. La "documentación de diseño" son comentarios sueltos en código + un MOC funcional.
 2. Los ficheros mencionados en el MOC (`ficha-empresa-generador-2026-06-02.md`, `investigacion-normativa-…md`) están **enlazados pero NO presentes** en `/root/vault/clientes/afondo-limpieza/` (solo hay `MOC.md` y `RETOMA-2026-06-03.md`). → NO VERIFICADO su contenido.
-3. Conflicto histórico Vercel (RETOMA) vs Hostinger (MOC): documentado, no resuelto aquí; el MOC es más reciente.
+3. ~~Conflicto histórico Vercel (RETOMA) vs Hostinger (MOC): documentado, no resuelto aquí; el MOC es más reciente.~~ → **RESUELTO 2026-07-23:** gana **Hostinger**. La web pública ES el build de este repo compilado por Hostinger; NO hay Vercel. La RETOMA (que decía "Vercel") está equivocada. Evidencia completa en `docs/AFONDO-DONDE-VIVE-LA-WEB.md`.
 
 ---
 
