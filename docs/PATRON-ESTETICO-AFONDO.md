@@ -1,6 +1,6 @@
-# PATRÓN ESTÉTICO — AFONDO · v0.9-DRAFT
+# PATRÓN ESTÉTICO — AFONDO · v1.0
 
-ESTADO: DRAFT pendiente de validación de Jorge. REGLA DE USO: Franky lee este archivo ANTES de cualquier tarea que toque algo visible en Afondo (web, generador o PDF). Este archivo NO sustituye al bloque de conformidad que llega en cada brief: si brief y archivo se contradicen, STOP y preguntar.
+ESTADO: v1.0 VALIDADO por Jorge (23-jul-2026). REGLA DE USO: Franky lee este archivo ANTES de cualquier tarea que toque algo visible en Afondo (web, generador o PDF). Este archivo NO sustituye al bloque de conformidad que llega en cada brief: si brief y archivo se contradicen, STOP y preguntar.
 
 ---
 
@@ -8,10 +8,10 @@ ESTADO: DRAFT pendiente de validación de Jorge. REGLA DE USO: Franky lee este a
 > Stack: Vite + React 19 + TypeScript + Tailwind (`darkMode:'class'`) · PDF cliente (jsPDF + html2canvas).
 > Fuente completa de evidencia y lista de inconsistencias: `docs/MAPA-ESTETICA-AFONDO.md`.
 >
-> **AVISO CLAVE:** Afondo tiene DOS estéticas que conviven a propósito:
-> - **WEB pública** → "dark BOLD", Tailwind, marca **azul `#1a1aff`**.
-> - **GENERADOR + PDF** (lo que usa/entrega Jaime) → "premium light", estilos inline, marca **violeta `#6A65E3` + oro `#d4af37`**.
-> El color de marca NO coincide entre ambas (el generador usa el azul-violeta *retirado* de la web). Esto es una inconsistencia pendiente de decisión de Jorge, NO la resuelvas sola. Ver Inconsistencia #1 del MAPA.
+> **AVISO CLAVE — ✅ RESUELTO por Jorge (2026-07-23):** Afondo tiene DOS estéticas que conviven a propósito, y ya **NO es una inconsistencia pendiente** — es la decisión final:
+> - **WEB pública** → "dark BOLD", Tailwind, marca **azul `#1a1aff`**. **Es lo único a lo que aplica este patrón** (referencia = la home).
+> - **GENERADOR + PDF** (lo que usa/entrega Jaime) → "premium light", estilos inline, marca **violeta `#6A65E3` + oro `#d4af37`**. **CONGELADOS:** no se unifican ni se tocan estéticamente. Cualquier cambio visual ahí = ⛔️ STOP y OK explícito de Jorge.
+> El desajuste de marca entre web y generador **es intencionado y queda así por decisión de Jorge**; ya no es la "Inconsistencia #1" a resolver.
 
 ---
 
@@ -67,8 +67,9 @@ Convenciones generador/PDF: **estilos inline** (`style={{}}`), unidades `px`; fu
   <div className="max-w-7xl mx-auto px-6 lg:px-12">
     <div className="mb-16 text-center">
       <span className="text-primary font-bold text-sm tracking-widest uppercase mb-3">Nuestras Soluciones Técnicas</span>
-      <h2 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-extrabold ...">
+      <h2 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black ...">
 ```
+> ⚠️ **Corrección de patrón:** el código vivo de `ServicesSection.tsx:45-51` tiene hoy `font-extrabold`, **pero el peso 800 NO está cargado** en Public Sans (solo 400/700/900). El patrón correcto es `font-black`, como se muestra arriba. Al próximo toque de ese componente, corregir `font-extrabold` → `font-black`. (No se toca en esta pasada solo-docs para no alterar el bundle de la web.)
 
 **Botón primario GENERADOR** — `CertificateGenerator.tsx:884-902`
 ```tsx
@@ -109,38 +110,61 @@ const input: React.CSSProperties = {
 
 ---
 
-## 6. BLOQUE DE CONFORMIDAD ESTÉTICA — AFONDO (borrador)
+## 6. BLOQUE DE CONFORMIDAD ESTÉTICA — AFONDO
 
-> Dos subapartados porque web y generador tienen estéticas distintas. Valores exactos del código, sin invención.
+> Bloque DEFINITIVO (v1.0 validado por Jorge 2026-07-23). Se pega tal cual en cada brief.
 
-### 6.A — WEB PÚBLICA (dark BOLD · Tailwind)
+**--- BLOQUE DE CONFORMIDAD ESTÉTICA — AFONDO (pegar en cada brief) ---**
 
-1. Marca web = `primary #1a1aff` / hover `primary-dark #0000cc` (`tailwind.config.js:18-19`). PROHIBIDO `#6A65E3` en componentes web.
-2. Tipografía = Public Sans (400/700/900); iconos = Material Symbols Outlined. Sin otras familias.
-3. Títulos y CTAs en `font-black` (nunca `font-extrabold`) + `uppercase` + `tracking-*`.
-4. Contenedor `max-w-7xl mx-auto px-6 lg:px-12`; sección `py-24`.
+Antes de tocar nada visual, cumple este sistema. No es opcional ni interpretable. Fuente: `docs/PATRON-ESTETICO-AFONDO.md`. **DECISIÓN DE JORGE 23-jul-2026:** el patrón aplica SOLO a la web pública (referencia = la home); el generador y el PDF están **CONGELADOS**.
+
+**A) WEB PÚBLICA (dark BOLD · Tailwind):**
+
+1. Marca = `primary #1a1aff` / hover `primary-dark #0000cc` (tokens de `tailwind.config.js`). PROHIBIDO `#6A65E3` en componentes web.
+2. Tipografía Public Sans (pesos cargados: 400/700/900) + iconos Material Symbols Outlined. Ninguna otra familia.
+3. Títulos y CTAs en `font-black` + `uppercase` + `tracking-*`. **NUNCA `font-extrabold`:** el peso 800 NO está cargado; si el hermano que copias lo lleva, corrígelo a `font-black`.
+4. Contenedor `max-w-7xl mx-auto px-6 lg:px-12` · sección `py-24`.
 5. Botón primario: `bg-primary hover:bg-primary-dark text-white font-black uppercase rounded-xl transition-all`.
-6. Card: `bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-* hover:shadow-2xl hover:-translate-y-2`.
-7. Todo componente web soporta `dark:` (salvo heros sobre imagen y bandas `bg-primary`).
-8. Verde WhatsApp = `green-500`/`green-600` (no `#22c55e`/`#1db053`).
-9. Superficies: `surface-light #f8fafc` / `surface-dark #0f172a` (`slate-50`/`slate-950`). Nada de `#0a0a1a`/`#1f2128` sueltos.
-10. Icono = Material Symbols con `text-primary` de acento por defecto.
+6. Card: `bg-white dark:bg-slate-900 border slate-100/slate-800` con radio dominante `rounded-[2rem]`, `shadow-* hover:shadow-2xl`.
+7. Todo componente web soporta `dark:` (salvo heros sobre imagen y bandas `bg-primary`). Superficies: `surface-light #f8fafc` / `surface-dark #0f172a`; nada de hex sueltos fuera de tokens/utilidades.
+8. Verde WhatsApp = `green-500`/`green-600` por utilidad Tailwind, nunca hex.
+9. Secciones nuevas se montan SOLO con bloques del CATÁLOGO del PATRON (referencia de composición = la home, `App.tsx`). `TestimonialsSection` está DESACTIVADO: no reactivar sin reseñas reales + OK de Jorge. Tipo de bloque nuevo = ⛔️ STOP y OK explícito de Jorge.
 
-### 6.B — GENERADOR + PDF (premium light · inline)
+**B) GENERADOR + PDF — CONGELADOS:**
 
-1. Paleta fija = `BRAND #6A65E3`, `BRAND_DARK #4f48b8`, `NAVY #0b1020`, `INK #0f172a`, `GOLD #d4af37`, `GOLD_LIGHT #f3d98b` (`:177-182`). Usar las constantes, no hex sueltos.
-2. Fondo del documento = blanco `#fff`; el PDF es siempre LIGHT, sin `dark:`.
-3. Cabecera PDF = `linear-gradient(125deg, NAVY→BRAND_DARK→BRAND)` + filo dorado `4px` (`GOLD→GOLD_LIGHT→GOLD`).
-4. Botón primario generador = `linear-gradient(135deg, BRAND, BRAND_DARK)`, blanco, `borderRadius 12`, `fontWeight 800`, sombra violeta.
-5. Inputs = objeto `input`/`label`/`ayuda` (`:637-663`): borde `1.5px #e2e8f0`, radio `10`, fuente `15`, label uppercase 12px 800 `#475569`.
-6. Tipografía inline = `"Public Sans", system-ui`; firma decorativa = `"Brush Script MT", cursive` solo en el sello.
-7. Cada bloque cortable lleva `data-pdf-block`; no eliminar.
-8. Sección de contenido = componente `Bloque` (nº SVG + título uppercase + regla degradada); no inventar otra maqueta.
+10. No se tocan estéticamente. Si un brief funcional los roza: conservar TAL CUAL constantes (`BRAND #6A65E3`, `BRAND_DARK`, `NAVY`, `INK`, `GOLD`, `GOLD_LIGHT`), estilos inline, fondo blanco (siempre light, sin `dark:`), `data-pdf-block` en cada bloque cortable, filo dorado, sello y firma. Cero Tailwind ahí. Cualquier cambio visual en generador/PDF = ⛔️ STOP y OK explícito de Jorge.
 
-### Autochequeo final (5 preguntas)
+**Autochequeo antes de reportar cierre:** ¿estoy en web (azul `#1a1aff` + Tailwind) sin haber metido violeta? ¿`font-black` (cero extrabold) y `rounded-[2rem]`? ¿tokens/utilidades en vez de hex sueltos? ¿si rocé el generador/PDF quedó visualmente idéntico? ¿todo bloque sale del catálogo? Si alguna respuesta es "no sé" → STOP y preguntar.
 
-1. ¿Es **web** (azul `#1a1aff` + Tailwind + `dark:`) o **generador/PDF** (constantes `BRAND…` + inline, sin `dark:`)? ¿Respeté esa paleta?
-2. ¿Usé algún hex literal que ya existe como token/constante? Si sí → reemplázalo.
-3. ¿Títulos en `font-black` y cards en `rounded-[2rem]`?
-4. Si toqué el PDF: ¿mantuve `data-pdf-block`, filo dorado, sello, firma y fondo blanco?
-5. ¿Dejo la web azul y el certificado violeta+oro como hoy, o estoy mezclando marcas sin OK de Jorge? Si mezclo → STOP y preguntar.
+**--- FIN DEL BLOQUE ---**
+
+---
+
+## 7. CATÁLOGO DE BLOQUES (orden de Jorge 2026-07-23)
+
+> ⚠️ El catálogo aplica **SOLO a la WEB PÚBLICA** (decisión Jorge 2026-07-23). El **generador
+> de certificados + PDF quedan CONGELADOS tal cual** y NO son objeto de unificación → fuera
+> de este catálogo. **Referencia de composición = LA HOME** (`App.tsx`, orden de secciones).
+> Lista CERRADA, solo lo que existe. Los tipos "sección texto+imagen", "grid de tarjetas", "FAQ"
+> y "CTA final" del ejemplo genérico se instancian aquí con estos nombres concretos.
+
+| Tipo de bloque | Ejemplar canónico (sección de la home) |
+|---|---|
+| **Navbar** | `components/Navbar.tsx` |
+| **Hero** | `components/Hero.tsx` (`#inicio`) |
+| **Sección de problema/dolor** (texto centrado) | `components/ProblemSection.tsx` (`#problema`) |
+| **Grid de tarjetas de servicio** | `components/ServicesSection.tsx` (`#servicios`) — card `rounded-[2rem]` |
+| **Bloque explicativo Certificado** | `components/CertificateSection.tsx` (`#certificado`) |
+| **Resultados** (antes/después) | `components/ResultsSection.tsx` (`#resultados`) |
+| **Banda CTA calculadora** | inline en `App.tsx:66-79` (`bg-primary/5`, botón "Calcular precio online") |
+| **FAQ** | `components/FAQSection.tsx` (`#faq`) |
+| **Ubicaciones** | `components/LocationSection.tsx` (`#ubicaciones`) |
+| **Contacto (sección)** | `components/ContactSection.tsx` (`#contacto-seccion`) |
+| **Footer** | `components/Footer.tsx` |
+| **Cookie banner** | `components/CookieBanner.tsx` |
+| **WhatsApp FAB** | inline en `App.tsx:96-104` (botón flotante `green-500`) |
+
+**Desactivado (NO usar hasta tener reseñas REALES):** `TestimonialsSection` — apagado en tanda 0 por testimonios inventados (`App.tsx:17`). Reintroducir solo con reseñas reales de Google Business.
+
+**Regla de composición (literal, idéntica en los 4 PATRON):**
+> Las páginas se montan SOLO con bloques de este catálogo, copiando el ejemplar canónico y adaptando contenido. Un tipo de bloque nuevo o una variante estructural = ⛔️ STOP y OK explícito de Jorge antes de construirlo.
