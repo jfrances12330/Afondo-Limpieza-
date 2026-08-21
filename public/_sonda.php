@@ -2,7 +2,7 @@
 // SONDA TEMPORAL — 21-ago-2026. Se retira en cuanto responda.
 header('Content-Type: application/json; charset=utf-8');
 
-$r = ['v' => 3, 'php' => PHP_VERSION];
+$r = ['v' => 4, 'php' => PHP_VERSION];
 
 // A) dentro del directorio web (ya sabemos que el deploy lo borra)
 $dentro = __DIR__ . '/_datos/sonda.json';
