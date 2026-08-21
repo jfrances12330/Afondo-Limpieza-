@@ -7,34 +7,29 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
-  const heroImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuBiqkJXK7dDEL0GKvACYNXCL8-7_klRe300_2g0SPv0F-bIV3MY5ueoBz7yGF1ZXWwuGgA13KFHbBqpSw6jGtNGA6p7qwY_5oakgwZzidkDVFvXMXvkqzeJ6MiNQ0GUzTJuyb5d9otC5eYHvwJpSzcUk9Qt-yGIG1HhLWD9EGHtQmlcM7RXTF2juJ45ZXVIiEAExs9ugW0PQ6fl69jW1Elr4FMI4loaIL58c9-M-X3XgTn1OxpfvKmegoPECcf9-eTpH2Dh_B-NXNo";
+  const heroBase = "/img/instalacion-extraccion-azotea-alicante-3";
+  const heroSrcSet = (ext: string) =>
+    `${heroBase}-800.${ext} 800w, ${heroBase}-1280.${ext} 1280w, ${heroBase}-1920.${ext} 1920w`;
 
   return (
     <section className="relative flex min-h-[100svh] w-full flex-col justify-center items-center overflow-hidden">
-      {/* 
-         Elemento invisible para disparar la carga de la imagen con prioridad alta. 
-         Añadimos dimensiones para ayudar al navegador a reservar espacio.
-      */}
-      <img
-        src={heroImageUrl}
-        alt="Técnico de Afondo realizando limpieza profesional de campana extractora industrial en cocina comercial de Alicante con equipo especializado"
-        className="hidden"
-        width="1920"
-        height="1080"
-        // @ts-ignore - fetchpriority es un atributo válido de HTML5
-        fetchpriority="high"
-      />
-
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <div
-          className="h-full w-full bg-cover bg-center bg-no-repeat scale-105"
-          style={{
-            backgroundImage: `url("${heroImageUrl}")`
-          }}
-          role="img"
-          aria-label="Técnico realizando limpieza de campana industrial"
-        />
+        <picture className="absolute inset-0 block">
+          <source type="image/webp" srcSet={heroSrcSet('webp')} sizes="100vw" />
+          <img
+            src={`${heroBase}-1280.jpg`}
+            srcSet={heroSrcSet('jpg')}
+            sizes="100vw"
+            alt="Chimenea de extracción terminada con su sombrerete en una azotea de Alicante"
+            className="h-full w-full object-cover object-center scale-105"
+            width="1920"
+            height="1440"
+            decoding="async"
+            // @ts-ignore - fetchpriority es un atributo válido de HTML5
+            fetchpriority="high"
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/40 to-slate-900/90"></div>
       </div>
 

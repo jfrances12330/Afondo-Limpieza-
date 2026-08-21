@@ -12,9 +12,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://lh3.googleusercontent.com" />
 
-  <!-- Pre-carga de la imagen principal (LCP) con fetchpriority alta -->
-  <link rel="preload" as="image"
-    href="https://lh3.googleusercontent.com/aida-public/AB6AXuBiqkJXK7dDEL0GKvACYNXCL8-7_klRe300_2g0SPv0F-bIV3MY5ueoBz7yGF1ZXHwuGgA13KFHbBqpSw6jGtNGA6p7qwY_5oakgwZzidkDVFvXMXvkqzeJ6MiNQ0GUzTJuyb5d9otC5eYHvwJpSzcUk9Qt-yGIG1HhLWD9EGHtQmlcM7RXTF2juJ45ZXVIiEAExs9ugW0PQ6fl69jW1Elr4FMI4loaIL58c9-M-X3XgTn1OxpfvKmegoPECcf9-eTpH2Dh_B-NXNo"
+  <!-- Pre-carga de la imagen principal (LCP) con fetchpriority alta.
+       imagesrcset/imagesizes deben coincidir EXACTAMENTE con el <source> webp de Hero.tsx. -->
+  <link rel="preload" as="image" type="image/webp"
+    imagesrcset="/img/instalacion-extraccion-azotea-alicante-3-800.webp 800w, /img/instalacion-extraccion-azotea-alicante-3-1280.webp 1280w, /img/instalacion-extraccion-azotea-alicante-3-1920.webp 1920w"
+    imagesizes="100vw"
     fetchpriority="high" />
 
   <!-- Favicon -->
@@ -35,7 +37,7 @@
   <meta property="og:description"
     content="¿Necesitas el certificado para Sanidad? ✅ Limpieza técnica de campanas y conductos en Alicante. Evita incendios y multas graves. ¡Calcula tu presupuesto online! 🚀" />
   <meta property="og:image"
-    content="https://lh3.googleusercontent.com/aida-public/AB6AXuBiqkJXK7dDEL0GKvACYNXCL8-7_klRe300_2g0SPv0F-bIV3MY5ueoBz7yGF1ZXHwuGgA13KFHbBqpSw6jGtNGA6p7qwY_5oakgwZzidkDVFvXMXvkqzeJ6MiNQ0GUzTJuyb5d9otC5eYHvwJpSzcUk9Qt-yGIG1HhLWD9EGHtQmlcM7RXTF2juJ45ZXVIiEAExs9ugW0PQ6fl69jW1Elr4FMI4loaIL58c9-M-X3XgTn1OxpfvKmegoPECcf9-eTpH2Dh_B-NXNo" />
+    content="https://afondolimpiezadecampanas.com/img/afondo-limpieza-campanas-alicante-og.jpg" />
   <meta property="og:locale" content="es_ES" />
 
   <!-- Twitter Card -->
@@ -44,7 +46,7 @@
   <meta name="twitter:description"
     content="Certificado técnico según UNE 100165. Presupuesto online sin compromiso en 2 minutos." />
   <meta name="twitter:image"
-    content="https://lh3.googleusercontent.com/aida-public/AB6AXuBiqkJXK7dDEL0GKvACYNXCL8-7_klRe300_2g0SPv0F-bIV3MY5ueoBz7yGF1ZXHwuGgA13KFHbBqpSw6jGtNGA6p7qwY_5oakgwZzidkDVFvXMXvkqzeJ6MiNQ0GUzTJuyb5d9otC5eYHvwJpSzcUk9Qt-yGIG1HhLWD9EGHtQmlcM7RXTF2juJ45ZXVIiEAExs9ugW0PQ6fl69jW1Elr4FMI4loaIL58c9-M-X3XgTn1OxpfvKmegoPECcf9-eTpH2Dh_B-NXNo" />
+    content="https://afondolimpiezadecampanas.com/img/afondo-limpieza-campanas-alicante-og.jpg" />
 
   <!-- Geographic metadata -->
   <meta name="geo.region" content="ES-A" />

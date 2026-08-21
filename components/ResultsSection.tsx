@@ -3,6 +3,9 @@ import React from 'react';
 
 const ResultsSection: React.FC = () => {
   const whatsappUrl = "https://wa.me/34622064101?text=Hola,%20quisiera%20pedir%20presupuesto%20para%20la%20limpieza%20de%20mi%20campana.";
+  const turbinaAntes = "/img/limpieza-turbina-extraccion-taller-benidorm-antes";
+  const turbinaDespues = "/img/limpieza-turbina-extraccion-taller-benidorm-despues";
+  const sizes = "(min-width: 1024px) 568px, calc(100vw - 3rem)";
 
   return (
     <section className="bg-slate-50 dark:bg-slate-950 py-24" aria-labelledby="resultados-titulo">
@@ -40,14 +43,24 @@ const ResultsSection: React.FC = () => {
                 <span className="material-symbols-outlined text-red-400">warning</span>
                 <span className="text-sm font-bold uppercase">Alto riesgo de incendio</span>
               </div>
-              <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPqEYgnqF76FfHY6CfvepiqGK49Q7Vj_Zffqk1IAe-vu42K_Yts6udGfdQS223IgYMJd6DPmpClcnyV8nB5ba8OAC46M9TnZuzkVfbLybYJiDW646yg1aFFJtH9xFd0aTVBHPQvfrS2xSy6FHCMfc18wRePbgBxthQ2kDMF7wTzNQ2mvrqhgAoLkcWA6J_y0AYd2EYsUtSaQPNeBKss6rJk2cggvqgVKPC5d4x0cNUTviy2Snu61aPAX2etmyKImXPgqc4WnoK44Q" 
-                alt="Campana de cocina industrial con grasa inflamable en Alicante antes de limpieza profesional"
-                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                loading="lazy"
-                width="800"
-                height="600"
-              />
+              <picture className="block w-full h-full">
+                <source
+                  type="image/webp"
+                  srcSet={`${turbinaAntes}-400.webp 400w, ${turbinaAntes}-800.webp 800w, ${turbinaAntes}-1152.webp 1152w`}
+                  sizes={sizes}
+                />
+                <img
+                  src={`${turbinaAntes}-800.jpg`}
+                  srcSet={`${turbinaAntes}-400.jpg 400w, ${turbinaAntes}-800.jpg 800w, ${turbinaAntes}-1152.jpg 1152w`}
+                  sizes={sizes}
+                  alt="Turbina de extracción desmontada cubierta de grasa antes de la limpieza"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                  decoding="async"
+                  width="1152"
+                  height="864"
+                />
+              </picture>
             </div>
           </article>
 
@@ -66,14 +79,24 @@ const ResultsSection: React.FC = () => {
                 <span className="material-symbols-outlined text-green-400">verified</span>
                 <span className="text-sm font-bold uppercase">Superficie Higienizada</span>
               </div>
-              <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY-uSTLgaPQjgKom4e4tMgDIjPSScys5eAFjAjnTmaB9RvC_xJ1xcxG45S-dvwRGE9wHXeyjjMnRREHlL0PqIOKsUWltQ2Nzrx5IMxLz5AvY1zAzZE-tQnzYAfE0qDSkO7UWwVOnsXSjtqKiPDIP7zsKqa3MUBe0o37bdi9mAooh4kfxpqkB6enAhfKvMUW3Mup6z-kc5KKI2Z6qF2hcRBSuPxIf-5lYZQ7bKRlBEvJH4bdhePxltjckNOHjVb2jzzI_fxbKVilW4" 
-                alt="Campana extractora industrial limpia y abrillantada en Alicante tras servicio técnico certificado"
-                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                loading="lazy"
-                width="800"
-                height="600"
-              />
+              <picture className="block w-full h-full">
+                <source
+                  type="image/webp"
+                  srcSet={`${turbinaDespues}-400.webp 400w, ${turbinaDespues}-800.webp 800w, ${turbinaDespues}-1536.webp 1536w`}
+                  sizes={sizes}
+                />
+                <img
+                  src={`${turbinaDespues}-800.jpg`}
+                  srcSet={`${turbinaDespues}-400.jpg 400w, ${turbinaDespues}-800.jpg 800w, ${turbinaDespues}-1536.jpg 1536w`}
+                  sizes={sizes}
+                  alt="La misma turbina de extracción tras la limpieza, con el metal a la vista"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                  decoding="async"
+                  width="1536"
+                  height="1152"
+                />
+              </picture>
             </div>
           </article>
         </div>
