@@ -44,7 +44,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
         </div>
 
         <h1 className="mb-4 md:mb-6 max-w-5xl text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-7xl lg:text-[5.5rem]">
-          Limpieza de <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-400 to-blue-400">Campanas Industriales</span> en Alicante
+          Limpieza de <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-300">Campanas Industriales</span> en Alicante
         </h1>
 
         <p className="mb-8 md:mb-10 max-w-4xl text-base font-medium leading-relaxed text-slate-200/90 sm:text-xl lg:text-2xl">
