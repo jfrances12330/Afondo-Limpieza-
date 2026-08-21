@@ -6,7 +6,7 @@ header('Content-Type: application/json; charset=utf-8');
 $dir = __DIR__ . '/_datos';
 $fichero = $dir . '/sonda.json';
 
-$r = ['php' => PHP_VERSION, 'docroot' => __DIR__];
+$r = ['v' => 2, 'php' => PHP_VERSION, 'docroot' => __DIR__];
 
 if (!is_dir($dir)) {
     $r['mkdir'] = @mkdir($dir, 0755, true);
