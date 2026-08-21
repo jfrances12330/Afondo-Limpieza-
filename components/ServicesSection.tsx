@@ -6,6 +6,12 @@ interface ServicesSectionProps {
   onNavigateCalculadora: () => void;
 }
 
+// Las tarjetas con `base` sirven una foto local con srcset; las que aun
+// conservan `img` apuntan a la imagen antigua y estan pendientes de sustituir.
+const SIZES = "(min-width: 1024px) 380px, calc(100vw - 3rem)";
+const srcSet = (base: string, ext: string) =>
+  `${base}-400.${ext} 400w, ${base}-800.${ext} 800w, ${base}-1200.${ext} 1200w`;
+
 const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora }) => {
   const whatsappUrl = "https://wa.me/34622064101?text=Hola,%20quisiera%20pedir%20presupuesto%20para%20el%20servicio%20de%20limpieza.";
 
@@ -23,8 +29,9 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
       description: "Limpieza interior de tramos horizontales y verticales cumpliendo la norma UNE 100165. Accedemos donde tú no llegas.",
       items: ["Cepillado neumático robotizado", "Apertura de registros estancos", "Eliminación de riesgos ocultos"],
       icon: "hvac",
-      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBMJSp4bqbkiqdVdN-PE_YlaJHONjVHgCTgeIXkj1gDryN2gS3yVKhMWd8rQ-wKLVQ4xYbfqvVfZa34T4DjHfyMCn2vV8GvNtQSKLXYyPx7EmA8Oy2Hg9n6d1DBEyS2TwgIdhDjtimS7341ch-8c49zOmtcjuaf5Qz5j9iOUJgyuzUNg1njEOzUR_eAtzJgF9T0pMlKdwXtuFatTM2zml4jJIIMhl3OnRe4mA0RjVHuZY7a4Dz9dI8qggimQ8jintFWvzpKCEgcAzM",
-      alt: "Limpieza técnica de conductos de extracción de humos bajo normativa UNE 100165",
+      // Hueco 10 · foto real de Jaime (instalacion en falso techo, Alicante mayo 2025).
+      base: "/img/instalacion-conductos-falso-techo-alicante-2",
+      alt: "Conducto de extracción instalado por el falso techo del local",
       // Tanda 2 · Unidad 3.1: anchor SEO hacia la landing nueva de conductos.
       // Segundo anchor del brief ("desengrase interior de conductos") DIFERIDO —
       // no encaja natural en el copy actual sin reescribir frases; se activará al
@@ -36,8 +43,9 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
       description: "Recupera la potencia de extracción y reduce ruidos molestos. Un motor limpio consume menos electricidad y dura más años.",
       items: ["Limpieza de palas y carcasas", "Revisión de correas y rodamientos", "Optimización del caudal de aire"],
       icon: "cyclone",
-      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAVsyJfPvO8xEotmCEXXgAabtTwrNjzS4CTXRRDRW9nQZ1J1-ixiRtvF1RC0Z1gaG8MkOr8904JswYG2LjLT4Ao47tKaurooRSQX1Lyzz8Ew5-2airma_lQqzr-HvJ_5695EodGAl0xEcL6IaClthx0LMNHHmtMAjbogAZjh0bv0SOH0IHahR63dEnxRU6yQgbCjFwiskKoeAv5E7RfB-_gYSIPY0prborNa2vYiyDLCciJFno3wa1X_WOWi4D07a6u7uQ8kGEogWY",
-      alt: "Mantenimiento preventivo y limpieza de turbinas de extracción en cocinas de Alicante"
+      // Hueco 11 · foto real de Jaime (traslado de la extraccion a cubierta, Alicante 2025).
+      base: "/img/instalacion-extraccion-azotea-alicante-2",
+      alt: "Instalación de extracción completa en azotea con la caja de la turbina"
     }
   ];
 
@@ -58,14 +66,31 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
           {services.map((service, idx) => (
             <article key={idx} className="group flex flex-col bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 dark:border-slate-800">
               <div className="relative h-56 overflow-hidden">
-                <img
-                  src={service.img}
-                  alt={service.alt}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
-                  width="400"
-                  height="300"
-                />
+                {(service as any).base ? (
+                  <picture className="block h-full w-full">
+                    <source type="image/webp" srcSet={srcSet((service as any).base, 'webp')} sizes={SIZES} />
+                    <img
+                      src={`${(service as any).base}-800.jpg`}
+                      srcSet={srcSet((service as any).base, 'jpg')}
+                      sizes={SIZES}
+                      alt={service.alt}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      loading="lazy"
+                      decoding="async"
+                      width="400"
+                      height="300"
+                    />
+                  </picture>
+                ) : (
+                  <img
+                    src={(service as any).img}
+                    alt={service.alt}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                    width="400"
+                    height="300"
+                  />
+                )}
               </div>
               <div className="p-8 flex flex-col flex-1">
                 <div className="flex items-center gap-3 mb-4">
