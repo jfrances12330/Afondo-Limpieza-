@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ACCESS_CODE } from '../CertificateGenerator';
+import { ACCESS_CODE } from './acceso';
 
 // Envoltorio de acceso para el hub y la herramienta de reseñas.
 // Escribe la MISMA clave y el MISMO valor que el gate interno del generador
