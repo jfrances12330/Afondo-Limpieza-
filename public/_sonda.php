@@ -1,25 +1,28 @@
 <?php
-// SONDA TEMPORAL — 21-ago-2026. Se retira en cuanto responda las dos preguntas:
-// (1) este hosting ejecuta PHP, (2) el deploy conserva lo que no esta en el repo.
+// SONDA TEMPORAL — 21-ago-2026. Se retira en cuanto responda.
 header('Content-Type: application/json; charset=utf-8');
 
-$dir = __DIR__ . '/_datos';
-$fichero = $dir . '/sonda.json';
+$r = ['v' => 3, 'php' => PHP_VERSION];
 
-$r = ['v' => 2, 'php' => PHP_VERSION, 'docroot' => __DIR__];
+// A) dentro del directorio web (ya sabemos que el deploy lo borra)
+$dentro = __DIR__ . '/_datos/sonda.json';
+$r['A_dentro_existe'] = file_exists($dentro);
 
-if (!is_dir($dir)) {
-    $r['mkdir'] = @mkdir($dir, 0755, true);
+// B) FUERA del directorio web: el deploy no deberia tocarlo, y ademas
+//    no es accesible desde internet, que es lo que queremos para los datos.
+$fuera_dir = dirname(__DIR__) . '/datos-afondo';
+$fuera = $fuera_dir . '/sonda.json';
+$r['B_ruta'] = $fuera_dir;
+if (!is_dir($fuera_dir)) {
+    $r['B_mkdir'] = @mkdir($fuera_dir, 0755, true);
 }
-$r['dir_existe'] = is_dir($dir);
-$r['dir_escribible'] = is_writable($dir);
-
-if (!file_exists($fichero)) {
-    $r['escrito_ahora'] = @file_put_contents($fichero, json_encode(['creado' => date('c')]));
-} else {
-    $r['ya_existia'] = true;
+$r['B_dir_existe'] = is_dir($fuera_dir);
+$r['B_escribible'] = is_dir($fuera_dir) && is_writable($fuera_dir);
+if ($r['B_dir_existe'] && !file_exists($fuera)) {
+    $r['B_escrito_ahora'] = @file_put_contents($fuera, json_encode(['creado' => date('c')]));
+} elseif (file_exists($fuera)) {
+    $r['B_ya_existia'] = true;
 }
-
-$r['contenido'] = file_exists($fichero) ? json_decode(file_get_contents($fichero), true) : null;
+$r['B_contenido'] = file_exists($fuera) ? json_decode(file_get_contents($fuera), true) : null;
 
 echo json_encode($r, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
