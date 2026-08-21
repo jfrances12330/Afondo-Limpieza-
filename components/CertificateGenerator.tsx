@@ -3,7 +3,7 @@ import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
 // ── Acceso ───────────────────────────────────────────────────────────
-// Código que solo conocéis Jaime y Jorge. Para cambiarlo, edita esta línea.
+// Código que solo conocéis Jaime y Jorge. Para cambiarlo, edita `acceso.ts`.
 import { ACCESS_CODE } from './zona-privada/acceso';
 
 // ── Datos fijos de la empresa ──────────────────────────────────────

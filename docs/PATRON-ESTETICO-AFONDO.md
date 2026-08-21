@@ -121,7 +121,7 @@ Antes de tocar nada visual, cumple este sistema. No es opcional ni interpretable
 **A) WEB PÚBLICA (dark BOLD · Tailwind):**
 
 1. Marca = `primary #1a1aff` / hover `primary-dark #0000cc` (tokens de `tailwind.config.js`). PROHIBIDO `#6A65E3` en componentes web.
-2. Tipografía Public Sans (pesos cargados: 400/700/900) + iconos Material Symbols Outlined. Ninguna otra familia.
+2. Tipografía Public Sans (pesos cargados: 400/700/900) + iconos Material Symbols Outlined. Ninguna otra familia. **⚠️ Para cambiar el TAMAÑO de un icono hace falta el modificador `!` (`!text-5xl`): ver "Trampa del tamaño de los iconos" al final.**
 3. Títulos y CTAs en `font-black` + `uppercase` + `tracking-*`. **NUNCA `font-extrabold`:** el peso 800 NO está cargado; si el hermano que copias lo lleva, corrígelo a `font-black`.
 4. Contenedor `max-w-7xl mx-auto px-6 lg:px-12` · sección `py-24`.
 5. Botón primario: `bg-primary hover:bg-primary-dark text-white font-black uppercase rounded-xl transition-all`.
@@ -168,3 +168,41 @@ Antes de tocar nada visual, cumple este sistema. No es opcional ni interpretable
 
 **Regla de composición (literal, idéntica en los 4 PATRON):**
 > Las páginas se montan SOLO con bloques de este catálogo, copiando el ejemplar canónico y adaptando contenido. Un tipo de bloque nuevo o una variante estructural = ⛔️ STOP y OK explícito de Jorge antes de construirlo.
+
+---
+
+## 8. TRAMPA DEL TAMAÑO DE LOS ICONOS (medido 21-ago-2026)
+
+**Síntoma:** pones `<span className="material-symbols-outlined text-5xl">` y el icono sale a
+**24 px**, no a 48. Pasa con cualquier `text-*`: el icono siempre mide 24 px.
+
+**Causa, medida sobre la hoja compilada:** `assets/main.css` vuelve a declarar la clase con un
+tamaño fijo, y en el CSS de salida esa regla queda **después** de las utilidades de Tailwind:
+
+| En `dist/assets/index-<hash>.css` | Posición |
+|---|---|
+| `.text-5xl{font-size:3rem;...}` | 26965 |
+| `.material-symbols-outlined{...font-size:24px...}` | **37743** |
+
+Misma especificidad (una clase cada una) → **gana la última**. Por eso `text-*` sobre un icono
+es **inerte en todo el repo**, y siempre lo ha sido: el `lock` del menú pide `text-base` (16 px)
+y se pinta a 24.
+
+**Cómo se escribe HOY (mientras no se arregle de raíz):**
+
+```tsx
+<span className="material-symbols-outlined !text-5xl text-primary" aria-hidden="true">star</span>
+```
+
+El modificador `!` genera `font-size:3rem!important`, que sí gana. Mismo problema y misma
+solución con `display` (la regla fuerza `inline-block`) y `line-height` (fuerza `1`).
+
+**Cómo se comprueba** — midiendo la caja en el navegador, **nunca mirando una captura**:
+
+```js
+document.querySelector('.material-symbols-outlined').getBoundingClientRect()  // -> 48x48
+```
+
+**Arreglo de raíz: PENDIENTE, tanda propia y con OK de Jorge.** Quitar el `font-size` de
+`main.css` cambiaría de golpe el tamaño de **todos** los iconos de la web pública, así que antes
+hay que mapear cuáles se ven afectados. No se toca de paso.
