@@ -18,7 +18,7 @@ const ZonaPrivadaHub: React.FC = () => (
           to="/zona-privada/certificado"
           className="group block bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-lg hover:shadow-2xl transition-all p-8 sm:p-10 text-center"
         >
-          <span className="material-symbols-outlined block text-5xl leading-none mb-5 text-primary" aria-hidden="true">description</span>
+          <span className="material-symbols-outlined !text-5xl mb-5 text-primary" aria-hidden="true">description</span>
           <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-900 dark:text-white group-hover:text-primary transition-colors">
             Certificado de limpieza
           </h2>
@@ -31,7 +31,7 @@ const ZonaPrivadaHub: React.FC = () => (
           to="/zona-privada/resenas"
           className="group block bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-lg hover:shadow-2xl transition-all p-8 sm:p-10 text-center"
         >
-          <span className="material-symbols-outlined block text-5xl leading-none mb-5 text-primary" aria-hidden="true">star</span>
+          <span className="material-symbols-outlined !text-5xl mb-5 text-primary" aria-hidden="true">star</span>
           <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-900 dark:text-white group-hover:text-primary transition-colors">
             Pedir reseña
           </h2>
