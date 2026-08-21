@@ -12,6 +12,9 @@ const Cookies = lazy(() => import('./components/legal/Cookies'));
 const Calculadora = lazy(() => import('./components/Calculadora'));
 const ContactPage = lazy(() => import('./components/ContactPage'));
 const LimpiezaConductos = lazy(() => import('./pages/LimpiezaConductos'));
+const ZonaPrivadaHub = lazy(() => import('./components/zona-privada/ZonaPrivadaHub'));
+const GateAcceso = lazy(() => import('./components/zona-privada/GateAcceso'));
+const ResenasTool = lazy(() => import('./components/zona-privada/resenas/ResenasTool'));
 
 // Compatibilidad con URLs con hash previas (#/certificado, #/aviso-legal, etc.)
 // Al montar, si la URL trae hash tipo "#/algo", redirige a "/algo" preservando historial.
@@ -43,7 +46,12 @@ const Root: React.FC = () => (
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/certificado" element={<CertificateGenerator />} />
+        {/* Enlace antiguo: se mantiene su entrada en routes.meta.ts para conservar el noindex */}
+        <Route path="/certificado" element={<Navigate to="/zona-privada/certificado" replace />} />
+        <Route path="/zona-privada" element={<GateAcceso><ZonaPrivadaHub /></GateAcceso>} />
+        {/* Sin GateAcceso: el generador trae su propio gate y aterriza donde se pidió */}
+        <Route path="/zona-privada/certificado" element={<CertificateGenerator />} />
+        <Route path="/zona-privada/resenas" element={<GateAcceso><ResenasTool /></GateAcceso>} />
         <Route path="/aviso-legal" element={<RoutedBack Page={AvisoLegal} />} />
         <Route path="/privacidad" element={<RoutedBack Page={Privacidad} />} />
         <Route path="/cookies" element={<RoutedBack Page={Cookies} />} />

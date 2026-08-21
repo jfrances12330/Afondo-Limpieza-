@@ -23,9 +23,29 @@ export const routes: RouteMeta[] = [
     keepHomeOgSchema: true,
   },
   {
+    // Se MANTIENE aunque la ruta ahora redirija: sin esta entrada, /certificado
+    // serviría el HTML de la home (con sus OG y sin noindex).
     path: "/certificado",
     title: "Zona privada | Afondo",
     canonical: "https://afondolimpiezadecampanas.com/certificado",
+    noindex: true,
+  },
+  {
+    path: "/zona-privada",
+    title: "Zona privada | Afondo",
+    canonical: "https://afondolimpiezadecampanas.com/zona-privada",
+    noindex: true,
+  },
+  {
+    path: "/zona-privada/certificado",
+    title: "Generador de informes | Afondo",
+    canonical: "https://afondolimpiezadecampanas.com/zona-privada/certificado",
+    noindex: true,
+  },
+  {
+    path: "/zona-privada/resenas",
+    title: "Pedir reseña | Afondo",
+    canonical: "https://afondolimpiezadecampanas.com/zona-privada/resenas",
     noindex: true,
   },
   {

@@ -85,7 +85,7 @@ const Footer: React.FC<FooterProps> = () => {
               <Link to="/aviso-legal" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Aviso Legal</Link>
               <Link to="/privacidad" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Privacidad</Link>
               <Link to="/cookies" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Cookies</Link>
-              <Link to="/certificado" title="Zona privada — acceso técnicos" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left flex items-center gap-1.5">
+              <Link to="/zona-privada" title="Zona privada — acceso técnicos" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-base">lock</span>
                 Zona privada
               </Link>

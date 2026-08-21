@@ -4,7 +4,7 @@ import html2canvas from 'html2canvas';
 
 // ── Acceso ───────────────────────────────────────────────────────────
 // Código que solo conocéis Jaime y Jorge. Para cambiarlo, edita esta línea.
-const ACCESS_CODE = 'Jaimitopiensa';
+export const ACCESS_CODE = 'Jaimitopiensa';
 
 // ── Datos fijos de la empresa ──────────────────────────────────────
 const EMPRESA = {
