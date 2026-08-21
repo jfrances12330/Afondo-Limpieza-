@@ -14,12 +14,12 @@ import CookieBanner from '../components/CookieBanner';
 
 // Foto real de un trabajo de Jaime (instalación, Alicante mayo 2025).
 // El alt describe lo que se ve, no el servicio que vende la página.
-const CONDUCTO_BASE = "/img/instalacion-conductos-falso-techo-alicante-1";
+const CONDUCTO_BASE = "/img/instalacion-conductos-falso-techo-alicante-1-4x3";
 const CONDUCTO_SRCSET = (ext: string) =>
   `${CONDUCTO_BASE}-400.${ext} 400w, ${CONDUCTO_BASE}-800.${ext} 800w, ${CONDUCTO_BASE}-1200.${ext} 1200w`;
 const CONDUCTO_ALT = "Conducto de extracción nuevo conectado a la unidad";
-const HERO_IMG = `${CONDUCTO_BASE}-fondo-1920.webp`;
-const CTA_IMG = `${CONDUCTO_BASE}-fondo-1280.webp`;
+const HERO_IMG = "/img/instalacion-conductos-falso-techo-alicante-1-fondo-1920.webp";
+const CTA_IMG = "/img/instalacion-conductos-falso-techo-alicante-1-fondo-1280.webp";
 
 // ─── Reveal ─────────────────────────────────────────────────────────────────
 // Pass-through: contenido siempre visible. Se conservó el componente para

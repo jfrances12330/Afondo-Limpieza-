@@ -8,9 +8,11 @@ interface ServicesSectionProps {
 
 // Las tarjetas con `base` sirven una foto local con srcset; las que aun
 // conservan `img` apuntan a la imagen antigua y estan pendientes de sustituir.
+// Un base terminado en `-4x3` es un reencuadre propio de este hueco: la version
+// sin sufijo es la foto entera y ahi el recorte centrado cortaria mal.
 const SIZES = "(min-width: 1024px) 380px, calc(100vw - 3rem)";
-const srcSet = (base: string, ext: string) =>
-  `${base}-400.${ext} 400w, ${base}-800.${ext} 800w, ${base}-1200.${ext} 1200w`;
+const srcSet = (base: string, ext: string, anchos: number[]) =>
+  anchos.map((a) => `${base}-${a}.${ext} ${a}w`).join(", ");
 
 const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora }) => {
   const whatsappUrl = "https://wa.me/34622064101?text=Hola,%20quisiera%20pedir%20presupuesto%20para%20el%20servicio%20de%20limpieza.";
@@ -30,7 +32,8 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
       items: ["Cepillado neumático robotizado", "Apertura de registros estancos", "Eliminación de riesgos ocultos"],
       icon: "hvac",
       // Hueco 10 · foto real de Jaime (instalacion en falso techo, Alicante mayo 2025).
-      base: "/img/instalacion-conductos-falso-techo-alicante-2",
+      base: "/img/instalacion-conductos-falso-techo-alicante-2-4x3",
+      anchos: [400, 800, 1200],
       alt: "Conducto de extracción instalado por el falso techo del local",
       // Tanda 2 · Unidad 3.1: anchor SEO hacia la landing nueva de conductos.
       // Segundo anchor del brief ("desengrase interior de conductos") DIFERIDO —
@@ -45,6 +48,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
       icon: "cyclone",
       // Hueco 11 · foto real de Jaime (traslado de la extraccion a cubierta, Alicante 2025).
       base: "/img/instalacion-extraccion-azotea-alicante-2",
+      anchos: [400, 800, 1600],
       alt: "Instalación de extracción completa en azotea con la caja de la turbina"
     }
   ];
@@ -68,10 +72,10 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
               <div className="relative h-56 overflow-hidden">
                 {(service as any).base ? (
                   <picture className="block h-full w-full">
-                    <source type="image/webp" srcSet={srcSet((service as any).base, 'webp')} sizes={SIZES} />
+                    <source type="image/webp" srcSet={srcSet((service as any).base, 'webp', (service as any).anchos)} sizes={SIZES} />
                     <img
                       src={`${(service as any).base}-800.jpg`}
-                      srcSet={srcSet((service as any).base, 'jpg')}
+                      srcSet={srcSet((service as any).base, 'jpg', (service as any).anchos)}
                       sizes={SIZES}
                       alt={service.alt}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"

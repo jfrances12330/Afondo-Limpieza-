@@ -3,8 +3,8 @@ import React from 'react';
 
 const ResultsSection: React.FC = () => {
   const whatsappUrl = "https://wa.me/34622064101?text=Hola,%20quisiera%20pedir%20presupuesto%20para%20la%20limpieza%20de%20mi%20campana.";
-  const turbinaAntes = "/img/limpieza-turbina-extraccion-taller-benidorm-antes";
-  const turbinaDespues = "/img/limpieza-turbina-extraccion-taller-benidorm-despues";
+  const turbinaAntes = "/img/limpieza-turbina-extraccion-taller-benidorm-antes-4x3";
+  const turbinaDespues = "/img/limpieza-turbina-extraccion-taller-benidorm-despues-4x3";
   const sizes = "(min-width: 1024px) 568px, calc(100vw - 3rem)";
 
   return (
