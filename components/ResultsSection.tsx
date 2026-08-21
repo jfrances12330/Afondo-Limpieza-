@@ -15,7 +15,7 @@ const ResultsSection: React.FC = () => {
             <span className="material-symbols-outlined text-sm" aria-hidden="true">verified</span>
             <span>Evidencia Visual</span>
           </div>
-          <h2 id="resultados-titulo" className="text-slate-900 dark:text-white text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
+          <h2 id="resultados-titulo" className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black tracking-tight mb-6">
             Resultados Reales: <br className="hidden sm:block"/>De Riesgo a Seguridad.
           </h2>
           <p className="text-slate-500 dark:text-slate-400 text-lg max-w-2xl">

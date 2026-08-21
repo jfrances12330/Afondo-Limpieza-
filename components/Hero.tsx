@@ -30,7 +30,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
             fetchpriority="high"
           />
         </picture>
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/40 to-slate-900/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/85 via-slate-900/25 to-slate-900/85"></div>
       </div>
 
       <div className="relative z-10 w-full max-w-7xl px-6 lg:px-12 pt-32 pb-48 md:pt-36 md:pb-56 flex flex-col items-center text-center">

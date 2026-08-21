@@ -12,8 +12,14 @@ import CookieBanner from '../components/CookieBanner';
  * iconos grandes con color, numeración gigante en método, orbs visibles, gradients marcados.
  */
 
-const HERO_IMG =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuBMJSp4bqbkiqdVdN-PE_YlaJHONjVHgCTgeIXkj1gDryN2gS3yVKhMWd8rQ-wKLVQ4xYbfqvVfZa34T4DjHfyMCn2vV8GvNtQSKLXYyPx7EmA8Oy2Hg9n6d1DBEyS2TwgIdhDjtimS7341ch-8c49zOmtcjuaf5Qz5j9iOUJgyuzUNg1njEOzUR_eAtzJgF9T0pMlKdwXtuFatTM2zml4jJIIMhl3OnRe4mA0RjVHuZY7a4Dz9dI8qggimQ8jintFWvzpKCEgcAzM";
+// Foto real de un trabajo de Jaime (instalación, Alicante mayo 2025).
+// El alt describe lo que se ve, no el servicio que vende la página.
+const CONDUCTO_BASE = "/img/instalacion-conductos-falso-techo-alicante-1";
+const CONDUCTO_SRCSET = (ext: string) =>
+  `${CONDUCTO_BASE}-400.${ext} 400w, ${CONDUCTO_BASE}-800.${ext} 800w, ${CONDUCTO_BASE}-1200.${ext} 1200w`;
+const CONDUCTO_ALT = "Conducto de extracción nuevo conectado a la unidad";
+const HERO_IMG = `${CONDUCTO_BASE}-fondo-1920.webp`;
+const CTA_IMG = `${CONDUCTO_BASE}-fondo-1280.webp`;
 
 // ─── Reveal ─────────────────────────────────────────────────────────────────
 // Pass-through: contenido siempre visible. Se conservó el componente para
@@ -244,10 +250,23 @@ const LimpiezaConductos: React.FC = () => {
               <Reveal delay={120}>
                 <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-primary/10">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-                  <div className="relative aspect-[4/3] bg-cover bg-center" style={{ backgroundImage: `url("${HERO_IMG}")` }} aria-label="Conducto de extracción industrial"></div>
+                  <picture className="relative block aspect-[4/3]">
+                    <source type="image/webp" srcSet={CONDUCTO_SRCSET('webp')} sizes="(min-width: 1024px) 560px, calc(100vw - 3rem)" />
+                    <img
+                      src={`${CONDUCTO_BASE}-800.jpg`}
+                      srcSet={CONDUCTO_SRCSET('jpg')}
+                      sizes="(min-width: 1024px) 560px, calc(100vw - 3rem)"
+                      alt={CONDUCTO_ALT}
+                      className="h-full w-full object-cover"
+                      width="1500"
+                      height="1125"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent p-6">
                     <p className="text-xs font-black text-orange-400 uppercase tracking-widest mb-1">La zona invisible</p>
-                    <p className="text-white text-sm font-medium">Interior de un conducto vertical con grasa acumulada — inaccesible sin registros de inspección.</p>
+                    <p className="text-white text-sm font-medium">Conducto de extracción nuevo conectado a la unidad. La grasa se acumula por dentro, donde no se ve ni se llega sin registros de inspección.</p>
                   </div>
                 </div>
               </Reveal>
@@ -523,7 +542,7 @@ const LimpiezaConductos: React.FC = () => {
 
         {/* ═══ CTA cierre ═══ */}
         <section className="relative overflow-hidden bg-slate-950 py-28 md:py-36 px-6 lg:px-12">
-          <div className="absolute inset-0 z-0 bg-cover bg-center opacity-30" style={{ backgroundImage: `url("${HERO_IMG}")` }} aria-hidden="true"></div>
+          <div className="absolute inset-0 z-0 bg-cover bg-center opacity-30" style={{ backgroundImage: `url("${CTA_IMG}")` }} aria-hidden="true"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950/95 to-slate-950" aria-hidden="true"></div>
           <Orb className="bg-primary/40 w-[600px] h-[600px] -top-40 -left-40 animate-pulse" />
           <Orb className="bg-cyan-500/20 w-[520px] h-[520px] bottom-0 -right-40" />

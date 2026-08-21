@@ -42,6 +42,11 @@ const CertificateSection: React.FC = () => {
           </div>
           
           <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 group" role="img" aria-label="Ejemplo visual de informe técnico de limpieza industrial">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-slate-900 px-3 py-1.5">
+              <span className="material-symbols-outlined text-sm text-white" aria-hidden="true">info</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-white">Ejemplo de informe</span>
+            </div>
+
             <div className="flex items-center justify-between mb-8 border-b border-slate-100 pb-4">
               <div className="flex items-center gap-3">
                 <div className="bg-primary/10 p-2 rounded-lg text-primary">
@@ -54,7 +59,7 @@ const CertificateSection: React.FC = () => {
               </div>
               <div className="text-right">
                 <span className="block text-[10px] font-black text-slate-900 uppercase">Nº INFORME</span>
-                <span className="text-[10px] font-medium text-slate-500">2025-ALC-0842</span>
+                <span className="text-[10px] font-medium text-slate-500">MUESTRA</span>
               </div>
             </div>
             
@@ -62,11 +67,11 @@ const CertificateSection: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1">
                   <span className="text-[9px] font-black text-slate-400 uppercase">Establecimiento</span>
-                  <span className="text-[11px] font-bold text-slate-700">Restaurante El Puerto</span>
+                  <span className="text-[11px] font-bold text-slate-700">Cocina industrial</span>
                 </div>
                 <div className="flex flex-col gap-1 text-right">
                   <span className="text-[9px] font-black text-slate-400 uppercase">Fecha</span>
-                  <span className="text-[11px] font-bold text-slate-700">12/03/2025</span>
+                  <span className="text-[11px] font-bold text-slate-700">DD/MM/AAAA</span>
                 </div>
               </div>
 
@@ -115,7 +120,7 @@ const CertificateSection: React.FC = () => {
             <div className="absolute -bottom-10 -right-6 bg-yellow-400 text-slate-900 w-36 h-36 rounded-full flex flex-col items-center justify-center text-center p-6 shadow-xl border-4 border-white rotate-12 transition-transform group-hover:rotate-0 z-20" aria-hidden="true">
               <span className="font-black text-[10px] leading-[1.1] uppercase mb-1">Pegatina de Próxima Revisión</span>
               <span className="material-symbols-outlined text-2xl my-1">event_available</span>
-              <span className="font-bold text-[9px] uppercase tracking-tighter mt-1 bg-black/5 px-2 py-0.5 rounded-full">Septiembre 2025</span>
+              <span className="font-bold text-[9px] uppercase tracking-tighter mt-1 bg-black/5 px-2 py-0.5 rounded-full">Mes / Año</span>
             </div>
           </div>
         </div>
