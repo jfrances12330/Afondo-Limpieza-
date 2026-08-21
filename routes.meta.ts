@@ -145,4 +145,98 @@ export const routes: RouteMeta[] = [
       ],
     },
   },
+  // ── Fase 3 del brief de fotos ────────────────────────────────────────
+  {
+    path: "/trabajos-realizados-alicante",
+    title: "Trabajos realizados en Alicante | Afondo",
+    description: "Trabajos de Afondo en Alicante y provincia con fotos: limpieza de turbinas, reparación de conductos, instalación en falso techo y en cubierta, y mantenimiento de chimenea.",
+    canonical: "https://afondolimpiezadecampanas.com/trabajos-realizados-alicante",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://afondolimpiezadecampanas.com/trabajos-realizados-alicante#breadcrumb",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://afondolimpiezadecampanas.com" },
+            { "@type": "ListItem", "position": 2, "name": "Trabajos realizados en Alicante", "item": "https://afondolimpiezadecampanas.com/trabajos-realizados-alicante" },
+          ],
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://afondolimpiezadecampanas.com/trabajos-realizados-alicante#trabajos",
+          "name": "Trabajos realizados por Afondo en Alicante y provincia",
+          "numberOfItems": 5,
+          "itemListOrder": "https://schema.org/ItemListOrderAscending",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Limpieza de turbina de extracción en taller",
+              "item": {
+                "@type": "ImageObject",
+                "@id": "https://afondolimpiezadecampanas.com/trabajos-realizados-alicante#trabajo-1",
+                "contentUrl": "https://afondolimpiezadecampanas.com/img/limpieza-turbina-extraccion-taller-benidorm-despues-4x3-1536.webp",
+                "caption": "La misma turbina de extracción tras la limpieza, con el metal a la vista",
+                "description": "Desmontaje de la turbina de extracción de un restaurante y traslado a taller para el desengrase completo del rodete y la caja.",
+                "contentLocation": { "@type": "Place", "name": "Benidorm, Alicante" },
+              },
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Reparación de fugas en conducto de extracción",
+              "item": {
+                "@type": "ImageObject",
+                "@id": "https://afondolimpiezadecampanas.com/trabajos-realizados-alicante#trabajo-2",
+                "contentUrl": "https://afondolimpiezadecampanas.com/img/reparacion-fuga-conducto-extraccion-alicante-despues-1600.webp",
+                "caption": "Conducto de extracción con piezas nuevas y juntas selladas tras la reparación",
+                "description": "Sustitución del tramo defectuoso de un conducto de extracción que perdía humo por los empalmes, con montaje de piezas nuevas y sellado de juntas.",
+                "contentLocation": { "@type": "Place", "name": "Alicante" },
+              },
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Instalación de conductos en falso techo",
+              "item": {
+                "@type": "ImageObject",
+                "@id": "https://afondolimpiezadecampanas.com/trabajos-realizados-alicante#trabajo-3",
+                "contentUrl": "https://afondolimpiezadecampanas.com/img/instalacion-conductos-falso-techo-alicante-1-1600.webp",
+                "caption": "Conducto de extracción nuevo conectado a la unidad",
+                "description": "Instalación de conductos por el falso techo del local para conectar una campana de show cooking y la campana de la cocina con la salida vertical del edificio.",
+                "contentLocation": { "@type": "Place", "name": "Alicante" },
+              },
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Traslado de la extracción a cubierta con turbina de mayor capacidad",
+              "item": {
+                "@type": "ImageObject",
+                "@id": "https://afondolimpiezadecampanas.com/trabajos-realizados-alicante#trabajo-4",
+                "contentUrl": "https://afondolimpiezadecampanas.com/img/instalacion-extraccion-azotea-alicante-3-1600.webp",
+                "caption": "Chimenea de extracción terminada con su sombrerete en una azotea de Alicante",
+                "description": "Retirada de la turbina antigua, instalación en azotea de una de mayor capacidad y ejecución de la instalación de conducto nueva hasta la salida.",
+                "contentLocation": { "@type": "Place", "name": "Alicante" },
+              },
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Mantenimiento trimestral de chimenea de barbacoa de leña",
+              "item": {
+                "@type": "ImageObject",
+                "@id": "https://afondolimpiezadecampanas.com/trabajos-realizados-alicante#trabajo-5",
+                "contentUrl": "https://afondolimpiezadecampanas.com/img/mantenimiento-chimenea-barbacoa-lena-javea-2-1600.webp",
+                "caption": "Trabajo de retirada del hollín del tubo de chimenea con cepillos metálicos",
+                "description": "Mantenimiento trimestral del tubo de chimenea de una barbacoa de leña de tiro libre: protección de la zona con plásticos y retirada del hollín acumulado con cepillos metálicos.",
+                "contentLocation": { "@type": "Place", "name": "Jávea, Alicante" },
+              },
+            },
+          ],
+        },
+      ],
+    },
+  },
 ];

@@ -66,7 +66,7 @@ const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         {/* Menú desktop */}
-        <div className="hidden lg:flex items-center gap-10">
+        <div className="hidden xl:flex items-center gap-5 2xl:gap-10">
           <button onClick={onNavigateHome} className={`${linkColor} transition-colors text-sm font-bold uppercase tracking-wider`}>Inicio</button>
 
           {/* Dropdown Servicios desktop */}
@@ -93,6 +93,15 @@ const Navbar: React.FC<NavbarProps> = ({
                     {s.label}
                   </Link>
                 ))}
+                <div className="mx-4 my-2 h-px bg-slate-100 dark:bg-slate-800"></div>
+                <Link
+                  to="/trabajos-realizados-alicante"
+                  onClick={() => setOpenDesktop(false)}
+                  role="menuitem"
+                  className="block px-4 py-3 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-primary/5 hover:text-primary transition-colors"
+                >
+                  Trabajos realizados
+                </Link>
               </div>
             )}
           </div>
@@ -104,7 +113,7 @@ const Navbar: React.FC<NavbarProps> = ({
             Calculadora
           </button>
           <button onClick={onNavigateContacto} className={`${linkColor} transition-colors text-sm font-bold uppercase tracking-wider`}>Contacto</button>
-          <Link to="/zona-privada" title="Zona privada — acceso técnicos" className={`${linkColor} transition-colors text-sm font-bold uppercase tracking-wider flex items-center gap-1.5`}>
+          <Link to="/zona-privada" title="Zona privada — acceso técnicos" className={`${linkColor} transition-colors text-sm font-bold uppercase tracking-wider flex items-center gap-1.5 whitespace-nowrap`}>
             <span className="material-symbols-outlined text-base">lock</span>
             Zona privada
           </Link>
@@ -116,7 +125,7 @@ const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setOpenMobile((v) => !v)}
             aria-label="Menú de servicios"
             aria-expanded={openMobile}
-            className={`lg:hidden p-3 ${isLightPage ? 'text-slate-500 hover:bg-slate-100' : 'text-white/80 hover:bg-white/10'} rounded-full transition-all`}
+            className={`xl:hidden p-3 ${isLightPage ? 'text-slate-500 hover:bg-slate-100' : 'text-white/80 hover:bg-white/10'} rounded-full transition-all`}
           >
             <span className="material-symbols-outlined text-2xl">{openMobile ? 'close' : 'menu'}</span>
           </button>
@@ -130,14 +139,14 @@ const Navbar: React.FC<NavbarProps> = ({
           </button>
           <a href="tel:+34622064101" className={`hidden sm:flex items-center gap-3 text-white bg-primary hover:bg-primary-dark px-6 py-3 rounded-xl shadow-xl shadow-primary/20 transition-all border border-white/10 group`}>
             <span className="material-symbols-outlined text-white group-hover:rotate-12 transition-transform">call</span>
-            <span className="font-black text-sm tracking-wide">622 06 41 01</span>
+            <span className="font-black text-sm tracking-wide whitespace-nowrap">622 06 41 01</span>
           </a>
         </div>
       </div>
 
       {/* Desplegable móvil Servicios */}
       {openMobile && (
-        <div className="lg:hidden max-w-7xl mx-auto mt-4 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 py-2">
+        <div className="xl:hidden max-w-7xl mx-auto mt-4 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 py-2">
           <div className="px-4 py-2 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Servicios</div>
           {SERVICIOS.map((s) => (
             <Link
@@ -149,6 +158,14 @@ const Navbar: React.FC<NavbarProps> = ({
               {s.label}
             </Link>
           ))}
+          <div className="mx-4 my-2 h-px bg-slate-100 dark:bg-slate-800"></div>
+          <Link
+            to="/trabajos-realizados-alicante"
+            onClick={() => setOpenMobile(false)}
+            className="block px-4 py-3 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-primary/5 hover:text-primary transition-colors"
+          >
+            Trabajos realizados
+          </Link>
         </div>
       )}
     </nav>

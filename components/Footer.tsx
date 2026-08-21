@@ -78,6 +78,7 @@ const Footer: React.FC<FooterProps> = () => {
               <span className="text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest">Servicios</span>
               <Link to="/" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Limpieza de campanas</Link>
               <Link to="/limpieza-conductos-extraccion-alicante" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Limpieza de conductos</Link>
+              <Link to="/trabajos-realizados-alicante" className="text-slate-500 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors text-left">Trabajos realizados</Link>
               {/* TODO tanda 3-5: añadir aquí Certificado, Instalación, Servicio técnico */}
             </div>
             <div className="flex flex-col gap-4 min-w-[180px]">

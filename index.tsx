@@ -12,6 +12,7 @@ const Cookies = lazy(() => import('./components/legal/Cookies'));
 const Calculadora = lazy(() => import('./components/Calculadora'));
 const ContactPage = lazy(() => import('./components/ContactPage'));
 const LimpiezaConductos = lazy(() => import('./pages/LimpiezaConductos'));
+const TrabajosRealizados = lazy(() => import('./pages/TrabajosRealizados'));
 const ZonaPrivadaHub = lazy(() => import('./components/zona-privada/ZonaPrivadaHub'));
 const GateAcceso = lazy(() => import('./components/zona-privada/GateAcceso'));
 const ResenasTool = lazy(() => import('./components/zona-privada/resenas/ResenasTool'));
@@ -58,6 +59,7 @@ const Root: React.FC = () => (
         <Route path="/calculadora" element={<RoutedBack Page={Calculadora} />} />
         <Route path="/contacto" element={<RoutedBack Page={ContactPage} />} />
         <Route path="/limpieza-conductos-extraccion-alicante" element={<LimpiezaConductos />} />
+        <Route path="/trabajos-realizados-alicante" element={<TrabajosRealizados />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>
