@@ -6,10 +6,10 @@ interface ServicesSectionProps {
   onNavigateCalculadora: () => void;
 }
 
-// Las tarjetas con `base` sirven una foto local con srcset; las que aun
-// conservan `img` apuntan a la imagen antigua y estan pendientes de sustituir.
+// Cada tarjeta sirve su foto local con srcset y sus propios anchos.
 // Un base terminado en `-4x3` es un reencuadre propio de este hueco: la version
 // sin sufijo es la foto entera y ahi el recorte centrado cortaria mal.
+// Un base que empieza por `stock-` NO es un trabajo de Afondo.
 const SIZES = "(min-width: 1024px) 380px, calc(100vw - 3rem)";
 const srcSet = (base: string, ext: string, anchos: number[]) =>
   anchos.map((a) => `${base}-${a}.${ext} ${a}w`).join(", ");
@@ -23,8 +23,12 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
       description: "Eliminación total de grasa en superficies, filtros y plenum mediante espuma activa y agua a presión. Garantizamos una zona de cocción higiénica.",
       items: ["Desengrase profundo de filtros", "Limpieza de recoge-grasas", "Abrillantado de acero inoxidable"],
       icon: "restaurant",
-      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuA54dSXiDg08XUtcvxgs2YQuY_cUDjr61OuQxp24j1RKXzH2vvD3Fwe46bAuKkR7qeRlc0jPuP-cfw47aAGeoWiuXjU8Z80Hu5zoOJ3P_ltpboqA5SNpZqG77Kmv2Q4iDdSqvKiaGiUMSKELgJPqqE9wnK59TBYdPNwwb_C7f3Fwo_B3rsTKa6nq-cVUHh2qtIhvU785xfFoR2Ohwol22UHW_5RxzICYf7CGLR5XLKbupwn_6Xhu8pZD1ZlW2z1nNCWiDCbduWUy7E",
-      alt: "Servicio de limpieza y desengrase de campanas extractoras industriales en Alicante"
+      // Hueco 9 · foto de archivo (Pexels), NO es un trabajo de Afondo.
+      // Procedencia en docs/FOTOS-STOCK-PROCEDENCIA.md; se sustituye en cuanto
+      // haya foto propia de campana -> docs/FOTOS-PENDIENTES-SUSTITUIR.md.
+      base: "/img/stock-campana-industrial-cocina-1",
+      anchos: [400, 800, 1200],
+      alt: "Campana extractora industrial de acero inoxidable con sus filtros sobre una línea de cocción"
     },
     {
       title: "Desengrase de Conductos",
@@ -70,31 +74,20 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
           {services.map((service, idx) => (
             <article key={idx} className="group flex flex-col bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 dark:border-slate-800">
               <div className="relative h-56 overflow-hidden">
-                {(service as any).base ? (
-                  <picture className="block h-full w-full">
-                    <source type="image/webp" srcSet={srcSet((service as any).base, 'webp', (service as any).anchos)} sizes={SIZES} />
-                    <img
-                      src={`${(service as any).base}-800.jpg`}
-                      srcSet={srcSet((service as any).base, 'jpg', (service as any).anchos)}
-                      sizes={SIZES}
-                      alt={service.alt}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      loading="lazy"
-                      decoding="async"
-                      width="400"
-                      height="300"
-                    />
-                  </picture>
-                ) : (
+                <picture className="block h-full w-full">
+                  <source type="image/webp" srcSet={srcSet(service.base, 'webp', service.anchos)} sizes={SIZES} />
                   <img
-                    src={(service as any).img}
+                    src={`${service.base}-800.jpg`}
+                    srcSet={srcSet(service.base, 'jpg', service.anchos)}
+                    sizes={SIZES}
                     alt={service.alt}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     loading="lazy"
+                    decoding="async"
                     width="400"
                     height="300"
                   />
-                )}
+                </picture>
               </div>
               <div className="p-8 flex flex-col flex-1">
                 <div className="flex items-center gap-3 mb-4">

@@ -13,9 +13,14 @@ grep -rn "lh3.googleusercontent.com" --include=*.tsx --include=*.html .
 
 | # | Dónde | Qué enseña ahora | Qué hace falta | Bloqueado por |
 |---|---|---|---|---|
-| 9 | `components/ServicesSection.tsx` · tarjeta **Limpieza de Campanas** | Imagen de IA (`lh3`) | Foto de stock provisional, o foto real de campana | Stock a la espera de que Jorge valide el candidato |
+| 1 | `components/Hero.tsx` · **el hero de la portada** | Foto de archivo `stock-equipo-extraccion-cubierta-1` (Pexels) | Foto real de Jaime que aguante apaisado y vertical y no distraiga | Jaime tiene que mandarla. **Es el hueco nº1 de la lista: en cuanto llegue material bueno, este se cambia el primero** |
+| 9 | `components/ServicesSection.tsx` · tarjeta **Limpieza de Campanas** | Foto de archivo `stock-campana-industrial-cocina-1` (Pexels) | Foto real de una campana industrial con sus filtros | Jaime tiene que mandarla |
 | — | `components/CertificateSection.tsx:88` · **Estado Inicial** | Imagen de IA (`lh3`) | Foto real de campana **sucia**, antes de limpiar | Jaime tiene que mandarlas |
 | — | `components/CertificateSection.tsx:97` · **Estado Final** | Imagen de IA (`lh3`) | Foto real de la **misma** campana ya limpia | Jaime tiene que mandarlas |
+
+⚠️ Las dos filas de stock ilustran, **no demuestran**: ninguna de las dos dice
+ni sugiere que sea un trabajo de Afondo, y su `alt` describe solo lo que se ve.
+Procedencia y licencia en `docs/FOTOS-STOCK-PROCEDENCIA.md`.
 
 ⚠️ Los dos huecos del certificado **no admiten stock**: ahí la foto *demuestra*
 que Jaime hizo ese trabajo, y una foto de stock sería un testimonio falso.

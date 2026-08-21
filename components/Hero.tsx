@@ -7,7 +7,11 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
-  const heroBase = "/img/instalacion-extraccion-azotea-alicante-3";
+  // Foto de archivo (Pexels), no es un trabajo de Afondo: procedencia en
+  // docs/FOTOS-STOCK-PROCEDENCIA.md. Es lo primero que se sustituye cuando
+  // llegue material propio -> docs/FOTOS-PENDIENTES-SUSTITUIR.md.
+  // El preload de index.html apunta a estas tres mismas variantes.
+  const heroBase = "/img/stock-equipo-extraccion-cubierta-1";
   const heroSrcSet = (ext: string) =>
     `${heroBase}-800.${ext} 800w, ${heroBase}-1280.${ext} 1280w, ${heroBase}-1920.${ext} 1920w`;
 
@@ -21,7 +25,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
             src={`${heroBase}-1280.jpg`}
             srcSet={heroSrcSet('jpg')}
             sizes="100vw"
-            alt="Chimenea de extracción terminada con su sombrerete en una azotea de Alicante"
+            alt="Equipo de extracción en la cubierta de un edificio: dos turbinas cilíndricas conectadas a conductos de chapa"
             className="h-full w-full object-cover object-center scale-105"
             width="1920"
             height="1440"
