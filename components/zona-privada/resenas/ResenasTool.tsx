@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { construirMensaje } from './mensaje';
-import { leerHistorial, guardarEntrada, borrarEntrada, EntradaResena } from './historial';
+import { leerHistorial, guardarEntrada, borrarEntrada, sincronizar, EntradaResena } from './historial';
 
 // Atajos fijos. Nada que ver con los 9 servicios del generador: aquello es
 // documentación técnica interna, esto es lenguaje de cara al cliente final.
@@ -33,6 +33,7 @@ const fechaCorta = (iso: string) => {
 
 const ResenasTool: React.FC = () => {
   const [nombre, setNombre] = useState('');
+  const [sinNombre, setSinNombre] = useState(false);
   const [negocio, setNegocio] = useState('');
   const [telefono, setTelefono] = useState('');
   const [servicio, setServicio] = useState('');
@@ -44,10 +45,32 @@ const ResenasTool: React.FC = () => {
   const [busqueda, setBusqueda] = useState('');
   const [aviso, setAviso] = useState('');
   const [errorGuardado, setErrorGuardado] = useState('');
+  const [nube, setNube] = useState<'cargando' | 'compartido' | 'solo-aqui'>('cargando');
 
+  // Al abrir: subimos lo que este aparato tenga guardado y nos quedamos con la
+  // lista común. Esto es lo que rescata las reseñas que Jaime apuntó desde el
+  // móvil antes de que existiera el listado compartido.
+  useEffect(() => {
+    let vivo = true;
+    sincronizar({ nuevas: leerHistorial() }).then((comunes) => {
+      if (!vivo) return;
+      if (comunes) {
+        setEntradas(comunes);
+        setNube('compartido');
+      } else {
+        setNube('solo-aqui');
+      }
+    });
+    return () => {
+      vivo = false;
+    };
+  }, []);
+
+  const nombreEfectivo = sinNombre ? '' : nombre;
   const telefonoNormalizado = normalizarTelefono(telefono);
-  const mensaje = construirMensaje(nombre, servicio);
-  const valido = nombre.trim() !== '' && servicio.trim() !== '' && telefonoNormalizado !== null;
+  const mensaje = construirMensaje(nombreEfectivo, servicio);
+  const valido =
+    (sinNombre || nombre.trim() !== '') && servicio.trim() !== '' && telefonoNormalizado !== null;
 
   const href = valido
     ? `https://wa.me/${telefonoNormalizado}?text=${encodeURIComponent(mensaje)}`
@@ -85,7 +108,10 @@ const ResenasTool: React.FC = () => {
     if (!valido) {
       ev.preventDefault();
       setErrores({
-        nombre: nombre.trim() ? undefined : 'Pon el nombre del cliente',
+        nombre:
+          sinNombre || nombre.trim()
+            ? undefined
+            : 'Pon el nombre del cliente, o marca «No sé su nombre»',
         telefono: telefonoNormalizado
           ? undefined
           : 'Ese teléfono no parece correcto. Escríbelo como 622064101',
@@ -95,7 +121,7 @@ const ResenasTool: React.FC = () => {
     }
 
     const res = guardarEntrada({
-      nombre: nombre.trim(),
+      nombre: nombreEfectivo.trim(),
       negocio: negocio.trim(),
       telefono: telefono.trim(),
       telefonoNormalizado,
@@ -108,11 +134,23 @@ const ResenasTool: React.FC = () => {
       res.ok ? '' : 'No se ha podido guardar en el listado, pero el mensaje sí se puede enviar.'
     );
 
+    // Subir es aparte de guardar: si el servidor no contesta, la entrada ya
+    // está en este aparato y se volverá a subir la próxima vez que se abra.
+    sincronizar({ nuevas: [res.entrada] }).then((comunes) => {
+      if (comunes) {
+        setEntradas(comunes);
+        setNube('compartido');
+      } else {
+        setNube('solo-aqui');
+      }
+    });
+
     // Vaciar en un tick aparte: si lo hacemos dentro del onClick, React repinta
     // el <a> con href="#" antes de que el navegador siga el enlace, y en el
     // iPhone no se abriría WhatsApp.
     setTimeout(() => {
       setNombre('');
+      setSinNombre(false);
       setNegocio('');
       setTelefono('');
       setServicio('');
@@ -121,9 +159,17 @@ const ResenasTool: React.FC = () => {
   };
 
   const alBorrar = (entrada: EntradaResena) => {
-    const etiqueta = entrada.negocio || entrada.nombre;
+    const etiqueta = entrada.negocio || entrada.nombre || entrada.telefono;
     if (window.confirm(`¿Borrar a ${etiqueta} del listado?`)) {
       setEntradas(borrarEntrada(entrada.id));
+      sincronizar({ borrar: [entrada.id] }).then((comunes) => {
+        if (comunes) {
+          setEntradas(comunes);
+          setNube('compartido');
+        } else {
+          setNube('solo-aqui');
+        }
+      });
     }
   };
 
@@ -150,11 +196,35 @@ const ResenasTool: React.FC = () => {
             <input
               id="cliente-nombre"
               type="text"
-              value={nombre}
+              value={sinNombre ? '' : nombre}
               onChange={(e) => setNombre(e.target.value)}
-              className={claseCampo}
+              disabled={sinNombre}
+              className={`${claseCampo} disabled:opacity-50 disabled:cursor-not-allowed`}
             />
             <p className={claseAyuda}>El nombre que aparecerá en el mensaje. Ej: José</p>
+
+            <label
+              htmlFor="cliente-sin-nombre"
+              className="mt-3 flex items-center gap-3 cursor-pointer select-none"
+            >
+              <input
+                id="cliente-sin-nombre"
+                type="checkbox"
+                checked={sinNombre}
+                onChange={(e) => setSinNombre(e.target.checked)}
+                className="w-6 h-6 rounded-md accent-primary cursor-pointer"
+              />
+              <span className="text-base font-bold text-slate-700 dark:text-slate-300">
+                No sé su nombre
+              </span>
+            </label>
+            {sinNombre && (
+              <p className={claseAyuda}>
+                El mensaje empezará por «¡Hola! 😊». Todo lo demás va igual, y no se nombra al
+                negocio en ningún sitio.
+              </p>
+            )}
+
             {errores.nombre && (
               <p className="mt-2 text-sm font-bold text-red-600 dark:text-red-400">{errores.nombre}</p>
             )}
@@ -279,6 +349,12 @@ const ResenasTool: React.FC = () => {
             <p className="mt-1 text-sm font-bold uppercase tracking-widest text-primary">
               Has pedido {entradas.length} reseñas
             </p>
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+              {nube === 'cargando' && 'Buscando el listado compartido…'}
+              {nube === 'compartido' && 'Este listado se ve desde cualquier móvil u ordenador.'}
+              {nube === 'solo-aqui' &&
+                'Ahora mismo no hay conexión con el listado compartido, así que esto es lo guardado en este aparato. Se subirá solo cuando vuelva.'}
+            </p>
 
             {entradas.length === 0 ? (
               <p className="mt-6 text-base text-slate-600 dark:text-slate-400">
@@ -298,10 +374,11 @@ const ResenasTool: React.FC = () => {
                     <li key={e.id} className="py-4 flex items-start gap-4">
                       <div className="min-w-0 flex-1">
                         <p className="text-lg font-black text-slate-900 dark:text-white truncate">
-                          {e.negocio || e.nombre}
+                          {e.negocio || e.nombre || e.telefono}
                         </p>
                         <p className="text-sm text-slate-600 dark:text-slate-400 truncate">
-                          {e.nombre} · {e.telefono}
+                          {e.nombre ? `${e.nombre} · ` : ''}
+                          {e.telefono}
                         </p>
                         <p className="text-sm text-slate-500 dark:text-slate-500 truncate">
                           {e.servicio} · {fechaCorta(e.fechaISO)}
@@ -310,7 +387,7 @@ const ResenasTool: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => alBorrar(e)}
-                        aria-label={`Borrar a ${e.negocio || e.nombre} del listado`}
+                        aria-label={`Borrar a ${e.negocio || e.nombre || e.telefono} del listado`}
                         className="shrink-0 p-2 text-slate-400 hover:text-red-600 transition-colors"
                       >
                         <span className="material-symbols-outlined !text-2xl" aria-hidden="true">delete</span>

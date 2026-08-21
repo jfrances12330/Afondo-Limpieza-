@@ -13,8 +13,17 @@ Te pido un favor pequeñito: somos un negocio de aquí, de Alicante, y las rese�
 ¡Mil gracias de verdad! 🙌
 Jaime — Afondo Limpieza de Campanas`;
 
+// Cuando Jaime no se sabe el nombre (aprobado por Jorge 21-ago-2026) cambia
+// SÓLO la primera línea. El resto del mensaje no se toca ni una letra, y en
+// ningún caso se cuela el nombre del negocio en su lugar.
+const SALUDO_CON_NOMBRE = 'Hola {NOMBRE} 😊';
+const SALUDO_SIN_NOMBRE = '¡Hola! 😊';
+
 export function construirMensaje(nombre: string, servicio: string): string {
-  return PLANTILLA
-    .replace('{NOMBRE}', () => nombre.trim())
-    .replace('{SERVICIO}', () => servicio.trim());
+  const limpio = nombre.trim();
+  const texto =
+    limpio === ''
+      ? PLANTILLA.replace(SALUDO_CON_NOMBRE, () => SALUDO_SIN_NOMBRE)
+      : PLANTILLA.replace('{NOMBRE}', () => limpio);
+  return texto.replace('{SERVICIO}', () => servicio.trim());
 }
