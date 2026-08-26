@@ -19,7 +19,10 @@
     imagesizes="100vw"
     fetchpriority="high" />
 
-  <!-- Favicon -->
+  <!-- Favicon. El .ico tiene que existir como fichero real: el catch-all del
+       .htaccess devuelve index.html con 200 en cualquier ruta que no exista. -->
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
