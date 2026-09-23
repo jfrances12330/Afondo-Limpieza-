@@ -16,11 +16,20 @@ const CHIPS_FIJOS = [
 ];
 
 // Devuelve el número en E.164 sin '+', o null si no hay forma de leerlo.
+// Un número suelto sólo se acepta si es español: sin prefijo no hay manera de
+// saber de qué país es, y adivinarlo manda el WhatsApp a otra persona.
 function normalizarTelefono(entrada: string): string | null {
   let t = entrada.replace(/[\s.\-()]/g, '');
-  if (t.startsWith('+')) t = t.slice(1);
-  else if (t.startsWith('00')) t = t.slice(2);
+  let conPrefijo = false;
+  if (t.startsWith('+')) {
+    t = t.slice(1);
+    conPrefijo = true;
+  } else if (t.startsWith('00')) {
+    t = t.slice(2);
+    conPrefijo = true;
+  }
   if (!/^\d+$/.test(t)) return null;
+  if (conPrefijo) return /^\d{8,15}$/.test(t) ? t : null;
   if (/^[679]\d{8}$/.test(t)) return `34${t}`;
   if (/^34\d{9}$/.test(t)) return t;
   return null;
@@ -35,6 +44,7 @@ const ResenasTool: React.FC = () => {
   const [nombre, setNombre] = useState('');
   const [sinNombre, setSinNombre] = useState(false);
   const [negocio, setNegocio] = useState('');
+  const [sinNegocio, setSinNegocio] = useState(false);
   const [telefono, setTelefono] = useState('');
   const [servicio, setServicio] = useState('');
 
@@ -67,6 +77,7 @@ const ResenasTool: React.FC = () => {
   }, []);
 
   const nombreEfectivo = sinNombre ? '' : nombre;
+  const negocioEfectivo = sinNegocio ? '' : negocio;
   const telefonoNormalizado = normalizarTelefono(telefono);
   const mensaje = construirMensaje(nombreEfectivo, servicio);
   const valido =
@@ -114,7 +125,7 @@ const ResenasTool: React.FC = () => {
             : 'Pon el nombre del cliente, o marca «No sé su nombre»',
         telefono: telefonoNormalizado
           ? undefined
-          : 'Ese teléfono no parece correcto. Escríbelo como 622064101',
+          : 'Ese teléfono no parece correcto. Español: 622064101. De fuera de España: con el + y su prefijo, como +353 86 809 2063',
         servicio: servicio.trim() ? undefined : 'Escribe qué trabajo le has hecho',
       });
       return;
@@ -122,7 +133,7 @@ const ResenasTool: React.FC = () => {
 
     const res = guardarEntrada({
       nombre: nombreEfectivo.trim(),
-      negocio: negocio.trim(),
+      negocio: negocioEfectivo.trim(),
       telefono: telefono.trim(),
       telefonoNormalizado,
       servicio: servicio.trim(),
@@ -152,6 +163,7 @@ const ResenasTool: React.FC = () => {
       setNombre('');
       setSinNombre(false);
       setNegocio('');
+      setSinNegocio(false);
       setTelefono('');
       setServicio('');
       setVerMensaje(false);
@@ -235,13 +247,35 @@ const ResenasTool: React.FC = () => {
             <input
               id="cliente-negocio"
               type="text"
-              value={negocio}
+              value={sinNegocio ? '' : negocio}
               onChange={(e) => setNegocio(e.target.value)}
-              className={claseCampo}
+              disabled={sinNegocio}
+              className={`${claseCampo} disabled:opacity-50 disabled:cursor-not-allowed`}
             />
             <p className={claseAyuda}>
               Solo para tu listado, para saber quién es. Ej: Restaurante El Puerto
             </p>
+
+            <label
+              htmlFor="cliente-sin-negocio"
+              className="mt-3 flex items-center gap-3 cursor-pointer select-none"
+            >
+              <input
+                id="cliente-sin-negocio"
+                type="checkbox"
+                checked={sinNegocio}
+                onChange={(e) => setSinNegocio(e.target.checked)}
+                className="w-6 h-6 rounded-md accent-primary cursor-pointer"
+              />
+              <span className="text-base font-bold text-slate-700 dark:text-slate-300">
+                No sé el nombre del negocio
+              </span>
+            </label>
+            {sinNegocio && (
+              <p className={claseAyuda}>
+                En el listado aparecerá por su nombre, y si tampoco lo sabes, por su teléfono.
+              </p>
+            )}
           </div>
 
           <div className="mb-6">
@@ -254,7 +288,10 @@ const ResenasTool: React.FC = () => {
               onChange={(e) => setTelefono(e.target.value)}
               className={claseCampo}
             />
-            <p className={claseAyuda}>Su móvil. Ej: 622064101</p>
+            <p className={claseAyuda}>
+              Su móvil. Ej: 622064101. Si es de fuera de España, ponlo con el + y su prefijo. Ej:
+              +353 86 809 2063
+            </p>
             {errores.telefono && (
               <p className="mt-2 text-sm font-bold text-red-600 dark:text-red-400">{errores.telefono}</p>
             )}
