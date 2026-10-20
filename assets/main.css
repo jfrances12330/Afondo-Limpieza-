@@ -26,3 +26,13 @@ html {
 h1, h2, h3 {
   text-wrap: balance;
 }
+
+/* Restyling oct-2026: rótulos técnicos en mono, sin gritar */
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #1f35d1;
+}
+.tnum { font-variant-numeric: tabular-nums; }

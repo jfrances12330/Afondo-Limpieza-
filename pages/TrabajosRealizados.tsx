@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
+import { WhatsAppFab } from '../components/ui';
 
 /**
  * FASE 3 del brief de fotos. Todas las fotos de esta página son trabajos reales
@@ -116,21 +117,16 @@ const srcSet = (f: Foto, ext: string) => f.anchos.map((a) => `${f.base}-${a}.${e
 
 const WHATSAPP = 'https://wa.me/34622064101?text=Hola,%20he%20visto%20vuestros%20trabajos%20realizados%20y%20quisiera%20presupuesto.';
 
-const Orb: React.FC<{ className?: string }> = ({ className = '' }) => (
-  <div className={`absolute rounded-full blur-3xl pointer-events-none ${className}`} aria-hidden="true" />
-);
-
 const CTALlamar: React.FC<{ sub: string }> = ({ sub }) => (
   <a
     href="tel:+34622064101"
-    className="group relative flex h-20 md:h-24 w-full max-w-xl items-center justify-center gap-4 overflow-hidden rounded-full bg-gradient-to-r from-primary via-primary to-blue-600 px-8 md:px-12 transition-all duration-300 hover:shadow-[0_25px_60px_rgba(26,26,255,0.5)] mx-auto"
+    className="inline-flex h-[52px] items-center gap-3 whitespace-nowrap rounded-lg bg-white px-5 text-ink transition-colors hover:bg-slate-100"
   >
-    <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/25 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" aria-hidden="true"></span>
-    <span className="material-symbols-outlined text-white font-bold text-3xl md:text-4xl relative z-10">call</span>
-    <div className="flex flex-col items-start relative z-10">
-      <span className="text-lg md:text-2xl font-black tracking-wide text-white uppercase leading-none">Llamar: 622 064 101</span>
-      <span className="text-[10px] md:text-[11px] font-bold text-white/80 uppercase mt-1.5 tracking-widest">{sub}</span>
-    </div>
+    <span className="material-symbols-outlined text-[21px] text-brand">call</span>
+    <span className="flex flex-col items-start leading-none">
+      <span className="tnum text-[16px] font-semibold">Llamar: 622 064 101</span>
+      <span className="mt-1 font-mono text-[10.5px] text-muted">{sub}</span>
+    </span>
   </a>
 );
 
@@ -139,16 +135,16 @@ const CTAWhatsapp: React.FC = () => (
     href={WHATSAPP}
     target="_blank"
     rel="noopener noreferrer"
-    className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-black py-4 px-8 rounded-full shadow-lg shadow-green-500/30 transition-all hover:scale-105 hover:shadow-green-500/50 active:scale-95"
+    className="inline-flex h-[52px] items-center gap-2 rounded-lg bg-[#1fa855] px-5 text-[15px] font-semibold text-white transition-colors hover:bg-[#178a45]"
   >
-    <span className="material-symbols-outlined">chat</span>
+    <span className="material-symbols-outlined text-[20px]">chat</span>
     WhatsApp
   </a>
 );
 
 const FotoTile: React.FC<{ f: Foto; sizes: string }> = ({ f, sizes }) => (
   <figure
-    className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-800 shadow-lg shadow-black/30"
+    className="relative overflow-hidden rounded-lg border border-line bg-mist"
     style={{ aspectRatio: `${f.w} / ${f.h}` }}
   >
     <picture className="block h-full w-full">
@@ -166,7 +162,7 @@ const FotoTile: React.FC<{ f: Foto; sizes: string }> = ({ f, sizes }) => (
       />
     </picture>
     {f.etiqueta && (
-      <figcaption className="absolute top-3 left-3 rounded-full border border-white/25 bg-slate-950/80 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-white backdrop-blur-md">
+      <figcaption className={`absolute left-2.5 top-2.5 rounded-md bg-white/95 px-2 py-1 font-mono text-[11px] shadow-card ${f.etiqueta === 'Antes' ? 'text-[#b91c1c]' : 'text-[#15803d]'}`}>
         {f.etiqueta}
       </figcaption>
     )}
@@ -175,10 +171,8 @@ const FotoTile: React.FC<{ f: Foto; sizes: string }> = ({ f, sizes }) => (
 
 const TrabajosRealizados: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100">
+    <div className="flex min-h-screen flex-col bg-white font-plex text-ink">
       <Navbar
-        onToggleDarkMode={() => document.documentElement.classList.toggle('dark')}
-        isDarkMode={false}
         onNavigateHome={() => { window.location.href = '/'; }}
         onNavigateCalculadora={() => { window.location.href = '/calculadora'; }}
         onNavigateContacto={() => { window.location.href = '/contacto'; }}
@@ -188,104 +182,107 @@ const TrabajosRealizados: React.FC = () => {
 
       <main className="flex-1">
         {/* ═══ PORTADA ═══ */}
-        <section className="relative flex min-h-[80svh] w-full flex-col justify-center overflow-hidden bg-slate-950">
-          <picture className="absolute inset-0 z-0 block h-full w-full">
-            <source type="image/webp" srcSet={srcSet(PORTADA, 'webp')} sizes="100vw" />
-            <img
-              src={`${PORTADA.base}-800.jpg`}
-              srcSet={srcSet(PORTADA, 'jpg')}
-              sizes="100vw"
-              alt={PORTADA.alt}
-              className="h-full w-full object-cover object-center"
-              width="1600"
-              height="1200"
-              fetchPriority="high"
-              decoding="async"
-            />
-          </picture>
-          {/* El degradado tiene que dejar ver la chimenea: una portada que no se
-              ve no ilustra nada. El contraste del H1 se mide sobre esta capa. */}
-          <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/70 via-slate-950/40 to-slate-950" aria-hidden="true"></div>
-          <div className="absolute inset-0 z-0 bg-gradient-to-r from-slate-950/85 via-slate-950/40 to-transparent" aria-hidden="true"></div>
-          <Orb className="bg-primary/30 w-[600px] h-[600px] -top-40 -left-40" />
+        <section className="relative overflow-hidden bg-ink text-white">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.07]"
+            style={{ backgroundImage: 'linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)', backgroundSize: '64px 64px' }}
+            aria-hidden="true"
+          />
+          <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-5 pb-16 pt-10 sm:px-6 md:pt-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:px-8 lg:pb-20 lg:pt-16">
+            <div>
+              <nav aria-label="Migas de pan" className="mb-8">
+                <ol className="flex flex-wrap items-center gap-2 font-mono text-[12px] text-white/50">
+                  <li><Link to="/" className="hover:text-white transition-colors">Inicio</Link></li>
+                  <li aria-hidden="true">/</li>
+                  <li className="text-white/85">Trabajos realizados</li>
+                </ol>
+              </nav>
 
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-40 pb-24 md:pt-48 md:pb-28">
-            <nav aria-label="Migas de pan" className="mb-8">
-              <ol className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
-                <li><Link to="/" className="hover:text-white transition-colors">Inicio</Link></li>
-                <li aria-hidden="true" className="text-slate-600">/</li>
-                <li className="text-white">Trabajos realizados</li>
-              </ol>
-            </nav>
+              <h1 className="text-[2.35rem] font-semibold leading-[1.06] tracking-[-0.025em] sm:text-[3.1rem] lg:text-[3.4rem]">
+                Trabajos realizados en{' '}
+                <span className="text-[#b9c4ff]">Alicante</span>
+                {' '}y provincia
+              </h1>
 
-            <h1 className="mb-8 max-w-4xl text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Trabajos realizados en{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-300">Alicante</span>
-              {' '}y provincia
-            </h1>
+              <p className="mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-slate-300">
+                Cinco intervenciones de Afondo con las fotografías de cada una: limpieza de turbinas,
+                reparación de conductos, instalaciones en falso techo y en cubierta, y mantenimiento
+                periódico de chimenea. Cada ficha cuenta qué se hizo y dónde.
+              </p>
 
-            <p className="max-w-3xl text-base font-medium leading-relaxed text-slate-200 sm:text-lg">
-              Cinco intervenciones de Afondo con las fotografías de cada una: limpieza de turbinas,
-              reparación de conductos, instalaciones en falso techo y en cubierta, y mantenimiento
-              periódico de chimenea. Cada ficha cuenta qué se hizo y dónde.
-            </p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="tel:+34622064101"
+                  className="inline-flex h-[52px] items-center justify-center gap-2.5 rounded-lg bg-white px-6 text-[16px] font-semibold text-ink transition-colors hover:bg-slate-100"
+                >
+                  <span className="material-symbols-outlined text-[20px] text-brand">call</span>
+                  <span className="tnum">622 064 101</span>
+                </a>
+                <CTAWhatsapp />
+              </div>
+            </div>
 
-            <div className="mt-12 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-              <a
-                href="tel:+34622064101"
-                className="inline-flex items-center gap-3 rounded-xl bg-primary hover:bg-primary-dark px-8 py-4 text-sm font-black uppercase tracking-wider text-white shadow-xl shadow-primary/30 transition-all"
-              >
-                <span className="material-symbols-outlined">call</span>
-                622 064 101
-              </a>
-              <CTAWhatsapp />
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-ink-2 shadow-lift">
+              <picture className="block aspect-[4/3]">
+                <source type="image/webp" srcSet={srcSet(PORTADA, 'webp')} sizes="(min-width: 1024px) 480px, calc(100vw - 2.5rem)" />
+                <img
+                  src={`${PORTADA.base}-800.jpg`}
+                  srcSet={srcSet(PORTADA, 'jpg')}
+                  sizes="(min-width: 1024px) 480px, calc(100vw - 2.5rem)"
+                  alt={PORTADA.alt}
+                  className="h-full w-full object-cover object-center"
+                  width="1600"
+                  height="1200"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
             </div>
           </div>
         </section>
 
         {/* ═══ LAS CINCO FICHAS ═══ */}
-        <section className="relative overflow-hidden bg-slate-950 py-24" aria-labelledby="trabajos-titulo">
-          <Orb className="bg-primary/15 w-[700px] h-[700px] top-1/3 -right-60" />
-          <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="mb-16 max-w-3xl">
-              <span className="text-primary font-black text-[11px] tracking-[0.35em] uppercase mb-4 block">Obra hecha</span>
-              <h2 id="trabajos-titulo" className="text-white text-3xl md:text-5xl font-black leading-tight tracking-tight">
+        <section className="bg-mist py-20 md:py-24" aria-labelledby="trabajos-titulo">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
+            <div className="mb-12 max-w-3xl">
+              <span className="eyebrow mb-4 inline-flex items-center gap-2"><span className="h-px w-5 bg-brand" aria-hidden="true"></span>Obra hecha</span>
+              <h2 id="trabajos-titulo" className="text-[1.9rem] font-semibold leading-[1.12] tracking-[-0.02em] text-ink sm:text-[2.5rem]">
                 Cinco trabajos, foto a foto
               </h2>
             </div>
 
-            <div className="space-y-8 md:space-y-10">
+            <div className="space-y-6">
               {TRABAJOS.map((t) => {
                 const dos = t.fotos.length === 2;
                 const sizes = dos
-                  ? '(min-width: 1024px) 540px, (min-width: 640px) 46vw, calc(100vw - 4rem)'
-                  : '(min-width: 1024px) 360px, (min-width: 640px) 46vw, calc(100vw - 4rem)';
+                  ? '(min-width: 1024px) 520px, (min-width: 640px) 46vw, calc(100vw - 4rem)'
+                  : '(min-width: 1024px) 340px, (min-width: 640px) 46vw, calc(100vw - 4rem)';
                 return (
                   <article
                     key={t.id}
                     id={t.id}
-                    className="relative rounded-[2rem] p-[1px] bg-gradient-to-br from-primary/40 via-white/5 to-transparent"
+                    className="scroll-mt-24 overflow-hidden rounded-xl border border-line bg-white shadow-card"
                   >
-                    <div className="rounded-[calc(2rem-1px)] bg-slate-900/80 backdrop-blur-xl p-6 md:p-10">
-                      <header className="flex flex-col gap-4 md:flex-row md:items-start md:gap-8 mb-6">
-                        <span className="text-5xl md:text-7xl font-black leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-primary via-cyan-400 to-blue-500">
+                    <header className="flex flex-col gap-3 border-b border-line px-6 py-5 md:flex-row md:items-center md:justify-between md:px-8">
+                      <div className="flex items-center gap-4">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line font-mono text-[12.5px] text-ink-3">
                           {t.n}
                         </span>
-                        <div className="flex-1">
-                          <h3 className="text-white text-2xl md:text-3xl font-black leading-tight mb-4">{t.titulo}</h3>
-                          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 backdrop-blur-md">
-                            <span className="material-symbols-outlined text-primary text-base">location_on</span>
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">{t.lugar}</span>
-                          </div>
-                        </div>
-                      </header>
+                        <h3 className="text-[1.2rem] font-semibold leading-snug tracking-[-0.01em] text-ink md:text-[1.35rem]">{t.titulo}</h3>
+                      </div>
+                      <div className="inline-flex items-center gap-1.5 self-start rounded-md bg-mist px-2.5 py-1 md:self-auto">
+                        <span className="material-symbols-outlined text-[16px] text-brand">location_on</span>
+                        <span className="whitespace-nowrap font-mono text-[11.5px] text-ink-3">{t.lugar}</span>
+                      </div>
+                    </header>
 
-                      <p className="mb-8 max-w-4xl text-base md:text-lg leading-relaxed text-slate-300">{t.texto}</p>
+                    <div className="p-6 md:p-8">
+                      <p className="mb-6 max-w-3xl text-[15.5px] leading-relaxed text-ink-3">{t.texto}</p>
 
                       {/* items-center: las fotos conservan su proporción real (van de 9:16
                           a 16:9), así que la que es más baja se centra contra sus vecinas
                           en vez de dejar el hueco entero debajo. */}
-                      <div className={`grid items-center gap-4 md:gap-5 ${dos ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
+                      <div className={`grid items-center gap-3 md:gap-4 ${dos ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
                         {t.fotos.map((f) => <FotoTile key={f.base} f={f} sizes={sizes} />)}
                       </div>
                     </div>
@@ -297,24 +294,22 @@ const TrabajosRealizados: React.FC = () => {
         </section>
 
         {/* ═══ CTA CIERRE ═══ */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-primary via-blue-700 to-slate-900 border-y border-primary/50 py-24">
-          <Orb className="bg-cyan-400/20 w-[500px] h-[500px] top-0 -right-40" />
-          <Orb className="bg-white/10 w-[400px] h-[400px] bottom-0 -left-20" />
-          <div className="relative max-w-7xl mx-auto px-6 lg:px-12 text-center">
-            <h2 className="text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-6">
+        <section className="relative overflow-hidden bg-ink py-20 text-white md:py-24">
+          <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-6 lg:px-8">
+            <h2 className="text-[1.9rem] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[2.5rem]">
               ¿Tienes una instalación parecida?
             </h2>
-            <p className="text-white/90 leading-relaxed max-w-2xl mx-auto mb-10 text-base md:text-lg">
+            <p className="mx-auto mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-slate-300">
               Cuéntanos qué cocina tienes y qué le pasa a tu sistema de extracción. Vemos la instalación
               y te decimos qué necesita.
             </p>
-            <div className="flex flex-col items-center gap-5">
+            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <CTALlamar sub="Presupuesto sin compromiso" />
               <CTAWhatsapp />
             </div>
-            <p className="mt-10 text-sm text-white/70">
+            <p className="mt-10 text-[14px] text-slate-400">
               ¿Buscas el servicio en detalle?{' '}
-              <Link to="/limpieza-conductos-extraccion-alicante" className="font-bold text-white underline hover:text-cyan-200 transition-colors">
+              <Link to="/limpieza-conductos-extraccion-alicante" className="font-medium text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
                 Limpieza de conductos de extracción en Alicante
               </Link>
             </p>
@@ -324,16 +319,7 @@ const TrabajosRealizados: React.FC = () => {
 
       <Footer />
       <CookieBanner onManage={() => { window.location.href = '/cookies'; }} />
-
-      <a
-        href={WHATSAPP}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-green-500 text-white shadow-[0_10px_30px_rgba(34,197,94,0.5)] transition-all hover:scale-110 active:scale-95 group"
-        aria-label="Contactar por WhatsApp"
-      >
-        <span className="material-symbols-outlined text-3xl md:text-4xl group-hover:rotate-12 transition-transform">chat</span>
-      </a>
+      <WhatsAppFab href={WHATSAPP} />
     </div>
   );
 };

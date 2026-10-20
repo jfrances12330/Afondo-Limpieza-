@@ -1,4 +1,5 @@
 import React from 'react';
+import { Check } from './ui';
 
 const CertificateSection: React.FC = () => {
   const points = [
@@ -9,119 +10,122 @@ const CertificateSection: React.FC = () => {
     "Pegatina de 'Campana Limpia' con fecha de próxima revisión."
   ];
 
+  // Restyling oct-2026: las dos miniaturas del informe de muestra pasan de
+  // imágenes genéricas alojadas fuera a una pareja real de Jaime (reparación de
+  // fugas en conducto, Alicante feb-2026). Mismo alt que antes.
+  const fuga = "/img/reparacion-fuga-conducto-extraccion-alicante";
+
   return (
-    <section className="bg-primary py-24 relative overflow-hidden" aria-labelledby="certificado-titulo">
-      {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-      
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-xs font-bold uppercase tracking-widest mb-6">
-              <span className="material-symbols-outlined text-sm" aria-hidden="true">verified</span>
-              <span>Valor Diferencial</span>
-            </div>
-            <h2 id="certificado-titulo" className="text-4xl md:text-5xl font-black text-white mb-8 leading-tight">
-              Tu Informe Técnico <br /> de Limpieza
-            </h2>
-            <p className="text-white/80 text-lg mb-10">
-              No solo limpiamos, lo documentamos. Al finalizar el trabajo, recibirás un informe técnico completo con reportaje fotográfico, válido para presentar a tu seguro y a Sanidad.
-            </p>
-            
-            <ul className="space-y-4">
-              {points.map((point, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-white">
-                  <div className="mt-1 bg-white/20 p-1 rounded-full">
-                    <span className="material-symbols-outlined text-sm font-bold" aria-hidden="true">check</span>
-                  </div>
-                  <span className="font-medium">{point}</span>
-                </li>
-              ))}
-            </ul>
+    <section className="relative overflow-hidden bg-ink py-20 md:py-28 font-plex" aria-labelledby="certificado-titulo">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-5 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8">
+        <div>
+          <div className="eyebrow mb-5 inline-flex items-center gap-2 !text-[#9fb0ff]">
+            <span className="material-symbols-outlined text-[16px]" aria-hidden="true">verified</span>
+            <span>Valor Diferencial</span>
           </div>
-          
-          <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 group" role="img" aria-label="Ejemplo visual de informe técnico de limpieza industrial">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-slate-900 px-3 py-1.5">
-              <span className="material-symbols-outlined text-sm text-white" aria-hidden="true">info</span>
-              <span className="text-[10px] font-black uppercase tracking-widest text-white">Ejemplo de informe</span>
+          <h2 id="certificado-titulo" className="text-[1.9rem] font-semibold leading-[1.12] tracking-[-0.02em] text-white sm:text-[2.5rem]">
+            Tu Informe Técnico <br /> de Limpieza
+          </h2>
+          <p className="mt-5 text-[1.0625rem] leading-relaxed text-slate-300">
+            No solo limpiamos, lo documentamos. Al finalizar el trabajo, recibirás un informe técnico completo con reportaje fotográfico, válido para presentar a tu seguro y a Sanidad.
+          </p>
+
+          <ul className="mt-9 divide-y divide-white/10 border-y border-white/10">
+            {points.map((point, idx) => (
+              <li key={idx} className="flex items-start gap-3 py-3.5 text-[15px] text-slate-200">
+                <Check tone="dark" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Documento de muestra con marco de aplicación */}
+        <div className="relative">
+          <div className="overflow-hidden rounded-xl border border-white/10 bg-white shadow-[0_40px_80px_-30px_rgba(0,0,0,.6)]" role="img" aria-label="Ejemplo visual de informe técnico de limpieza industrial">
+            <div className="flex items-center gap-1.5 border-b border-line bg-mist px-4 py-2.5" aria-hidden="true">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#d9dce2]"></span>
+              <span className="h-2.5 w-2.5 rounded-full bg-[#d9dce2]"></span>
+              <span className="h-2.5 w-2.5 rounded-full bg-[#d9dce2]"></span>
             </div>
 
-            <div className="flex items-center justify-between mb-8 border-b border-slate-100 pb-4">
-              <div className="flex items-center gap-3">
-                <div className="bg-primary/10 p-2 rounded-lg text-primary">
-                  <span className="material-symbols-outlined font-bold" aria-hidden="true">description</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-black text-slate-900 text-lg uppercase leading-none">AFONDO</span>
-                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Higiene Industrial</span>
-                </div>
+            <div className="p-6 md:p-8">
+              <div className="mb-6 inline-flex items-center gap-1.5 rounded-md bg-ink px-2.5 py-1">
+                <span className="material-symbols-outlined text-[14px] text-white" aria-hidden="true">info</span>
+                <span className="font-mono text-[10.5px] text-white">Ejemplo de informe</span>
               </div>
-              <div className="text-right">
-                <span className="block text-[10px] font-black text-slate-900 uppercase">Nº INFORME</span>
-                <span className="text-[10px] font-medium text-slate-500">MUESTRA</span>
-              </div>
-            </div>
-            
-            <div className="space-y-4 text-left">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col gap-1">
-                  <span className="text-[9px] font-black text-slate-400 uppercase">Establecimiento</span>
-                  <span className="text-[11px] font-bold text-slate-700">Cocina industrial</span>
+
+              <div className="mb-6 flex items-center justify-between border-b border-line pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-ink text-white">
+                    <span className="material-symbols-outlined text-[20px]" aria-hidden="true">description</span>
+                  </div>
+                  <div className="flex flex-col leading-none">
+                    <span className="text-[16px] font-semibold text-ink">AFONDO</span>
+                    <span className="mt-1 font-mono text-[9.5px] text-muted">Higiene Industrial</span>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-1 text-right">
-                  <span className="text-[9px] font-black text-slate-400 uppercase">Fecha</span>
-                  <span className="text-[11px] font-bold text-slate-700">DD/MM/AAAA</span>
+                <div className="text-right">
+                  <span className="block font-mono text-[10px] text-muted">Nº INFORME</span>
+                  <span className="font-mono text-[11px] font-medium text-ink">MUESTRA</span>
                 </div>
               </div>
 
-              <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                <span className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-wider">Metodología Técnica</span>
-                <p className="text-[10px] text-slate-600 leading-relaxed font-medium">
-                  Limpieza técnica de sistema de extracción mediante aplicación de espuma activa alcalina con cepillado mecánico y aclarado a alta presión (80ºC). Desengrase de plenum y conductos horizontales (14m).
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 py-2">
-                <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 relative">
-                  <img 
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPqEYgnqF76FfHY6CfvepiqGK49Q7Vj_Zffqk1IAe-vu42K_Yts6udGfdQS223IgYMJd6DPmpClcnyV8nB5ba8OAC46M9TnZuzkVfbLybYJiDW646yg1aFFJtH9xFd0aTVBHPQvfrS2xSy6FHCMfc18wRePbgBxthQ2kDMF7wTzNQ2mvrqhgAoLkcWA6J_y0AYd2EYsUtSaQPNeBKss6rJk2cggvqgVKPC5d4x0cNUTviy2Snu61aPAX2etmyKImXPgqc4WnoK44Q" 
-                    alt="Antes" 
-                    className="w-full h-full object-cover opacity-50 grayscale"
-                    loading="lazy" 
-                  />
-                  <span className="absolute bottom-2 left-2 bg-red-500 text-white text-[8px] px-2 py-0.5 rounded font-bold uppercase">Estado Inicial</span>
+              <div className="space-y-4 text-left">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1">
+                    <span className="font-mono text-[10px] text-muted">Establecimiento</span>
+                    <span className="text-[13px] font-medium text-ink">Cocina industrial</span>
+                  </div>
+                  <div className="flex flex-col gap-1 text-right">
+                    <span className="font-mono text-[10px] text-muted">Fecha</span>
+                    <span className="font-mono text-[12px] text-ink">DD/MM/AAAA</span>
+                  </div>
                 </div>
-                <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 relative">
-                  <img 
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY-uSTLgaPQjgKom4e4tMgDIjPSScys5eAFjAjnTmaB9RvC_xJ1xcxG45S-dvwRGE9wHXeyjjMnRREHlL0PqIOKsUWltQ2Nzrx5IMxLz5AvY1zAzZE-tQnzYAfE0qDSkO7UWwVOnsXSjtqKiPDIP7zsKqa3MUBe0o37bdi9mAooh4kfxpqkB6enAhfKvMUW3Mup6z-kc5KKI2Z6qF2hcRBSuPxIf-5lYZQ7bKRlBEvJH4bdhePxltjckNOHjVb2jzzI_fxbKVilW4" 
-                    alt="Después" 
-                    className="w-full h-full object-cover opacity-80"
-                    loading="lazy"
-                  />
-                  <span className="absolute bottom-2 left-2 bg-green-500 text-white text-[8px] px-2 py-0.5 rounded font-bold uppercase">Estado Final</span>
+
+                <div className="rounded-lg border border-line bg-mist p-4">
+                  <span className="mb-1.5 block font-mono text-[10px] text-muted">Metodología Técnica</span>
+                  <p className="text-[12px] leading-relaxed text-ink-3">
+                    Limpieza técnica de sistema de extracción mediante aplicación de espuma activa alcalina con cepillado mecánico y aclarado a alta presión (80ºC). Desengrase de plenum y conductos horizontales (14m).
+                  </p>
                 </div>
-              </div>
-              
-              <div className="flex justify-between items-end pt-4 border-t border-slate-50">
-                <div className="flex flex-col gap-1">
-                  <span className="text-[8px] font-bold text-slate-400 uppercase">Validez</span>
-                  <span className="text-[10px] font-black text-green-600">6 MESES (Garantizado)</span>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="relative aspect-video overflow-hidden rounded-lg border border-line bg-mist">
+                    <img src={`${fuga}-antes-400.webp`} alt="Antes" className="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="225" />
+                    <span className="absolute bottom-1.5 left-1.5 rounded bg-white/95 px-1.5 py-0.5 font-mono text-[9.5px] text-[#c2410c]">Estado Inicial</span>
+                  </div>
+                  <div className="relative aspect-video overflow-hidden rounded-lg border border-line bg-mist">
+                    <img src={`${fuga}-despues-400.webp`} alt="Después" className="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="225" />
+                    <span className="absolute bottom-1.5 left-1.5 rounded bg-white/95 px-1.5 py-0.5 font-mono text-[9.5px] text-[#15803d]">Estado Final</span>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <div className="w-32 h-px bg-slate-200 mb-2"></div>
-                  <span className="text-[10px] font-black text-slate-900 uppercase">Firma Técnico Autorizado</span>
-                  <span className="block text-[8px] text-slate-400">Jaime G. L. - Especialista</span>
+
+                <div className="flex items-end justify-between border-t border-line pt-4">
+                  <div className="flex flex-col gap-1">
+                    <span className="font-mono text-[10px] text-muted">Validez</span>
+                    <span className="text-[12px] font-semibold text-[#15803d]">6 MESES (Garantizado)</span>
+                  </div>
+                  <div className="text-center">
+                    <svg viewBox="0 0 120 28" className="mx-auto mb-1 h-7 w-28 text-ink/70" fill="none" aria-hidden="true">
+                      <path d="M4 20c10-14 18-14 20-4s8 6 14-4 10-8 12 2 6 10 16 0 14-8 18-2 10 6 28-4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                    </svg>
+                    <div className="mb-1.5 h-px w-32 bg-line"></div>
+                    <span className="font-mono text-[10px] text-ink">Firma Técnico Autorizado</span>
+                    <span className="block text-[10px] text-muted">Jaime G. L. - Especialista</span>
+                  </div>
                 </div>
               </div>
             </div>
-            
-            {/* Visual Sticker Badge */}
-            <div className="absolute -bottom-10 -right-6 bg-yellow-400 text-slate-900 w-36 h-36 rounded-full flex flex-col items-center justify-center text-center p-6 shadow-xl border-4 border-white rotate-12 transition-transform group-hover:rotate-0 z-20" aria-hidden="true">
-              <span className="font-black text-[10px] leading-[1.1] uppercase mb-1">Pegatina de Próxima Revisión</span>
-              <span className="material-symbols-outlined text-2xl my-1">event_available</span>
-              <span className="font-bold text-[9px] uppercase tracking-tighter mt-1 bg-black/5 px-2 py-0.5 rounded-full">Mes / Año</span>
-            </div>
+          </div>
+
+          {/* Pegatina: etiqueta física, no círculo girado */}
+          <div className="absolute -bottom-5 right-4 flex items-center gap-2.5 rounded-lg border border-black/10 bg-signal px-3.5 py-2.5 text-ink shadow-lift sm:-right-5" aria-hidden="true">
+            <span className="material-symbols-outlined text-[20px]">event_available</span>
+            <span className="flex flex-col leading-tight">
+              <span className="text-[11px] font-semibold">Pegatina de Próxima Revisión</span>
+              <span className="font-mono text-[10px]">Mes / Año</span>
+            </span>
           </div>
         </div>
       </div>

@@ -16,7 +16,7 @@
        imagesrcset/imagesizes deben coincidir EXACTAMENTE con el <source> webp de Hero.tsx. -->
   <link rel="preload" as="image" type="image/webp"
     imagesrcset="/img/stock-equipo-extraccion-cubierta-1-800.webp 800w, /img/stock-equipo-extraccion-cubierta-1-1280.webp 1280w, /img/stock-equipo-extraccion-cubierta-1-1920.webp 1920w"
-    imagesizes="100vw"
+    imagesizes="(min-width: 1024px) 560px, calc(100vw - 2.5rem)"
     fetchpriority="high" />
 
   <!-- Favicon. El .ico tiene que existir como fichero real: el catch-all del
@@ -98,7 +98,7 @@
   </style>
 
   <!-- Optimized fonts - ONLY critical weights: 400, 700, 900 -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700;900&display=swap"
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Public+Sans:wght@400;700;900&display=swap"
     as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap"
@@ -106,7 +106,7 @@
 
   <!-- Fallback for JS disabled -->
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Public+Sans:wght@400;700;900&display=swap" rel="stylesheet" />
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap"
       rel="stylesheet" />

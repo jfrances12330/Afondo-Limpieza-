@@ -24,25 +24,25 @@ const CookieBanner: React.FC<CookieBannerProps> = ({ onManage }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 w-full z-[60] p-4 md:p-6 flex justify-center animate-in fade-in slide-in-from-bottom-10 duration-500">
-      <div className="w-full max-w-4xl bg-slate-900/95 dark:bg-slate-800/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
-        <div className="flex-1 text-center md:text-left">
-          <h3 className="text-white font-bold text-lg mb-2">Valoramos su privacidad</h3>
-          <p className="text-slate-400 text-sm leading-relaxed">
+    <div className="fixed bottom-0 left-0 z-[60] flex w-full justify-center p-3 font-plex md:p-5">
+      <div className="flex w-full max-w-3xl flex-col gap-4 rounded-xl border border-line bg-white p-5 shadow-lift md:flex-row md:items-center md:gap-6">
+        <div className="flex-1">
+          <h3 className="mb-1 text-[15px] font-semibold text-ink">Valoramos su privacidad</h3>
+          <p className="text-[13px] leading-relaxed text-muted">
             Utilizamos cookies propias y de terceros para mejorar su experiencia y analizar el tráfico. 
             Al hacer clic en "Aceptar", acepta el uso de todas las cookies. Puede configurar sus preferencias en cualquier momento.
           </p>
         </div>
-        <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-          <button 
+        <div className="flex shrink-0 items-center gap-2">
+          <button
             onClick={onManage}
-            className="text-slate-400 hover:text-white text-sm font-bold transition-colors py-2 px-4"
+            className="h-10 flex-1 rounded-lg border border-line px-4 text-[14px] font-medium text-ink-2 transition-colors hover:bg-mist md:flex-none"
           >
             Configurar
           </button>
-          <button 
+          <button
             onClick={acceptCookies}
-            className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg active:scale-95 whitespace-nowrap"
+            className="h-10 flex-1 whitespace-nowrap rounded-lg bg-ink px-5 text-[14px] font-semibold text-white transition-colors hover:bg-ink-2 md:flex-none"
           >
             Aceptar Cookies
           </button>

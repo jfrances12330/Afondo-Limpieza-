@@ -45,31 +45,33 @@ const FAQSection: React.FC = () => {
     return (
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-            <section className="bg-white dark:bg-slate-900 py-24" aria-labelledby="faq-titulo">
-                <div className="max-w-4xl mx-auto px-6 lg:px-12">
-                    <div className="text-center mb-16">
-                        <span className="text-primary font-bold text-sm tracking-widest uppercase mb-3 block">Preguntas Frecuentes</span>
-                        <h2 id="faq-titulo" className="text-slate-900 dark:text-white text-3xl md:text-5xl font-extrabold leading-tight tracking-tight mb-4">
+            <section className="bg-mist border-y border-line py-20 md:py-28 font-plex" aria-labelledby="faq-titulo">
+                {/* Rejilla de 3 piezas: en escritorio la caja de «otra pregunta» sube a la
+                    columna izquierda; en móvil queda debajo de la lista. Una sola copia. */}
+                <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-16 gap-y-8 px-5 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+                    <div className="lg:col-start-1 lg:row-start-1">
+                        <span className="eyebrow mb-4 inline-flex items-center gap-2"><span className="h-px w-5 bg-brand" aria-hidden="true"></span>Preguntas Frecuentes</span>
+                        <h2 id="faq-titulo" className="text-[1.9rem] font-semibold leading-[1.12] tracking-[-0.02em] text-ink sm:text-[2.25rem]">
                             Todo lo que necesitas saber sobre limpieza de campanas en Alicante
                         </h2>
-                        <p className="text-slate-500 dark:text-slate-400 text-lg font-medium">
+                        <p className="mt-5 text-[1.0625rem] leading-relaxed text-muted">
                             Resolvemos tus dudas sobre normativa, precios y mantenimiento
                         </p>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="overflow-hidden rounded-xl border border-line bg-white lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
                         {faqs.map((faq, idx) => (
-                            <details key={idx} className="group bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden">
-                                <summary className="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                                    <h3 className="text-lg font-bold text-slate-900 dark:text-white pr-4">
+                            <details key={idx} className={`group ${idx > 0 ? 'border-t border-line' : ''}`}>
+                                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 transition-colors hover:bg-mist/60 [&::-webkit-details-marker]:hidden">
+                                    <h3 className="text-[16px] font-medium leading-snug text-ink">
                                         {faq.question}
                                     </h3>
-                                    <span className="material-symbols-outlined text-primary text-2xl group-open:rotate-180 transition-transform shrink-0">
-                                        expand_more
+                                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-line text-ink-3 transition-transform group-open:rotate-45">
+                                        <span className="material-symbols-outlined text-[18px]">add</span>
                                     </span>
                                 </summary>
-                                <div className="px-6 pb-6 pt-2">
-                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                <div className="-mt-1 px-6 pb-6">
+                                    <p className="max-w-2xl text-[15px] leading-relaxed text-muted">
                                         {faq.answer}
                                     </p>
                                 </div>
@@ -77,17 +79,17 @@ const FAQSection: React.FC = () => {
                         ))}
                     </div>
 
-                    <div className="mt-12 p-8 bg-primary/5 border border-primary/20 rounded-2xl text-center">
-                        <p className="text-slate-700 dark:text-slate-300 font-medium mb-4">
+                    <div className="rounded-xl border border-line bg-white p-6 text-center lg:col-start-1 lg:row-start-2 lg:self-start lg:text-left">
+                        <p className="mb-4 text-[15px] text-ink-2">
                             ¿Tienes otra pregunta? Estamos aquí para ayudarte
                         </p>
                         <a
                             href="https://wa.me/34622064101?text=Hola,%20tengo%20una%20pregunta%20sobre%20limpieza%20de%20campanas"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold px-8 py-3 rounded-xl transition-all"
+                            className="inline-flex h-11 items-center gap-2 rounded-lg bg-[#1fa855] px-5 text-[15px] font-semibold text-white transition-colors hover:bg-[#178a45]"
                         >
-                            <span className="material-symbols-outlined">chat</span>
+                            <span className="material-symbols-outlined text-[19px]">chat</span>
                             Contactar por WhatsApp
                         </a>
                     </div>

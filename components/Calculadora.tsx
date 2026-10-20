@@ -229,46 +229,60 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
     }
   };
 
-  return (
-    <section className="bg-white dark:bg-slate-950 min-h-screen py-8 md:py-24 px-4 md:px-6 mb-24 md:mb-0">
-      <div className="max-w-4xl mx-auto">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-primary font-bold mb-4 md:mb-8 hover:gap-3 transition-all text-sm"
-        >
-          <span className="material-symbols-outlined text-lg">arrow_back</span>
-          Volver
-        </button>
+  // Restyling oct-2026: misma lógica y mismos textos; aspecto de pasarela de pago.
+  const opt = (on: boolean) =>
+    `rounded-lg border transition-colors ${on ? 'border-brand bg-brand-soft/60 ring-1 ring-brand' : 'border-line bg-white hover:border-ink/25'}`;
+  const lbl = 'block font-mono text-[11.5px] text-muted';
+  const stepper = 'flex h-11 w-11 items-center justify-center rounded-lg border border-line bg-white text-[18px] font-medium text-ink transition-colors hover:bg-mist';
 
-        <div className="mb-6 md:mb-10">
-          <div className="flex items-center gap-2 md:gap-4 mb-3">
+  return (
+    <section className="min-h-screen bg-mist px-4 pb-28 pt-6 font-plex text-ink md:px-6 md:pb-16 md:pt-10">
+      <div className="mx-auto max-w-5xl">
+        <div className="mb-6 flex items-center justify-between">
+          <button
+            onClick={onBack}
+            className="group inline-flex items-center gap-1.5 font-mono text-[12.5px] text-muted transition-colors hover:text-ink"
+          >
+            <span className="material-symbols-outlined text-[17px] transition-transform group-hover:-translate-x-0.5">arrow_back</span>
+            Volver
+          </button>
+          <span className="flex items-center gap-2 text-[14px] font-semibold text-ink" aria-hidden="true">
+            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-ink text-white">
+              <span className="material-symbols-outlined text-[16px]">cleaning_services</span>
+            </span>
+          </span>
+        </div>
+
+        <div className="mb-6">
+          <div className="mb-3 flex items-center gap-1.5">
             {[0, 1, 2, 3, 4].map((s) => (
-              <div key={s} className={`h-1.5 flex-1 rounded-full transition-all duration-500 ${step >= s ? 'bg-primary' : 'bg-slate-100 dark:bg-slate-800'}`} />
+              <div key={s} className={`h-1 flex-1 rounded-full transition-colors duration-300 ${step >= s ? 'bg-brand' : 'bg-line'}`} />
             ))}
           </div>
-          <div className="flex justify-between items-center px-1">
-            <p className="text-[9px] font-black uppercase tracking-widest text-primary">Paso {step} de 4</p>
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">ID: {budgetRef}</span>
+          <div className="flex items-center justify-between">
+            <p className="font-mono text-[11.5px] text-brand">Paso {step} de 4</p>
+            <span className="font-mono text-[11.5px] text-muted">ID: {budgetRef}</span>
           </div>
-          <div className="flex justify-between mt-2 px-1">
+          <div className="mt-2 hidden justify-between sm:flex">
             {['Inicio', 'Campana', 'Extracción', 'Motor', 'Garantía'].map((label, i) => (
-              <span key={label} className={`text-[8px] font-bold uppercase tracking-tighter ${step >= i ? 'text-primary' : 'text-slate-300'}`}>
+              <span key={label} className={`text-[12px] font-medium ${step >= i ? 'text-ink' : 'text-muted/60'}`}>
                 {label}
               </span>
             ))}
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-2xl overflow-hidden min-h-[520px] flex flex-col">
-          <div className="p-4 md:p-10 flex-1">
+        <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-[1fr_300px]">
+        <div className="flex min-h-[500px] flex-col overflow-hidden rounded-xl border border-line bg-white shadow-card">
+          <div className="flex-1 p-5 md:p-8">
 
             {/* PASO 0: SELECCIÓN DE SERVICIOS */}
             {step === 0 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">¿Qué necesitas limpiar?</h2>
-                <p className="text-sm text-slate-500 mb-8 font-medium">Selecciona los elementos de tu sistema de extracción.</p>
+              <div>
+                <h2 className="mb-1.5 text-[1.6rem] font-semibold tracking-[-0.02em] md:text-[1.9rem]">¿Qué necesitas limpiar?</h2>
+                <p className="mb-7 text-[15px] text-muted">Selecciona los elementos de tu sistema de extracción.</p>
 
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 gap-3">
                   {[
                     { id: 'hood', label: 'Campana y Filtros', icon: 'shelves', state: includeHood, setter: setIncludeHood },
                     { id: 'turbine', label: 'Turbina (Motor)', icon: 'cyclone', state: includeTurbine, setter: setIncludeTurbine },
@@ -277,14 +291,17 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
                     <button
                       key={service.id}
                       onClick={() => service.setter(!service.state)}
-                      className={`p-6 rounded-2xl border-2 flex items-center justify-between transition-all ${service.state ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800'}`}
+                      aria-pressed={service.state}
+                      className={`${opt(service.state)} flex items-center justify-between px-5 py-4 text-left`}
                     >
-                      <div className="flex items-center gap-4">
-                        <span className="material-symbols-outlined text-3xl text-primary">{service.icon}</span>
-                        <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider">{service.label}</span>
+                      <div className="flex items-center gap-3.5">
+                        <span className={`flex h-9 w-9 items-center justify-center rounded-md ${service.state ? 'bg-white text-brand' : 'bg-mist text-ink-3'}`}>
+                          <span className="material-symbols-outlined text-[20px]">{service.icon}</span>
+                        </span>
+                        <span className="text-[15.5px] font-medium">{service.label}</span>
                       </div>
-                      <span className="material-symbols-outlined text-primary text-2xl">
-                        {service.state ? 'check_box' : 'check_box_outline_blank'}
+                      <span className={`flex h-5 w-5 items-center justify-center rounded border ${service.state ? 'border-brand bg-brand text-white' : 'border-line bg-white'}`}>
+                        {service.state && <span className="material-symbols-outlined text-[16px]">check</span>}
                       </span>
                     </button>
                   ))}
@@ -294,37 +311,25 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
 
             {/* PASO 1: CAMPANA */}
             {step === 1 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">Detalles de Campana</h2>
-                <p className="text-sm text-slate-500 mb-8 md:mb-10 font-medium">Dimensiones para el cálculo de tiempo y materiales.</p>
+              <div>
+                <h2 className="mb-1.5 text-[1.6rem] font-semibold tracking-[-0.02em] md:text-[1.9rem]">Detalles de Campana</h2>
+                <p className="mb-8 text-[15px] text-muted">Dimensiones para el cálculo de tiempo y materiales.</p>
 
-                {/* Removed type selection (mural/central) as it's not used in calculations and simplifies the flow */}
-                {/* <div className="grid grid-cols-2 gap-3 md:gap-6 mb-8 md:mb-12">
-                  <button onClick={() => setType('mural')} className={`p-4 md:p-10 rounded-2xl md:rounded-3xl border-2 transition-all flex flex-col items-center gap-2 md:gap-4 ${type === 'mural' ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800'}`}>
-                    <span className="material-symbols-outlined text-3xl md:text-4xl text-primary">shelves</span>
-                    <span className="font-bold text-xs md:text-base dark:text-white uppercase tracking-wider">Mural</span>
-                  </button>
-                  <button onClick={() => setType('central')} className={`p-4 md:p-10 rounded-2xl md:rounded-3xl border-2 transition-all flex flex-col items-center gap-2 md:gap-4 ${type === 'central' ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800'}`}>
-                    <span className="material-symbols-outlined text-3xl md:text-4xl text-primary">format_overline</span>
-                    <span className="font-bold text-xs md:text-base dark:text-white uppercase tracking-wider">Central</span>
-                  </button>
-                </div> */}
-
-                <div className="bg-slate-50 dark:bg-slate-800/50 p-6 md:p-8 rounded-2xl md:rounded-[2rem] border border-slate-100 dark:border-slate-800 text-center">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Número de Filtros (Secciones)</label>
-                  <div className="flex items-center justify-center gap-6 md:gap-8 mb-6">
-                    <button onClick={() => setFilters(Math.max(1, filters - 1))} className="w-12 h-12 md:w-14 md:h-14 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-bold text-xl dark:text-white hover:bg-white transition-all">-</button>
-                    <span className="text-4xl md:text-6xl font-black text-primary min-w-[60px] md:min-w-[80px]">{filters}</span>
-                    <button onClick={() => setFilters(filters + 1)} className="w-12 h-12 md:w-14 md:h-14 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-bold text-xl dark:text-white hover:bg-white transition-all">+</button>
+                <div className="rounded-lg border border-line p-6 text-center md:p-8">
+                  <label className={`${lbl} mb-5`}>Número de Filtros (Secciones)</label>
+                  <div className="mb-6 flex items-center justify-center gap-6">
+                    <button onClick={() => setFilters(Math.max(1, filters - 1))} className={stepper}>-</button>
+                    <span className="tnum min-w-[72px] text-[3rem] font-semibold leading-none text-ink">{filters}</span>
+                    <button onClick={() => setFilters(filters + 1)} className={stepper}>+</button>
                   </div>
-                  <div className="flex justify-center gap-4">
-                    <div className="px-4 py-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-700 shadow-sm">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Longitud Campana</p>
-                      <p className="text-xl font-black text-slate-900 dark:text-white">{campanaMeters}m</p>
+                  <div className="mx-auto grid max-w-xs grid-cols-2 overflow-hidden rounded-lg border border-line">
+                    <div className="bg-mist px-4 py-3">
+                      <p className={lbl}>Longitud Campana</p>
+                      <p className="tnum mt-1 text-[1.25rem] font-semibold">{campanaMeters}m</p>
                     </div>
-                    <div className="px-4 py-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-700 shadow-sm">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Tiempo Estimado</p>
-                      <p className="text-xl font-black text-slate-900 dark:text-white">{estimatedHours}h</p>
+                    <div className="border-l border-line bg-mist px-4 py-3">
+                      <p className={lbl}>Tiempo Estimado</p>
+                      <p className="tnum mt-1 text-[1.25rem] font-semibold">{estimatedHours}h</p>
                     </div>
                   </div>
                 </div>
@@ -333,44 +338,42 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
 
             {/* PASO 2: EXTRACCIÓN */}
             {step === 2 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">Conductos</h2>
-                <p className="text-sm text-slate-500 mb-8 md:mb-10 font-medium">Metraje de conductos y accesos técnicos.</p>
+              <div>
+                <h2 className="mb-1.5 text-[1.6rem] font-semibold tracking-[-0.02em] md:text-[1.9rem]">Conductos</h2>
+                <p className="mb-8 text-[15px] text-muted">Metraje de conductos y accesos técnicos.</p>
 
-                <div className="space-y-6 md:space-y-10">
+                <div className="space-y-7">
                   <div className="space-y-3">
-                    <div className="flex justify-between items-end px-1">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Conducto Vertical</label>
-                      <div className="text-2xl font-black text-primary">{ductsVertical}m</div>
+                    <div className="flex items-end justify-between">
+                      <label className={lbl}>Conducto Vertical</label>
+                      <div className="tnum text-[1.4rem] font-semibold text-ink">{ductsVertical}m</div>
                     </div>
-                    <input type="range" min="0" max="30" step="1" value={ductsVertical} onChange={(e) => setDuctsVertical(parseInt(e.target.value))} className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-primary" />
+                    <input type="range" min="0" max="30" step="1" value={ductsVertical} onChange={(e) => setDuctsVertical(parseInt(e.target.value))} className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-line accent-brand" />
                   </div>
 
                   <div className="space-y-3">
-                    <div className="flex justify-between items-end px-1">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Conducto Horizontal</label>
-                      <div className="text-2xl font-black text-primary">{ductsHorizontal}m</div>
+                    <div className="flex items-end justify-between">
+                      <label className={lbl}>Conducto Horizontal</label>
+                      <div className="tnum text-[1.4rem] font-semibold text-ink">{ductsHorizontal}m</div>
                     </div>
-                    <input type="range" min="0" max="40" step="1" value={ductsHorizontal} onChange={(e) => setDuctsHorizontal(parseInt(e.target.value))} className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-primary" />
+                    <input type="range" min="0" max="40" step="1" value={ductsHorizontal} onChange={(e) => setDuctsHorizontal(parseInt(e.target.value))} className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-line accent-brand" />
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
-                      <div className="flex items-center gap-3">
-                        <span className="material-symbols-outlined text-2xl text-primary">door_open</span>
-                        <div>
-                          <h4 className="font-bold text-xs dark:text-white uppercase tracking-wider flex items-center gap-1">
-                            Registros técnicos
-                            <span className="material-symbols-outlined text-slate-400 text-xs cursor-help" title="Compuertas de acceso necesarias para limpiar tramos largos de conducto">info</span>
-                          </h4>
-                          <p className="text-[8px] text-slate-400 font-medium">Compuertas de acceso para limpieza de conductos</p>
-                        </div>
+                  <div className="flex items-center justify-between gap-4 rounded-lg border border-line p-4">
+                    <div className="flex items-center gap-3">
+                      <span className="material-symbols-outlined text-[22px] text-brand">door_open</span>
+                      <div>
+                        <h4 className="flex items-center gap-1 text-[14.5px] font-medium">
+                          Registros técnicos
+                          <span className="material-symbols-outlined cursor-help text-[15px] text-muted" title="Compuertas de acceso necesarias para limpiar tramos largos de conducto">info</span>
+                        </h4>
+                        <p className="text-[12.5px] text-muted">Compuertas de acceso para limpieza de conductos</p>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <button onClick={() => setRegisters(Math.max(0, registers - 1))} className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 dark:text-white font-bold">-</button>
-                        <span className="text-xl font-black text-primary min-w-[24px] text-center">{registers}</span>
-                        <button onClick={() => setRegisters(registers + 1)} className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 dark:text-white font-bold">+</button>
-                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button onClick={() => setRegisters(Math.max(0, registers - 1))} className="flex h-9 w-9 items-center justify-center rounded-lg border border-line font-medium hover:bg-mist">-</button>
+                      <span className="tnum min-w-[24px] text-center text-[1.2rem] font-semibold">{registers}</span>
+                      <button onClick={() => setRegisters(registers + 1)} className="flex h-9 w-9 items-center justify-center rounded-lg border border-line font-medium hover:bg-mist">+</button>
                     </div>
                   </div>
                 </div>
@@ -379,44 +382,44 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
 
             {/* PASO 3: TURBINA */}
             {step === 3 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">La Turbina</h2>
-                <p className="text-sm text-slate-500 mb-8 font-medium">Motor y complejidad de acceso.</p>
+              <div>
+                <h2 className="mb-1.5 text-[1.6rem] font-semibold tracking-[-0.02em] md:text-[1.9rem]">La Turbina</h2>
+                <p className="mb-7 text-[15px] text-muted">Motor y complejidad de acceso.</p>
 
-                <div className="mb-8 md:mb-10">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Capacidad de Extracción (Caudal)</label>
-                  <div className="grid grid-cols-3 gap-2 md:gap-4 mb-4">
+                <div className="mb-8">
+                  <label className={`${lbl} mb-3`}>Capacidad de Extracción (Caudal)</label>
+                  <div className="mb-3 grid grid-cols-3 gap-2 md:gap-3">
                     {(['pequeña', 'estándar', 'industrial'] as TurbineSize[]).map((size) => (
-                      <button key={size} onClick={() => setTurbineSize(size)} className={`p-3 md:p-6 rounded-xl border-2 transition-all flex flex-col items-center text-center ${turbineSize === size ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800'}`}>
-                        <span className="material-symbols-outlined text-xl md:text-2xl text-primary mb-1">cyclone</span>
-                        <span className="text-[10px] font-black uppercase dark:text-white block tracking-tight">{size}</span>
-                        <p className="text-[9px] font-bold text-slate-500 mt-1">{getTurbineDescription(size)}</p>
+                      <button key={size} onClick={() => setTurbineSize(size)} aria-pressed={turbineSize === size} className={`${opt(turbineSize === size)} flex flex-col items-center p-3 text-center md:p-4`}>
+                        <span className="material-symbols-outlined mb-1 text-[20px] text-brand">cyclone</span>
+                        <span className="block text-[13.5px] font-medium capitalize">{size}</span>
+                        <p className="tnum mt-0.5 font-mono text-[10.5px] text-muted">{getTurbineDescription(size)}</p>
                       </button>
                     ))}
                   </div>
-                  <div className="bg-primary/5 border border-primary/20 p-4 rounded-xl flex gap-3">
-                    <span className="material-symbols-outlined text-primary text-lg shrink-0">info</span>
-                    <p className="text-[10px] text-slate-600 dark:text-slate-400 italic font-medium leading-relaxed">
+                  <div className="flex gap-2.5 rounded-lg bg-mist p-3.5">
+                    <span className="material-symbols-outlined shrink-0 text-[18px] text-brand">info</span>
+                    <p className="text-[12.5px] leading-relaxed text-ink-3">
                       El precio de la turbina es orientativo. Se ajustará definitivamente al identificar el modelo exacto durante la visita técnica.
                     </p>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Grado de Accesibilidad</label>
+                  <label className={`${lbl} mb-3`}>Grado de Accesibilidad</label>
                   <div className="grid grid-cols-1 gap-2">
                     {(['fácil', 'media', 'difícil'] as Accessibility[]).map((acc) => (
-                      <button key={acc} onClick={() => setAccessibility(acc)} className={`p-3 md:p-4 rounded-xl border-2 flex items-center justify-between transition-all ${accessibility === acc ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800'}`}>
+                      <button key={acc} onClick={() => setAccessibility(acc)} aria-pressed={accessibility === acc} className={`${opt(accessibility === acc)} flex items-center justify-between px-4 py-3`}>
                         <div className="flex items-center gap-3">
-                          <span className="material-symbols-outlined text-xl text-primary">
+                          <span className="material-symbols-outlined text-[20px] text-brand">
                             {acc === 'fácil' ? 'visibility' : acc === 'media' ? 'stairs' : 'lock_open'}
                           </span>
                           <div className="text-left">
-                            <h4 className="font-bold text-[11px] dark:text-white uppercase tracking-wider">{acc}</h4>
-                            <p className="text-[9px] text-slate-500 font-medium">{getAccessDescription(acc)}</p>
+                            <h4 className="text-[14px] font-medium capitalize">{acc}</h4>
+                            <p className="text-[12.5px] text-muted">{getAccessDescription(acc)}</p>
                           </div>
                         </div>
-                        {accessibility === acc && <span className="material-symbols-outlined text-primary text-xl">check_circle</span>}
+                        {accessibility === acc && <span className="material-symbols-outlined text-[20px] text-brand">check_circle</span>}
                       </button>
                     ))}
                   </div>
@@ -424,26 +427,24 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
               </div>
             )}
 
-            {/* PASO 4: ESTADO Y PLAN (Optimizado para móvil según solicitud) */}
+            {/* PASO 4: ESTADO Y PLAN */}
             {step === 4 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500 flex flex-col h-full">
-                <header className="mb-4">
-                  <h2 className="text-2xl md:text-4xl font-black text-slate-900 dark:text-white mb-1 tracking-tight">Estado y Garantía</h2>
-                  <p className="text-[11px] md:text-sm text-slate-500 font-medium">Seguridad y cumplimiento de normativa.</p>
+              <div className="flex h-full flex-col">
+                <header className="mb-5">
+                  <h2 className="mb-1.5 text-[1.6rem] font-semibold tracking-[-0.02em] md:text-[1.9rem]">Estado y Garantía</h2>
+                  <p className="text-[15px] text-muted">Seguridad y cumplimiento de normativa.</p>
                 </header>
 
-                <div className="flex flex-col gap-4 flex-1">
-
-                  {/* Riesgo / Termómetro */}
-                  <div className={`p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${state === 'muy-sucio' ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${state === 'muy-sucio' ? 'bg-red-500 text-white animate-pulse' : 'bg-green-500 text-white'}`}>
-                      <span className="material-symbols-outlined">{state === 'muy-sucio' ? 'warning' : 'check'}</span>
-                    </div>
+                <div className="flex flex-1 flex-col gap-3">
+                  <div className={`flex items-center gap-3.5 rounded-lg border p-4 ${state === 'muy-sucio' ? 'border-[#fecaca] bg-[#fef2f2]' : 'border-[#bbf7d0] bg-[#f0fdf4]'}`}>
+                    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white ${state === 'muy-sucio' ? 'bg-[#dc2626]' : 'bg-[#16a34a]'}`}>
+                      <span className="material-symbols-outlined text-[20px]">{state === 'muy-sucio' ? 'warning' : 'check'}</span>
+                    </span>
                     <div>
-                      <h4 className={`font-black text-[10px] uppercase tracking-widest ${state === 'muy-sucio' ? 'text-red-600' : 'text-green-600'}`}>
+                      <h4 className={`font-mono text-[11.5px] font-medium ${state === 'muy-sucio' ? 'text-[#b91c1c]' : 'text-[#15803d]'}`}>
                         {state === 'muy-sucio' ? 'RIESGO CRÍTICO DE INCENDIO' : 'ESTADO DE MANTENIMIENTO'}
                       </h4>
-                      <p className="text-[10px] text-slate-600 dark:text-slate-400 font-medium leading-tight">
+                      <p className="text-[13px] leading-snug text-ink-3">
                         {state === 'muy-sucio'
                           ? 'La acumulación de grasa gotea y puede inflamarse en segundos. Requiere limpieza urgente.'
                           : 'Limpieza preventiva recomendada cada 6-12 meses según normativa.'}
@@ -451,68 +452,70 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
                     </div>
                   </div>
 
-                  {/* Cards de Estado con "Test del Dedo" */}
                   <div className="grid grid-cols-2 gap-3">
                     <button
                       onClick={() => setState('normal')}
-                      className={`p-3 rounded-2xl border-2 transition-all text-center flex flex-col items-center justify-center gap-1 ${state === 'normal' ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900'}`}
+                      aria-pressed={state === 'normal'}
+                      className={`${opt(state === 'normal')} flex flex-col items-center justify-center gap-0.5 p-3 text-center`}
                     >
-                      <span className={`text-[11px] font-black uppercase tracking-wider ${state === 'normal' ? 'text-primary' : 'text-slate-900 dark:text-white'}`}>Uso Normal</span>
-                      <span className="text-[8px] font-bold text-slate-400 uppercase">Sin goteo visible</span>
+                      <span className="text-[14px] font-medium">Uso Normal</span>
+                      <span className="font-mono text-[10.5px] text-muted">Sin goteo visible</span>
                     </button>
                     <button
                       onClick={() => setState('muy-sucio')}
-                      className={`p-3 rounded-2xl border-2 transition-all text-center flex flex-col items-center justify-center gap-1 ${state === 'muy-sucio' ? 'border-red-500 bg-red-50' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900'}`}
+                      aria-pressed={state === 'muy-sucio'}
+                      className={`flex flex-col items-center justify-center gap-0.5 rounded-lg border p-3 text-center transition-colors ${state === 'muy-sucio' ? 'border-[#dc2626] bg-[#fef2f2] ring-1 ring-[#dc2626]' : 'border-line bg-white hover:border-ink/25'}`}
                     >
-                      <span className={`text-[11px] font-black uppercase tracking-wider ${state === 'muy-sucio' ? 'text-red-600' : 'text-slate-900 dark:text-white'}`}>Grasa Crítica</span>
-                      <span className="text-[8px] font-black text-red-400 uppercase">Pasa el dedo: ¡Gotea!</span>
+                      <span className={`text-[14px] font-medium ${state === 'muy-sucio' ? 'text-[#b91c1c]' : ''}`}>Grasa Crítica</span>
+                      <span className="font-mono text-[10.5px] text-[#dc2626]">Pasa el dedo: ¡Gotea!</span>
                     </button>
                   </div>
 
-                  {/* Plan Mantenimiento + Certificado */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                     <div
                       onClick={() => setRecurring(!recurring)}
-                      className={`cursor-pointer p-4 rounded-2xl border-2 border-dashed flex items-center gap-3 transition-all relative overflow-hidden ${recurring ? 'border-primary bg-primary/5' : 'border-slate-200 dark:border-slate-700 bg-slate-50/50'}`}
+                      role="button"
+                      aria-pressed={recurring}
+                      className={`relative flex cursor-pointer items-center gap-3 overflow-hidden rounded-lg border border-dashed p-4 transition-colors ${recurring ? 'border-brand bg-brand-soft/60' : 'border-line bg-white hover:border-ink/25'}`}
                     >
-                      <span className={`material-symbols-outlined text-xl ${recurring ? 'text-primary' : 'text-slate-400'}`}>verified</span>
+                      <span className={`material-symbols-outlined text-[20px] ${recurring ? 'text-brand' : 'text-muted'}`}>verified</span>
                       <div className="text-left">
-                        <h4 className="font-black text-[9px] text-slate-900 dark:text-white tracking-widest">PLAN ANUAL (-15%)</h4>
-                        <p className="text-[9px] text-slate-500 font-medium">Intervenciones periódicas.</p>
+                        <h4 className="font-mono text-[11.5px] font-medium">PLAN ANUAL (-15%)</h4>
+                        <p className="text-[12.5px] text-muted">Intervenciones periódicas.</p>
                       </div>
                       {recurring && (
-                        <div className="absolute top-0 right-0 bg-primary text-white text-[7px] px-2 py-0.5 font-bold rounded-bl-lg">
+                        <div className="absolute right-0 top-0 rounded-bl-md bg-brand px-2 py-0.5 font-mono text-[10px] text-white">
                           AHORRAS {Math.round(total / 0.85 * 0.15)}€
                         </div>
                       )}
                     </div>
-                    <div className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center gap-3 bg-white dark:bg-slate-900">
-                      <span className="material-symbols-outlined text-xl text-amber-500">workspace_premium</span>
+                    <div className="flex items-center gap-3 rounded-lg border border-line bg-white p-4">
+                      <span className="material-symbols-outlined text-[20px] text-[#b45309]">workspace_premium</span>
                       <div className="text-left">
-                        <h4 className="font-black text-[9px] text-slate-900 dark:text-white tracking-widest uppercase">CERTIFICACIÓN INCLUIDA</h4>
-                        <p className="text-[9px] text-slate-500 font-medium">Válido para Sanidad y Seguros.</p>
+                        <h4 className="font-mono text-[11.5px] font-medium uppercase">CERTIFICACIÓN INCLUIDA</h4>
+                        <p className="text-[12.5px] text-muted">Válido para Sanidad y Seguros.</p>
                       </div>
                     </div>
                   </div>
 
-                  {/* Total Estimado Bloque Oscuro */}
-                  <div className="bg-[#0a0a1a] dark:bg-slate-950 p-5 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl mt-auto overflow-hidden relative">
-                    <div className="text-center relative z-10">
-                      <span className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-[0.25em] md:tracking-[0.3em] mb-2 md:mb-3 block">TOTAL ESTIMADO</span>
-                      <div className="flex items-center justify-center gap-0.5 md:gap-1 mb-6 md:mb-8">
-                        <span className="text-5xl md:text-7xl font-black text-white tracking-tighter">{total}</span>
-                        <span className="text-2xl md:text-3xl font-black text-primary mb-1 md:mb-2">€</span>
+                  {/* Total */}
+                  <div className="mt-auto rounded-xl bg-ink p-5 text-white md:p-6">
+                    <div className="mb-5 flex items-end justify-between">
+                      <span className="font-mono text-[11.5px] text-white/60">TOTAL ESTIMADO</span>
+                      <div className="flex items-baseline gap-1">
+                        <span className="tnum text-[2.75rem] font-semibold leading-none tracking-[-0.03em]">{total}</span>
+                        <span className="text-[1.4rem] font-semibold text-[#9fb0ff]">€</span>
                       </div>
+                    </div>
 
-                      <div className="grid grid-cols-2 gap-3 md:gap-4">
-                        <button onClick={generatePDF} className="bg-[#1f2128] hover:bg-[#2a2d36] text-white font-black py-3 md:py-4 rounded-xl md:rounded-2xl flex items-center justify-center gap-2 text-[10px] md:text-xs uppercase tracking-widest transition-all">
-                          <span className="material-symbols-outlined text-base md:text-lg">picture_as_pdf</span> PDF
-                        </button>
-                        <button onClick={shareWhatsApp} className="bg-[#22c55e] hover:bg-[#1db053] text-white font-black py-3 px-3 md:py-4 md:px-4 rounded-xl md:rounded-2xl flex items-center justify-center gap-1.5 md:gap-2 text-[8px] md:text-xs uppercase tracking-widest shadow-lg shadow-green-500/20 transition-all text-center leading-tight">
-                          <span className="material-symbols-outlined text-base md:text-lg">near_me</span>
-                          <span>agenda tu cita por whatsapp</span>
-                        </button>
-                      </div>
+                    <div className="grid grid-cols-2 gap-2.5">
+                      <button onClick={generatePDF} className="flex h-11 items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/5 text-[13.5px] font-semibold transition-colors hover:bg-white/10">
+                        <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span> PDF
+                      </button>
+                      <button onClick={shareWhatsApp} className="flex h-11 items-center justify-center gap-1.5 rounded-lg bg-[#1fa855] px-2 text-center text-[12.5px] font-semibold leading-tight transition-colors hover:bg-[#178a45] md:text-[13.5px]">
+                        <span className="material-symbols-outlined text-[18px]">near_me</span>
+                        <span className="first-letter:uppercase">agenda tu cita por whatsapp</span>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -520,59 +523,72 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
             )}
           </div>
 
-          {/* FOOTER NAVEGACION - PRECIO APILADO EN MÓVIL PARA PASOS 1-3 */}
-          <div className="bg-slate-50 dark:bg-slate-800/80 p-4 md:p-8 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          {/* NAVEGACIÓN — en móvil va fija abajo */}
+          <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 p-3 backdrop-blur md:static md:bg-white md:p-5 md:backdrop-blur-none">
+            <div className="flex items-center gap-3">
+              {/* Móvil: precio a la izquierda de los botones */}
+              <div className="flex-1 md:hidden">
+                {step < 4 ? (
+                  <div className="flex flex-col leading-tight">
+                    <span className="font-mono text-[10.5px] text-muted">Inversión Actual:</span>
+                    <span className="tnum text-[1.4rem] font-semibold leading-none text-ink">{total}<span className="ml-0.5 text-[15px]">€</span></span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[17px] text-[#16a34a]">verified</span>
+                    <span className="font-mono text-[11px] text-muted">Presupuesto finalizado</span>
+                  </div>
+                )}
+              </div>
 
-            {/* Desktop View */}
-            <div className="hidden sm:block">
-              {step < 4 && (
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Inversión Estimada</span>
-                  <p className="text-4xl font-black text-primary tracking-tighter leading-none">{total}€</p>
-                </div>
-              )}
+              <div className="flex gap-2 md:w-full md:justify-end">
+                {step > 0 && (
+                  <button
+                    onClick={handlePrev}
+                    className="h-11 rounded-lg border border-line bg-white px-4 text-[14.5px] font-medium text-ink transition-colors hover:bg-mist md:px-5"
+                  >
+                    Anterior
+                  </button>
+                )}
+                {step < 4 && (
+                  <button
+                    onClick={handleNext}
+                    className="h-11 rounded-lg bg-brand px-6 text-[14.5px] font-semibold text-white transition-colors hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-40 md:px-8"
+                    disabled={step === 0 && !includeHood && !includeTurbine && !includeDucts}
+                  >
+                    Continuar
+                  </button>
+                )}
+              </div>
             </div>
-
-            {/* Navegación (Botones) */}
-            <div className="flex gap-3 w-full sm:w-auto">
-              {step > 0 && (
-                <button
-                  onClick={handlePrev}
-                  className="flex-1 sm:flex-none px-6 h-12 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-bold dark:text-white text-xs hover:bg-white transition-all uppercase tracking-widest"
-                >
-                  Anterior
-                </button>
-              )}
-              {step < 4 && (
-                <button
-                  onClick={handleNext}
-                  className="flex-[2] sm:flex-none px-10 h-12 rounded-xl bg-primary text-white font-black uppercase tracking-widest text-xs shadow-xl active:scale-95 transition-all"
-                  disabled={step === 0 && !includeHood && !includeTurbine && !includeDucts}
-                >
-                  Continuar
-                </button>
-              )}
-            </div>
-
-            {/* Móvil View: Inversión debajo de botones */}
-            <div className="sm:hidden w-full text-center border-t border-slate-200 dark:border-slate-700 pt-3 mt-1">
-              {step < 4 ? (
-                <div className="flex items-center justify-center gap-3">
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Inversión Actual:</span>
-                  <span className="text-2xl font-black text-primary tracking-tight leading-none">{total}<span className="text-sm ml-0.5 font-bold">€</span></span>
-                </div>
-              ) : (
-                <div className="flex items-center justify-center gap-2">
-                  <span className="material-symbols-outlined text-green-500 text-sm">verified</span>
-                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Presupuesto finalizado</span>
-                </div>
-              )}
-            </div>
-
           </div>
         </div>
 
-        <p className="mt-4 text-center text-[9px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed px-4">
+        {/* Resumen lateral (escritorio) */}
+        <aside className="hidden rounded-xl border border-line bg-white p-5 shadow-card md:sticky md:top-6 md:block">
+          {step < 4 && (
+            <div className="flex flex-col">
+              <span className="mb-1.5 font-mono text-[11.5px] text-muted">Inversión Estimada</span>
+              <p className="tnum text-[2.5rem] font-semibold leading-none tracking-[-0.03em] text-ink">{total}€</p>
+            </div>
+          )}
+          <ul className="mt-5 space-y-2.5 border-t border-line pt-5" aria-hidden="true">
+            {[
+              { on: includeHood, icon: 'shelves' },
+              { on: includeTurbine, icon: 'cyclone' },
+              { on: includeDucts, icon: 'settings_input_component' },
+            ].map((r) => (
+              <li key={r.icon} className={`flex items-center gap-2.5 ${r.on ? 'text-ink' : 'text-muted/50'}`}>
+                <span className="material-symbols-outlined text-[18px]">{r.icon}</span>
+                <span className="h-px flex-1 bg-line"></span>
+                <span className="material-symbols-outlined text-[18px]">{r.on ? 'check_circle' : 'radio_button_unchecked'}</span>
+              </li>
+            ))}
+          </ul>
+        </aside>
+        </div>
+
+        <p className="mt-5 text-center text-[12px] leading-relaxed text-muted md:text-left">
           * Importe estimado sujeto a validación técnica física por el equipo de AFONDO.
         </p>
       </div>

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Container, SectionHead } from './ui';
 
 const ProblemSection: React.FC = () => {
   const problems = [
@@ -30,41 +31,33 @@ const ProblemSection: React.FC = () => {
   ];
 
   return (
-    <section className="bg-white dark:bg-slate-900 py-32">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex flex-col items-center text-center mb-20 max-w-3xl mx-auto">
-          <span className="text-primary font-black text-[10px] tracking-[0.3em] uppercase mb-4">¿Por qué es vital?</span>
-          <h2 className="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight mb-6">
-            ¿Por qué es Obligatorio Limpiar tu Campana en Alicante?
-          </h2>
-          <p className="text-slate-500 dark:text-slate-400 text-lg font-medium leading-relaxed">
-            La normativa vigente en la Comunidad Valenciana exige una limpieza técnica profesional certificada. No dejes el futuro de tu establecimiento en manos de la suerte.
-          </p>
-        </div>
+    <section className="bg-white py-20 md:py-28 font-plex">
+      <Container>
+        <SectionHead
+          eyebrow="¿Por qué es vital?"
+          title="¿Por qué es Obligatorio Limpiar tu Campana en Alicante?"
+          lead="La normativa vigente en la Comunidad Valenciana exige una limpieza técnica profesional certificada. No dejes el futuro de tu establecimiento en manos de la suerte."
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 overflow-hidden rounded-xl border border-line md:grid-cols-3">
           {problems.map((problem, idx) => (
-            <div key={idx} className={`group relative flex flex-col gap-8 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 p-10 transition-all duration-500 border border-slate-100 dark:border-slate-800 hover:shadow-2xl hover:-translate-y-2`}>
-              <div className={`flex items-center justify-center w-20 h-20 rounded-2xl ${problem.bg} border mb-2 group-hover:scale-110 transition-transform duration-500`}>
-                <span className="material-symbols-outlined text-[40px]">{problem.icon}</span>
-              </div>
-              <div className="flex flex-col gap-4">
-                <h3 className="text-slate-900 dark:text-white text-2xl font-black leading-tight">
-                  {problem.title}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-400 text-base font-medium leading-relaxed">
-                  {problem.description}
-                </p>
-              </div>
-              <div className="mt-auto pt-8 border-t border-slate-200 dark:border-slate-700">
-                <span className={`text-[10px] font-black uppercase tracking-[0.15em] flex items-center gap-2 ${problem.bg.split(' ')[1]}`}>
-                  <span className="material-symbols-outlined text-lg">{problem.statusIcon}</span> {problem.status}
+            <div key={idx} className={`flex flex-col bg-white p-7 md:p-8 ${idx > 0 ? 'border-t border-line md:border-t-0 md:border-l' : ''}`}>
+              <span className="material-symbols-outlined mb-6 text-[26px] text-brand" aria-hidden="true">{problem.icon}</span>
+              <h3 className="text-[1.25rem] font-semibold leading-snug tracking-[-0.01em] text-ink">
+                {problem.title}
+              </h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-muted">
+                {problem.description}
+              </p>
+              <div className="mt-auto pt-8">
+                <span className="inline-flex items-center gap-1.5 rounded-md bg-mist px-2.5 py-1 font-mono text-[11.5px] text-ink-3">
+                  <span className="material-symbols-outlined text-[15px] text-brand">{problem.statusIcon}</span> {problem.status}
                 </span>
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

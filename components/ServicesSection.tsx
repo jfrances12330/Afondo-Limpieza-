@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Container, SectionHead, Check } from './ui';
 
 interface ServicesSectionProps {
   onNavigateCalculadora: () => void;
@@ -58,22 +59,19 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
   ];
 
   return (
-    <section className="bg-slate-50 dark:bg-slate-950 py-24" aria-labelledby="servicios-titulo">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="mb-16 text-center">
-          <span className="text-primary font-bold text-sm tracking-widest uppercase mb-3">Nuestras Soluciones Técnicas</span>
-          <h2 id="servicios-titulo" className="text-slate-900 dark:text-white text-3xl md:text-5xl font-extrabold leading-tight tracking-tight">
-            Servicios de Limpieza Industrial en Alicante
-          </h2>
-          <p className="text-slate-500 dark:text-slate-400 text-lg font-medium mt-4 max-w-3xl mx-auto">
-            Especialistas en mantenimiento de sistemas de extracción para restaurantes, hoteles y cocinas industriales
-          </p>
-        </div>
+    <section className="bg-mist py-20 md:py-28 font-plex border-y border-line" aria-labelledby="servicios-titulo">
+      <Container>
+        <SectionHead
+          id="servicios-titulo"
+          eyebrow="Nuestras Soluciones Técnicas"
+          title="Servicios de Limpieza Industrial en Alicante"
+          lead="Especialistas en mantenimiento de sistemas de extracción para restaurantes, hoteles y cocinas industriales"
+        />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
           {services.map((service, idx) => (
-            <article key={idx} className="group flex flex-col bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 dark:border-slate-800">
-              <div className="relative h-56 overflow-hidden">
+            <article key={idx} className="group flex flex-col overflow-hidden rounded-xl border border-line bg-white shadow-card transition-shadow duration-200 hover:shadow-lift">
+              <div className="relative aspect-[4/3] overflow-hidden border-b border-line">
                 <picture className="block h-full w-full">
                   <source type="image/webp" srcSet={srcSet(service.base, 'webp', service.anchos)} sizes={SIZES} />
                   <img
@@ -81,45 +79,46 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
                     srcSet={srcSet(service.base, 'jpg', service.anchos)}
                     sizes={SIZES}
                     alt={service.alt}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     loading="lazy"
                     decoding="async"
                     width="400"
                     height="300"
                   />
                 </picture>
+                <span className="absolute left-3 top-3 rounded-md bg-white/95 px-2 py-1 font-mono text-[11px] text-ink-3 shadow-card" aria-hidden="true">0{idx + 1}</span>
               </div>
-              <div className="p-8 flex flex-col flex-1">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="material-symbols-outlined text-primary text-2xl" aria-hidden="true">{service.icon}</span>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{service.title}</h3>
+              <div className="flex flex-1 flex-col p-6 md:p-7">
+                <div className="mb-3 flex items-center gap-2.5">
+                  <span className="material-symbols-outlined text-[22px] text-brand" aria-hidden="true">{service.icon}</span>
+                  <h3 className="text-[1.25rem] font-semibold tracking-[-0.01em] text-ink">{service.title}</h3>
                 </div>
-                <p className="text-slate-600 dark:text-slate-400 mb-2 text-sm leading-relaxed">
+                <p className="mb-2 text-[15px] leading-relaxed text-muted">
                   {service.description}
                 </p>
                 {(service as any).landing && (
-                  <p className="mb-6 text-sm">
-                    <Link to={(service as any).landing.href} className="text-primary hover:underline font-semibold">
+                  <p className="mb-5 text-[15px]">
+                    <Link to={(service as any).landing.href} className="font-medium text-brand underline decoration-brand/30 underline-offset-4 hover:decoration-brand">
                       {(service as any).landing.anchor} →
                     </Link>
                   </p>
                 )}
-                <ul className="space-y-3 mb-8 flex-1">
+                <ul className="mb-7 mt-3 flex-1 space-y-2.5 border-t border-line pt-5">
                   {service.items.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
-                      <span className="material-symbols-outlined text-primary text-lg" aria-hidden="true">check</span>
+                    <li key={i} className="flex items-start gap-2.5 text-[14.5px] text-ink-2">
+                      <Check />
                       {item}
                     </li>
                   ))}
                 </ul>
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-full bg-slate-50 dark:bg-slate-800 hover:bg-primary hover:text-white dark:hover:bg-primary text-primary font-bold py-3 rounded-xl transition-all text-center text-sm border border-slate-100 dark:border-slate-700" aria-label={`Pedir presupuesto para ${service.title}`}>
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-line bg-white text-[15px] font-semibold text-ink transition-colors hover:border-ink/25 hover:bg-mist" aria-label={`Pedir presupuesto para ${service.title}`}>
                   Pide presupuesto por WhatsApp
                 </a>
               </div>
             </article>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 };
