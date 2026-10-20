@@ -45,7 +45,7 @@ const ProblemSection: React.FC = () => {
         <div className="grid grid-cols-1 overflow-hidden rounded-xl border border-line md:grid-cols-3">
           {problems.map((problem, idx) => (
             <div key={idx} className={`flex flex-col bg-white ${idx > 0 ? 'border-t border-line md:border-t-0 md:border-l' : ''}`}>
-              <div className="flex h-[200px] items-center justify-center border-b border-line bg-mist [background-image:radial-gradient(#dfe3ea_1px,transparent_1px)] [background-size:14px_14px]">
+              <div className="flex h-[200px] items-center justify-center border-b border-line bg-mist bg-[radial-gradient(#dfe3ea_1px,transparent_1px)] bg-size-[14px_14px]">
                 {React.createElement(VISUALES[idx])}
               </div>
               <div className="flex flex-1 flex-col p-7 md:p-8">

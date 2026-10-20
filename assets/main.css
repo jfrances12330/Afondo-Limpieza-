@@ -1,7 +1,60 @@
+@import 'tailwindcss';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-primary: #1a1aff;
+  --color-primary-dark: #0000cc;
+  --color-surface-light: #f8fafc;
+  --color-surface-dark: #0f172a;
+
+  --color-ink-2: #1a2336;
+  --color-ink-3: #3b4558;
+  --color-ink: #0b1324;
+
+  --color-mist: #f5f6f8;
+
+  --color-line: #e3e6eb;
+  --color-line-dark: #243049;
+
+  --color-muted: #5d6677;
+
+  --color-brand: #1f35d1;
+  --color-brand-dark: #17279e;
+  --color-brand-soft: #eef0fc;
+
+  --color-signal: #f2b01e;
+
+  --font-sans: Public Sans, sans-serif;
+  --font-plex: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --shadow-card:
+    0 1px 2px rgba(11, 19, 36, 0.04), 0 8px 24px -12px rgba(11, 19, 36, 0.1);
+  --shadow-lift:
+    0 1px 2px rgba(11, 19, 36, 0.05), 0 24px 48px -20px rgba(11, 19, 36, 0.25);
+
+  --breakpoint-xs: 480px;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    /* hex de v3: html2canvas 1.4 (certificado) no entiende oklch */
+    border-color: #e5e7eb;
+  }
+}
 
 html {
   scroll-behavior: smooth;
@@ -36,3 +89,52 @@ h1, h2, h3 {
   color: #1f35d1;
 }
 .tnum { font-variant-numeric: tabular-nums; }
+
+/* Migración a Tailwind 4 (oct-2026): v4 cambió `space-y-*` a margen inferior con
+   especificidad cero, y eso movía los espacios de legales, generador y zona
+   privada. Esto devuelve el comportamiento exacto de v3 (margen superior desde el
+   segundo hijo, y gana a los mt-/mb- del hijo, como antes). */
+@layer utilities {
+  :where(.space-y-1 > :not(:last-child)) { margin-block-end: 0; }
+  .space-y-1 > :not([hidden]) ~ :not([hidden]) { margin-top: .25rem; margin-bottom: 0; }
+  :where(.space-y-1\.5 > :not(:last-child)) { margin-block-end: 0; }
+  .space-y-1\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: .375rem; margin-bottom: 0; }
+  :where(.space-y-2 > :not(:last-child)) { margin-block-end: 0; }
+  .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: .5rem; margin-bottom: 0; }
+  :where(.space-y-2\.5 > :not(:last-child)) { margin-block-end: 0; }
+  .space-y-2\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: .625rem; margin-bottom: 0; }
+  :where(.space-y-3 > :not(:last-child)) { margin-block-end: 0; }
+  .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: .75rem; margin-bottom: 0; }
+  :where(.space-y-4 > :not(:last-child)) { margin-block-end: 0; }
+  .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; margin-bottom: 0; }
+  :where(.space-y-5 > :not(:last-child)) { margin-block-end: 0; }
+  .space-y-5 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.25rem; margin-bottom: 0; }
+  :where(.space-y-6 > :not(:last-child)) { margin-block-end: 0; }
+  .space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; margin-bottom: 0; }
+  :where(.space-y-7 > :not(:last-child)) { margin-block-end: 0; }
+  .space-y-7 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.75rem; margin-bottom: 0; }
+}
+
+/* Compatibilidad con la base de Tailwind 3 (migración oct-2026), para que
+   formularios del generador, reseñas y contratos se vean como antes. */
+@layer base {
+  /* v4 quitó el relleno de los campos de fecha: el campo encogía 4-5 px */
+  ::-webkit-date-and-time-value { min-height: revert; text-align: revert; }
+  ::-webkit-datetime-edit { display: revert; }
+  ::-webkit-datetime-edit-fields-wrapper { padding: revert; }
+  ::-webkit-datetime-edit,
+  ::-webkit-datetime-edit-year-field,
+  ::-webkit-datetime-edit-month-field,
+  ::-webkit-datetime-edit-day-field,
+  ::-webkit-datetime-edit-hour-field,
+  ::-webkit-datetime-edit-minute-field,
+  ::-webkit-datetime-edit-second-field,
+  ::-webkit-datetime-edit-millisecond-field,
+  ::-webkit-datetime-edit-meridiem-field { padding-block: revert; }
+  /* Color de los textos de ejemplo de los campos, el de v3 */
+  input::placeholder, textarea::placeholder { opacity: 1; color: #9ca3af; }
+  /* v4 deja el botón «Elegir archivos» (fotos del certificado) sin su aspecto nativo */
+  ::file-selector-button { border: revert; border-radius: revert; background-color: revert; padding: revert; margin: revert; -webkit-appearance: button; appearance: button; font: inherit; }
+  /* v4 dejó de poner la mano en los botones */
+  button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+}

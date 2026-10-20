@@ -60,7 +60,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
         </button>
 
         <div className="mb-12 max-w-2xl">
-          <h1 className="text-[2.35rem] font-semibold leading-[1.06] tracking-[-0.025em] text-ink sm:text-[3rem]">
+          <h1 className="text-[2.35rem] font-semibold leading-[1.06] tracking-tight text-ink sm:text-[3rem]">
             Contacto Directo
           </h1>
           <p className="mt-5 text-[1.0625rem] leading-relaxed text-muted">
@@ -161,7 +161,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Ubicación de Afondo Limpieza en Alicante"
-                className="h-full min-h-[360px] w-full grayscale-[60%]"
+                className="h-full min-h-[360px] w-full grayscale-60"
               ></iframe>
             </div>
             <div className="flex items-center gap-3 border-t border-line px-6 py-5">

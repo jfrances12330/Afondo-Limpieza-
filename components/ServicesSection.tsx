@@ -71,7 +71,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigateCalculadora
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
           {services.map((service, idx) => (
             <article key={idx} className="group flex flex-col overflow-hidden rounded-xl border border-line bg-white shadow-card transition-shadow duration-200 hover:shadow-lift">
-              <div className="relative aspect-[4/3] overflow-hidden border-b border-line">
+              <div className="relative aspect-4/3 overflow-hidden border-b border-line">
                 <picture className="block h-full w-full">
                   <source type="image/webp" srcSet={srcSet(service.base, 'webp', service.anchos)} sizes={SIZES} />
                   <img

@@ -306,7 +306,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
                         </span>
                         <span className="text-[15.5px] font-medium">{service.label}</span>
                       </div>
-                      <span className={`flex h-5 w-5 items-center justify-center rounded border ${service.state ? 'border-brand bg-brand text-white' : 'border-line bg-white'}`}>
+                      <span className={`flex h-5 w-5 items-center justify-center rounded-sm border ${service.state ? 'border-brand bg-brand text-white' : 'border-line bg-white'}`}>
                         {service.state && <span className="material-symbols-outlined text-[16px]">check</span>}
                       </span>
                     </button>
@@ -530,7 +530,7 @@ const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
           </div>
 
           {/* NAVEGACIÓN — en móvil va fija abajo */}
-          <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 p-3 backdrop-blur md:static md:bg-white md:p-5 md:backdrop-blur-none">
+          <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 p-3 backdrop-blur-sm md:static md:bg-white md:p-5 md:backdrop-blur-none">
             <div className="flex items-center gap-3">
               {/* Móvil: precio a la izquierda de los botones */}
               <div className="flex-1 md:hidden">

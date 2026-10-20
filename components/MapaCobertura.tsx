@@ -75,7 +75,7 @@ const MapaCobertura: React.FC<{ todaLaProvincia: React.ReactNode }> = ({ todaLaP
             <g key={name} opacity={activo && !on ? 0.35 : 1} style={{ transition: 'opacity .2s' }}>
               {base && <circle cx={x} cy={y} r="14" fill="#1f35d1" opacity=".12" />}
               <circle cx={x} cy={y} r={base || on ? 6 : 4.5} fill={base ? '#1f35d1' : '#fff'} stroke="#1f35d1" strokeWidth="2" />
-              <text x={x + c[2]} y={y + c[3]} fontSize="11.5" className="fill-[#1a2336] font-plex" fontWeight={base || on ? 600 : 400}>
+              <text x={x + c[2]} y={y + c[3]} fontSize="11.5" className="fill-ink-2 font-plex" fontWeight={base || on ? 600 : 400}>
                 {name === 'San Vicente del Raspeig' ? 'San Vicente' : name}
               </text>
             </g>

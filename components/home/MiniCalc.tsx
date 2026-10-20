@@ -69,7 +69,7 @@ const MiniCalc: React.FC = () => {
   return (
     <div className="relative">
       {/* Halo de marca detrás de la tarjeta */}
-      <div className="pointer-events-none absolute -inset-6 rounded-[28px] bg-gradient-to-br from-brand/50 via-brand/10 to-signal/20 opacity-70 blur-2xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute -inset-6 rounded-[28px] bg-linear-to-br from-brand/50 via-brand/10 to-signal/20 opacity-70 blur-2xl" aria-hidden="true" />
 
       <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white text-ink shadow-[0_50px_100px_-30px_rgba(0,0,0,.7)]">
         <div className="flex items-center justify-between border-b border-line px-5 py-3.5">

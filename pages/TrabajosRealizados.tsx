@@ -209,7 +209,7 @@ const TrabajosRealizados: React.FC = () => {
                 </ol>
               </nav>
 
-              <h1 className="text-[2.35rem] font-semibold leading-[1.06] tracking-[-0.025em] sm:text-[3.1rem] lg:text-[3.4rem]">
+              <h1 className="text-[2.35rem] font-semibold leading-[1.06] tracking-tight sm:text-[3.1rem] lg:text-[3.4rem]">
                 Trabajos realizados en{' '}
                 <span className="text-[#b9c4ff]">Alicante</span>
                 {' '}y provincia
@@ -234,7 +234,7 @@ const TrabajosRealizados: React.FC = () => {
             </div>
 
             <div className="overflow-hidden rounded-xl border border-white/10 bg-ink-2 shadow-lift">
-              <picture className="block aspect-[4/3]">
+              <picture className="block aspect-4/3">
                 <source type="image/webp" srcSet={srcSet(PORTADA, 'webp')} sizes="(min-width: 1024px) 480px, calc(100vw - 2.5rem)" />
                 <img
                   src={`${PORTADA.base}-800.jpg`}
@@ -270,7 +270,7 @@ const TrabajosRealizados: React.FC = () => {
             </div>
 
             {/* Filtro: oculta con CSS, las cinco fichas siguen en el HTML */}
-            <div className="sticky top-16 z-20 -mx-5 mb-6 border-b border-line bg-mist/90 px-5 py-3 backdrop-blur sm:mx-0 sm:rounded-xl sm:border sm:bg-white/90 sm:px-3">
+            <div className="sticky top-16 z-20 -mx-5 mb-6 border-b border-line bg-mist/90 px-5 py-3 backdrop-blur-sm sm:mx-0 sm:rounded-xl sm:border sm:bg-white/90 sm:px-3">
               <div className="flex gap-1.5 overflow-x-auto">
                 {CATS.map((c) => {
                   const n = c === 'Todos' ? TRABAJOS.length : TRABAJOS.filter((t) => t.cat === c).length;
@@ -278,7 +278,7 @@ const TrabajosRealizados: React.FC = () => {
                   return (
                     <button key={c} type="button" aria-pressed={on} onClick={() => setCat(c)} className={`inline-flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-[13.5px] font-medium transition-colors ${on ? 'bg-ink text-white' : 'text-ink-3 hover:bg-mist'}`}>
                       {c}
-                      <span className={`tnum rounded px-1.5 font-mono text-[10.5px] ${on ? 'bg-white/15 text-white' : 'bg-mist text-muted'}`}>{n}</span>
+                      <span className={`tnum rounded-sm px-1.5 font-mono text-[10.5px] ${on ? 'bg-white/15 text-white' : 'bg-mist text-muted'}`}>{n}</span>
                     </button>
                   );
                 })}

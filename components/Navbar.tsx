@@ -48,7 +48,7 @@ const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav className="sticky top-0 left-0 z-50 w-full border-b border-line/80 bg-white/85 backdrop-blur-md font-plex">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-6 lg:px-8">
-        <button onClick={onNavigateHome} className="focus:outline-none">
+        <button onClick={onNavigateHome} className="focus:outline-hidden">
           <Brand
             name={<span className="inline-block lowercase first-letter:uppercase">AFONDO</span>}
             sub="Higiene Industrial"

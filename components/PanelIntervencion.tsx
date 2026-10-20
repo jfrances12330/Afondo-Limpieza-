@@ -36,7 +36,7 @@ const PanelIntervencion: React.FC = () => {
           {[[22, 100], [22, 58], [70, 30]].map(([x, y], i) => (
             <rect key={i} x={x - 6} y={y - 6} width="12" height="12" rx="2" fill={activo >= 2 ? '#1f35d1' : '#fff'} stroke="#1f35d1" strokeWidth="1.2" style={{ transition: 'fill .4s' }} />
           ))}
-          <text x="10" y="166" fontSize="8.5" className="fill-[#5d6677] font-mono">campana</text>
+          <text x="10" y="166" fontSize="8.5" className="fill-muted font-mono">campana</text>
         </svg>
 
         <ol className="space-y-1.5">

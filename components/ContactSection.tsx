@@ -14,7 +14,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onNavigate }) => {
     <section className="relative overflow-hidden bg-ink py-20 md:py-28 font-plex">
       <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
         <div className="mb-12 max-w-3xl md:mb-14">
-          <span className="eyebrow mb-4 inline-flex items-center gap-2 !text-[#9fb0ff]"><span className="h-px w-5 bg-[#9fb0ff]" aria-hidden="true"></span>Vías de Contacto Directas</span>
+          <span className="eyebrow mb-4 inline-flex items-center gap-2 text-[#9fb0ff]!"><span className="h-px w-5 bg-[#9fb0ff]" aria-hidden="true"></span>Vías de Contacto Directas</span>
           <h2 className="text-[1.9rem] font-semibold leading-[1.12] tracking-[-0.02em] text-white sm:text-[2.75rem]">
             ¿Hablamos ahora? <br /> Elige tu medio favorito.
           </h2>
@@ -46,17 +46,17 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onNavigate }) => {
                   Online
                 </span>
               </div>
-              <div className="space-y-2 bg-[#efeae2] px-4 py-4 [background-image:radial-gradient(#e2dbd0_1px,transparent_1px)] [background-size:12px_12px]" aria-hidden="true">
-                <div className="ml-auto w-fit max-w-[85%] rounded-lg rounded-tr-none bg-[#d9fdd3] px-3 py-2 text-[13px] text-ink shadow-sm">
+              <div className="space-y-2 bg-[#efeae2] px-4 py-4 bg-[radial-gradient(#e2dbd0_1px,transparent_1px)] bg-size-[12px_12px]" aria-hidden="true">
+                <div className="ml-auto w-fit max-w-[85%] rounded-lg rounded-tr-none bg-[#d9fdd3] px-3 py-2 text-[13px] text-ink shadow-xs">
                   Hola, quisiera pedir presupuesto para la limpieza de mi campana.
                   <span className="ml-2 inline-flex translate-y-0.5 items-center gap-0.5 text-[10px] text-[#53bdeb]">
                     <span className="material-symbols-outlined text-[14px]">done_all</span>
                   </span>
                 </div>
-                <div className="ml-auto w-[150px] overflow-hidden rounded-lg rounded-tr-none bg-[#d9fdd3] p-1 shadow-sm">
-                  <img src="/img/stock-campana-industrial-cocina-1-400.webp" alt="" className="aspect-[4/3] w-full rounded-md object-cover" width="400" height="300" loading="lazy" />
+                <div className="ml-auto w-[150px] overflow-hidden rounded-lg rounded-tr-none bg-[#d9fdd3] p-1 shadow-xs">
+                  <img src="/img/stock-campana-industrial-cocina-1-400.webp" alt="" className="aspect-4/3 w-full rounded-md object-cover" width="400" height="300" loading="lazy" />
                 </div>
-                <div className="flex w-fit items-center gap-1 rounded-lg rounded-tl-none bg-white px-3 py-2.5 shadow-sm">
+                <div className="flex w-fit items-center gap-1 rounded-lg rounded-tl-none bg-white px-3 py-2.5 shadow-xs">
                   <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted [animation-delay:-0.3s]"></span>
                   <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted [animation-delay:-0.15s]"></span>
                   <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted"></span>

@@ -11,7 +11,7 @@ export const Container: React.FC<React.PropsWithChildren<{ className?: string }>
 );
 
 export const Eyebrow: React.FC<React.PropsWithChildren<{ className?: string; tone?: 'light' | 'dark' }>> = ({ children, className = '', tone = 'light' }) => (
-  <span className={`eyebrow mb-4 inline-flex items-center gap-2 ${tone === 'dark' ? '!text-[#9fb0ff]' : ''} ${className}`}>
+  <span className={`eyebrow mb-4 inline-flex items-center gap-2 ${tone === 'dark' ? 'text-[#9fb0ff]!' : ''} ${className}`}>
     <span className={`h-px w-5 ${tone === 'dark' ? 'bg-[#9fb0ff]' : 'bg-brand'}`} aria-hidden="true"></span>
     {children}
   </span>
@@ -44,7 +44,7 @@ export const SectionHead: React.FC<{
   );
 };
 
-const btnBase = 'inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 whitespace-nowrap';
+const btnBase = 'inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-colors duration-150 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 whitespace-nowrap';
 const btnSize = { md: 'h-11 px-5 text-[15px]', lg: 'h-12 px-6 text-base' };
 const btnVariant = {
   primary: 'bg-brand text-white hover:bg-brand-dark shadow-[0_1px_0_rgba(255,255,255,.15)_inset,0_1px_2px_rgba(11,19,36,.2)]',

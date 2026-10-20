@@ -186,7 +186,7 @@ const ResenasTool: React.FC = () => {
   };
 
   const claseCampo =
-    'w-full h-14 px-4 text-base rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:outline-none transition-colors';
+    'w-full h-14 px-4 text-base rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:outline-hidden transition-colors';
   const claseEtiqueta =
     'block text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2';
   const claseAyuda = 'mt-2 text-sm text-slate-500 dark:text-slate-400';
@@ -195,14 +195,14 @@ const ResenasTool: React.FC = () => {
     <div className="min-h-screen bg-surface-light dark:bg-surface-dark px-6 py-16 sm:py-24">
       <div className="max-w-2xl mx-auto">
         <header className="text-center mb-10">
-          <span className="material-symbols-outlined !text-5xl text-primary" aria-hidden="true">star</span>
+          <span className="material-symbols-outlined text-5xl! text-primary" aria-hidden="true">star</span>
           <h1 className="mt-4 text-3xl sm:text-4xl font-black uppercase tracking-tight text-slate-900 dark:text-white">
             Pedir reseña
           </h1>
           <p className="text-sm font-bold uppercase tracking-widest text-primary mt-2">Afondo</p>
         </header>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-lg p-6 sm:p-10">
+        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-4xl shadow-lg p-6 sm:p-10">
           <div className="mb-6">
             <label htmlFor="cliente-nombre" className={claseEtiqueta}>Nombre del cliente</label>
             <input
@@ -342,7 +342,7 @@ const ResenasTool: React.FC = () => {
             onClick={alEnviar}
             className="flex items-center justify-center gap-2 w-full h-16 bg-green-500 hover:bg-green-600 text-white font-black uppercase tracking-wider rounded-xl transition-all"
           >
-            <span className="material-symbols-outlined !text-2xl" aria-hidden="true">send</span>
+            <span className="material-symbols-outlined text-2xl!" aria-hidden="true">send</span>
             Enviar por WhatsApp
           </a>
 
@@ -360,7 +360,7 @@ const ResenasTool: React.FC = () => {
             onClick={() => setVerListado((v) => !v)}
             className="mt-4 flex items-center justify-center gap-2 w-full h-14 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-primary hover:text-primary font-black uppercase tracking-wider rounded-xl transition-colors"
           >
-            <span className="material-symbols-outlined !text-2xl" aria-hidden="true">list</span>
+            <span className="material-symbols-outlined text-2xl!" aria-hidden="true">list</span>
             Ver listado
           </button>
 
@@ -372,14 +372,14 @@ const ResenasTool: React.FC = () => {
             {verMensaje ? 'Ocultar el mensaje que se enviará' : 'Ver el mensaje que se enviará'}
           </button>
           {verMensaje && (
-            <pre className="mt-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 text-sm text-slate-600 dark:text-slate-300 whitespace-pre-wrap break-words font-sans">
+            <pre className="mt-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 text-sm text-slate-600 dark:text-slate-300 whitespace-pre-wrap wrap-break-word font-sans">
               {mensaje}
             </pre>
           )}
         </div>
 
         {verListado && (
-          <div className="mt-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-lg p-6 sm:p-10">
+          <div className="mt-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-4xl shadow-lg p-6 sm:p-10">
             <h2 className="text-xl font-black uppercase tracking-tight text-slate-900 dark:text-white">
               Tu listado
             </h2>
@@ -427,7 +427,7 @@ const ResenasTool: React.FC = () => {
                         aria-label={`Borrar a ${e.negocio || e.nombre || e.telefono} del listado`}
                         className="shrink-0 p-2 text-slate-400 hover:text-red-600 transition-colors"
                       >
-                        <span className="material-symbols-outlined !text-2xl" aria-hidden="true">delete</span>
+                        <span className="material-symbols-outlined text-2xl!" aria-hidden="true">delete</span>
                       </button>
                     </li>
                   ))}

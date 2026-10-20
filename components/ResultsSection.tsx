@@ -56,7 +56,7 @@ const ResultsSection: React.FC = () => {
 
           <div
             ref={box}
-            className="relative aspect-[4/3] w-full cursor-ew-resize select-none overflow-hidden rounded-xl border border-line bg-mist shadow-lift"
+            className="relative aspect-4/3 w-full cursor-ew-resize select-none overflow-hidden rounded-xl border border-line bg-mist shadow-lift"
             style={{ touchAction: 'pan-y' }}
             onPointerDown={(e) => { dragging.current = true; (e.target as Element).setPointerCapture?.(e.pointerId); moveTo(e.clientX); }}
             onPointerMove={(e) => { if (dragging.current) moveTo(e.clientX); }}

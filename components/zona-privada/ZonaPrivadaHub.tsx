@@ -16,9 +16,9 @@ const ZonaPrivadaHub: React.FC = () => (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Link
           to="/zona-privada/certificado"
-          className="group block bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-lg hover:shadow-2xl transition-all p-8 sm:p-10 text-center"
+          className="group block bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-4xl shadow-lg hover:shadow-2xl transition-all p-8 sm:p-10 text-center"
         >
-          <span className="material-symbols-outlined !text-5xl mb-5 text-primary" aria-hidden="true">description</span>
+          <span className="material-symbols-outlined text-5xl! mb-5 text-primary" aria-hidden="true">description</span>
           <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-900 dark:text-white group-hover:text-primary transition-colors">
             Certificado de limpieza
           </h2>
@@ -29,9 +29,9 @@ const ZonaPrivadaHub: React.FC = () => (
 
         <Link
           to="/zona-privada/resenas"
-          className="group block bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-lg hover:shadow-2xl transition-all p-8 sm:p-10 text-center"
+          className="group block bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-4xl shadow-lg hover:shadow-2xl transition-all p-8 sm:p-10 text-center"
         >
-          <span className="material-symbols-outlined !text-5xl mb-5 text-primary" aria-hidden="true">star</span>
+          <span className="material-symbols-outlined text-5xl! mb-5 text-primary" aria-hidden="true">star</span>
           <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-900 dark:text-white group-hover:text-primary transition-colors">
             Pedir reseña
           </h2>
@@ -41,9 +41,9 @@ const ZonaPrivadaHub: React.FC = () => (
         </Link>
         <Link
           to="/zona-privada/contratos"
-          className="group block bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-lg hover:shadow-2xl transition-all p-8 sm:p-10 text-center lg:col-span-2"
+          className="group block bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-4xl shadow-lg hover:shadow-2xl transition-all p-8 sm:p-10 text-center lg:col-span-2"
         >
-          <span className="material-symbols-outlined !text-5xl mb-5 text-primary" aria-hidden="true">contract</span>
+          <span className="material-symbols-outlined text-5xl! mb-5 text-primary" aria-hidden="true">contract</span>
           <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-900 dark:text-white group-hover:text-primary transition-colors">
             Contrato de mantenimiento
           </h2>

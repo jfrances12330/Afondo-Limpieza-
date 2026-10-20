@@ -27,7 +27,7 @@ const GateAcceso: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-surface-light dark:bg-surface-dark flex items-center justify-center px-6 py-24">
-      <div className="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-xl p-8 sm:p-10">
+      <div className="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-4xl shadow-xl p-8 sm:p-10">
         <div className="flex items-center justify-center gap-2 mb-2 text-primary">
           <span className="material-symbols-outlined text-2xl">lock</span>
         </div>
@@ -49,7 +49,7 @@ const GateAcceso: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             onChange={(e) => setCodigo(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && tryUnlock()}
             placeholder="Código de acceso"
-            className="w-full h-14 pl-4 pr-14 text-base rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:outline-none transition-colors"
+            className="w-full h-14 pl-4 pr-14 text-base rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:outline-hidden transition-colors"
           />
           <button
             type="button"

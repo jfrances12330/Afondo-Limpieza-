@@ -124,7 +124,7 @@ const GridPattern: React.FC = () => (
 );
 
 const DarkEyebrow: React.FC<React.PropsWithChildren> = ({ children }) => (
-  <span className="eyebrow mb-4 inline-flex items-center gap-2 !text-[#9fb0ff]"><span className="h-px w-5 bg-[#9fb0ff]" aria-hidden="true"></span>{children}</span>
+  <span className="eyebrow mb-4 inline-flex items-center gap-2 text-[#9fb0ff]!"><span className="h-px w-5 bg-[#9fb0ff]" aria-hidden="true"></span>{children}</span>
 );
 
 // ─── Página ─────────────────────────────────────────────────────────────────
@@ -151,14 +151,14 @@ const LimpiezaConductos: React.FC = () => {
           <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-5 pb-16 pt-12 sm:px-6 md:pt-16 lg:grid-cols-[1fr_1fr] lg:gap-14 lg:px-8 lg:pb-24 lg:pt-20">
             <div>
               <Reveal>
-                <div className="mb-6 inline-flex items-center gap-2.5 rounded-md border border-white/15 bg-white/[0.04] px-3 py-1.5">
+                <div className="mb-6 inline-flex items-center gap-2.5 rounded-md border border-white/15 bg-white/4 px-3 py-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true"></span>
                   <span className="font-mono text-[12px] text-white/80">Alicante y provincia · Urgencias 24h</span>
                 </div>
               </Reveal>
 
               <Reveal delay={100}>
-                <h1 className="text-[2rem] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[2.6rem]">
+                <h1 className="text-[2rem] font-semibold leading-[1.1] tracking-tight sm:text-[2.5rem] lg:text-[2.6rem]">
                   Limpieza de conductos de extracción en{' '}
                   <span className="text-[#b9c4ff]">Alicante</span>
                   : desengrase interior de tramos verticales y horizontales
@@ -172,7 +172,7 @@ const LimpiezaConductos: React.FC = () => {
               </Reveal>
 
               <Reveal delay={300}>
-                <div className="mt-6 flex gap-3 rounded-lg border border-white/10 bg-white/[0.04] p-4">
+                <div className="mt-6 flex gap-3 rounded-lg border border-white/10 bg-white/4 p-4">
                   <span className="material-symbols-outlined mt-0.5 text-[20px] text-[#9fb0ff]" aria-hidden="true">engineering</span>
                   <p className="text-[14.5px] leading-relaxed text-slate-300">
                     Soy <strong className="font-semibold text-white">Jaime Gascón López</strong>, técnico especialista en limpieza y desengrase de sistemas de extracción, autónomo con seguro de responsabilidad civil en vigor. Si tienes un restaurante, bar, hotel o cocina colectiva en la provincia de Alicante, llámame al <strong className="font-semibold text-white">622 064 101</strong> y te digo qué necesita tu instalación.
@@ -191,7 +191,7 @@ const LimpiezaConductos: React.FC = () => {
             {/* Panel de intervención + foto + sellos */}
             <div className="relative lg:h-[540px]">
               <div className="absolute bottom-0 right-0 hidden w-[52%] overflow-hidden rounded-xl border border-white/10 bg-ink-2 shadow-lift lg:block">
-                <picture className="block aspect-[3/4]">
+                <picture className="block aspect-3/4">
                   <source type="image/webp" srcSet={HERO_SRCSET('webp')} sizes="(min-width: 1024px) 240px, 1px" />
                   <img
                     src={`${HERO_BASE}-800.jpg`}
@@ -246,7 +246,7 @@ const LimpiezaConductos: React.FC = () => {
 
               <Reveal delay={120}>
                 <figure className="overflow-hidden rounded-xl border border-line bg-white shadow-card">
-                  <picture className="block aspect-[4/3]">
+                  <picture className="block aspect-4/3">
                     <source type="image/webp" srcSet={CONDUCTO_SRCSET('webp')} sizes="(min-width: 1024px) 540px, calc(100vw - 2.5rem)" />
                     <img
                       src={`${CONDUCTO_BASE}-800.jpg`}
@@ -285,7 +285,7 @@ const LimpiezaConductos: React.FC = () => {
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-5 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-8">
             <Reveal>
               <div className="lg:sticky lg:top-24">
-                <div className="eyebrow mb-4 inline-flex items-center gap-2 !text-[#b91c1c]">
+                <div className="eyebrow mb-4 inline-flex items-center gap-2 text-[#b91c1c]!">
                   <span className="material-symbols-outlined text-[16px]">local_fire_department</span>
                   <span>Por qué importa</span>
                 </div>
@@ -354,7 +354,7 @@ const LimpiezaConductos: React.FC = () => {
                 { s: <><strong className="font-semibold text-ink">Cajón de ventilación y extractor</strong> (turbina, rodete y carcasa).</>, i: 'cyclone' },
                 { s: <><strong className="font-semibold text-ink">Salida de humos en cubierta</strong> y su entorno inmediato.</>, i: 'roofing' },
               ].map((li, idx) => (
-                <Reveal key={idx} delay={idx * 70} className="border-b border-line md:[&:nth-child(odd)]:border-r [&:last-child]:border-b-0">
+                <Reveal key={idx} delay={idx * 70} className="border-b border-line md:odd:border-r last:border-b-0">
                   <div className="flex h-full items-start gap-4 bg-white p-5 md:p-6">
                     <span className="material-symbols-outlined mt-0.5 text-[22px] text-brand">{li.i}</span>
                     <span className="text-[15.5px] leading-relaxed text-ink-3">{li.s}</span>
@@ -412,7 +412,7 @@ const LimpiezaConductos: React.FC = () => {
           <GridPattern />
           <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-5 sm:px-6 lg:grid-cols-[1.3fr_0.7fr] lg:gap-16 lg:px-8">
             <Reveal>
-              <div className="eyebrow mb-4 inline-flex items-center gap-2 !text-white/80">
+              <div className="eyebrow mb-4 inline-flex items-center gap-2 text-white/80!">
                 <span className="material-symbols-outlined text-[16px]">event_repeat</span>
                 <span>Mantenimiento</span>
               </div>
@@ -504,11 +504,11 @@ const LimpiezaConductos: React.FC = () => {
           <GridPattern />
           <div className="relative mx-auto max-w-3xl text-center">
             <Reveal>
-              <div className="eyebrow mb-4 inline-flex items-center gap-2 !text-[#9fb0ff]">
+              <div className="eyebrow mb-4 inline-flex items-center gap-2 text-[#9fb0ff]!">
                 <span className="material-symbols-outlined text-[16px]">request_quote</span>
                 <span>Pide presupuesto</span>
               </div>
-              <h2 className="text-[2.1rem] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[3rem]">
+              <h2 className="text-[2.1rem] font-semibold leading-[1.1] tracking-tight sm:text-[3rem]">
                 Pide presupuesto <span className="text-[#b9c4ff]">sin compromiso</span>
               </h2>
               <p className="mx-auto mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-slate-300">

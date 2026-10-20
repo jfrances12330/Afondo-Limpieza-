@@ -62,7 +62,7 @@ const Footer: React.FC<FooterProps> = () => {
       <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
         <div className="mb-12 grid grid-cols-1 gap-12 lg:grid-cols-[1.2fr_2fr]">
           <div className="max-w-sm">
-            <Link to="/" className="mb-5 inline-block focus:outline-none">
+            <Link to="/" className="mb-5 inline-block focus:outline-hidden">
               <Brand name="Afondo" sub="Higiene Industrial" />
             </Link>
             <p className="text-[14.5px] leading-relaxed text-muted">
@@ -91,7 +91,7 @@ const Footer: React.FC<FooterProps> = () => {
             <div className="col-span-2 flex min-w-0 flex-col gap-3 sm:col-span-1">
               <span className="mb-1 font-mono text-[11.5px] text-ink">Contacto</span>
               <a href="tel:+34622064101" className={`${linkCls} tnum whitespace-nowrap`}>+34 622 06 41 01</a>
-              <a href={`mailto:${email}`} className={`${linkCls} break-words`}>{email}</a>
+              <a href={`mailto:${email}`} className={`${linkCls} wrap-break-word`}>{email}</a>
               <span className="whitespace-nowrap text-[14.5px] text-muted">Lun - Vie: 8:00 - 20:00</span>
             </div>
           </div>

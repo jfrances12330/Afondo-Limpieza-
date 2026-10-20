@@ -40,7 +40,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
           decoding="async"
         />
       </picture>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/60" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-ink via-ink/85 to-ink/60" aria-hidden="true" />
       {/* Retícula técnica muy tenue: plano de instalación, no decoración de IA */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
@@ -54,16 +54,16 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
       <div className="pointer-events-none absolute -bottom-52 right-1/3 h-[420px] w-[420px] rounded-full bg-signal/10 blur-[120px]" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-5 pb-16 pt-12 sm:px-6 md:pt-16 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:px-8 lg:pb-24 lg:pt-20">
         <div>
-          <div className="mb-6 inline-flex items-center gap-2.5 rounded-md border border-white/15 bg-white/[0.04] px-3 py-1.5">
+          <div className="mb-6 inline-flex items-center gap-2.5 rounded-md border border-white/15 bg-white/4 px-3 py-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true"></span>
             <span className="font-mono text-[12px] text-white/80">Alicante y Provincia</span>
           </div>
 
-          <h1 className="text-[2.35rem] font-semibold leading-[1.06] tracking-[-0.025em] sm:text-[3.25rem] lg:text-[3.6rem]">
+          <h1 className="text-[2.35rem] font-semibold leading-[1.06] tracking-tight sm:text-[3.25rem] lg:text-[3.6rem]">
             Limpieza de <span className="text-[#b9c4ff]">Campanas Industriales</span> en Alicante
           </h1>
 
-          <p className="mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-slate-300 sm:text-lg">
+          <p className="mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-slate-300 sm:text-lg sm:leading-7">
             Especialistas en cumplimiento de normativa. Evite incendios y sanciones obteniendo su <strong className="font-semibold text-white">presupuesto online</strong> sin compromiso en segundos.
           </p>
 
@@ -89,7 +89,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
           <ul className="mt-10 grid max-w-xl grid-cols-1 gap-2 border-t border-white/10 pt-6 sm:grid-cols-3">
             {sellos.map((x, i) => (
               <li key={i} className="flex items-center gap-2.5">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/[0.06] text-[#b9c4ff]">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/6 text-[#b9c4ff]">
                   <span className="material-symbols-outlined text-[18px]">{x.icon}</span>
                 </span>
                 <span className="text-[13px] font-medium leading-snug text-white/85">{x.text}</span>

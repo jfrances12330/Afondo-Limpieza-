@@ -62,6 +62,10 @@
 
   <!-- Critical CSS Inline -->
   <style>
+    /* Tailwind 4 trabaja con @layer: lo que va fuera de capa gana a TODAS las
+       utilidades. Estos estilos críticos iban antes del CSS de Tailwind y las
+       utilidades los pisaban; dentro de @layer base siguen perdiendo, como antes. */
+    @layer base {
     /* Critical Above-the-Fold Styles */
     * {
       box-sizing: border-box;
@@ -88,6 +92,7 @@
       word-wrap: normal;
       direction: ltr;
       -webkit-font-smoothing: antialiased
+    }
     }
   </style>
 

@@ -5,9 +5,9 @@ import React from 'react';
 const Row: React.FC<{ label: string; st: 'ok' | 'warn' | 'ko' }> = ({ label, st }) => (
   <div className="flex items-center justify-between border-t border-line px-3 py-1.5 first:border-t-0">
     <span className="text-[11.5px] text-ink-2">{label}</span>
-    {st === 'ok' && <span className="rounded bg-[#e8f7ee] px-1.5 py-0.5 font-mono text-[9.5px] text-[#15803d]">OK</span>}
-    {st === 'warn' && <span className="rounded bg-[#fff4db] px-1.5 py-0.5 font-mono text-[9.5px] text-[#b45309]">Revisar</span>}
-    {st === 'ko' && <span className="rounded bg-[#fdecec] px-1.5 py-0.5 font-mono text-[9.5px] text-[#b91c1c]">Falta</span>}
+    {st === 'ok' && <span className="rounded-sm bg-[#e8f7ee] px-1.5 py-0.5 font-mono text-[9.5px] text-[#15803d]">OK</span>}
+    {st === 'warn' && <span className="rounded-sm bg-[#fff4db] px-1.5 py-0.5 font-mono text-[9.5px] text-[#b45309]">Revisar</span>}
+    {st === 'ko' && <span className="rounded-sm bg-[#fdecec] px-1.5 py-0.5 font-mono text-[9.5px] text-[#b91c1c]">Falta</span>}
   </div>
 );
 
@@ -112,7 +112,7 @@ export const VisualIncendio: React.FC = () => (
         </span>
       </div>
       <div className="h-1.5 overflow-hidden rounded-full bg-line">
-        <div className="afi-barra h-full w-full rounded-full bg-gradient-to-r from-signal to-[#dc2626]"></div>
+        <div className="afi-barra h-full w-full rounded-full bg-linear-to-r from-signal to-[#dc2626]"></div>
       </div>
     </div>
   </div>
@@ -127,11 +127,11 @@ export const VisualGarantia: React.FC = () => (
         <span className="text-[10.5px] font-semibold text-ink">Informe técnico de limpieza</span>
       </div>
       <div className="space-y-1">
-        <div className="h-1.5 w-full rounded bg-line"></div>
-        <div className="h-1.5 w-4/5 rounded bg-line"></div>
-        <div className="h-1.5 w-3/5 rounded bg-line"></div>
+        <div className="h-1.5 w-full rounded-sm bg-line"></div>
+        <div className="h-1.5 w-4/5 rounded-sm bg-line"></div>
+        <div className="h-1.5 w-3/5 rounded-sm bg-line"></div>
       </div>
-      <div className="absolute bottom-2.5 right-2.5 flex h-12 w-12 rotate-[-12deg] items-center justify-center rounded-full border-2 border-[#15803d] text-center font-mono text-[7.5px] leading-tight text-[#15803d]">
+      <div className="absolute bottom-2.5 right-2.5 flex h-12 w-12 -rotate-12 items-center justify-center rounded-full border-2 border-[#15803d] text-center font-mono text-[7.5px] leading-tight text-[#15803d]">
         UNE<br />100165
       </div>
     </div>

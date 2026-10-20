@@ -24,7 +24,7 @@ const CookieBanner: React.FC<CookieBannerProps> = ({ onManage }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 z-[60] flex w-full justify-center p-3 font-plex md:p-5">
+    <div className="fixed bottom-0 left-0 z-60 flex w-full justify-center p-3 font-plex md:p-5">
       <div className="flex w-full max-w-3xl flex-col gap-4 rounded-xl border border-line bg-white p-5 shadow-lift md:flex-row md:items-center md:gap-6">
         <div className="flex-1">
           <h3 className="mb-1 text-[15px] font-semibold text-ink">Valoramos su privacidad</h3>

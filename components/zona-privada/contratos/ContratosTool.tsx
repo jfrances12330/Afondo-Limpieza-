@@ -50,7 +50,7 @@ const Campo: React.FC<{ label: string; value: string; onChange: (v: string) => v
       <input
         type={type} value={value} placeholder={placeholder} inputMode={inputMode}
         onChange={(e) => onChange(e.target.value)}
-        className="h-12 w-full rounded-lg border border-line bg-white px-3.5 text-[16px] text-ink placeholder:text-muted/60 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15"
+        className="h-12 w-full rounded-lg border border-line bg-white px-3.5 text-[16px] text-ink placeholder:text-muted/60 focus:border-brand focus:outline-hidden focus:ring-2 focus:ring-brand/15"
       />
     </label>
   );
@@ -144,7 +144,7 @@ const ContratosTool: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-mist pb-40 font-plex text-ink">
-      <div className="sticky top-0 z-30 border-b border-line bg-white/90 backdrop-blur">
+      <div className="sticky top-0 z-30 border-b border-line bg-white/90 backdrop-blur-sm">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4">
           <Link to="/zona-privada" className="inline-flex items-center gap-1 text-[14px] font-medium text-muted hover:text-ink">
             <span className="material-symbols-outlined text-[18px]">arrow_back</span> Zona privada
@@ -217,7 +217,7 @@ const ContratosTool: React.FC = () => {
                   type="number" inputMode="decimal" min={0} step="0.01"
                   value={c.precioUnitario || ''} placeholder="0,00"
                   onChange={(e) => set('precioUnitario', Math.max(0, Number(e.target.value.replace(',', '.')) || 0))}
-                  className="h-12 w-full rounded-lg border border-line bg-white pl-3.5 pr-10 text-[18px] font-semibold text-ink focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15"
+                  className="h-12 w-full rounded-lg border border-line bg-white pl-3.5 pr-10 text-[18px] font-semibold text-ink focus:border-brand focus:outline-hidden focus:ring-2 focus:ring-brand/15"
                 />
                 <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[16px] text-muted">€</span>
               </div>
@@ -281,7 +281,7 @@ const ContratosTool: React.FC = () => {
       </div>
 
       {/* Barra fija: total + generar */}
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 backdrop-blur">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 backdrop-blur-sm">
         <div className="mx-auto max-w-3xl px-4 py-3">
           {intentado && faltan.length > 0 && (
             <p className="mb-2 text-[12.5px] text-[#b91c1c]">Falta: {faltan.join(', ')}.</p>

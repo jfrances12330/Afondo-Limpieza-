@@ -19,7 +19,7 @@ const CertificateSection: React.FC = () => {
     <section className="relative overflow-hidden bg-ink py-20 md:py-28 font-plex" aria-labelledby="certificado-titulo">
       <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-5 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8">
         <div>
-          <div className="eyebrow mb-5 inline-flex items-center gap-2 !text-[#9fb0ff]">
+          <div className="eyebrow mb-5 inline-flex items-center gap-2 text-[#9fb0ff]!">
             <span className="material-symbols-outlined text-[16px]" aria-hidden="true">verified</span>
             <span>Valor Diferencial</span>
           </div>
@@ -93,11 +93,11 @@ const CertificateSection: React.FC = () => {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="relative aspect-video overflow-hidden rounded-lg border border-line bg-mist">
                     <img src={`${fuga}-antes-400.webp`} alt="Antes" className="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="225" />
-                    <span className="absolute bottom-1.5 left-1.5 rounded bg-white/95 px-1.5 py-0.5 font-mono text-[9.5px] text-[#c2410c]">Estado Inicial</span>
+                    <span className="absolute bottom-1.5 left-1.5 rounded-sm bg-white/95 px-1.5 py-0.5 font-mono text-[9.5px] text-[#c2410c]">Estado Inicial</span>
                   </div>
                   <div className="relative aspect-video overflow-hidden rounded-lg border border-line bg-mist">
                     <img src={`${fuga}-despues-400.webp`} alt="Después" className="h-full w-full object-cover" loading="lazy" decoding="async" width="400" height="225" />
-                    <span className="absolute bottom-1.5 left-1.5 rounded bg-white/95 px-1.5 py-0.5 font-mono text-[9.5px] text-[#15803d]">Estado Final</span>
+                    <span className="absolute bottom-1.5 left-1.5 rounded-sm bg-white/95 px-1.5 py-0.5 font-mono text-[9.5px] text-[#15803d]">Estado Final</span>
                   </div>
                 </div>
 
