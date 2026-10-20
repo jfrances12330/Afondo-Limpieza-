@@ -88,7 +88,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                     <a href={`tel:+34622064101`} className="tnum text-[1.375rem] font-semibold tracking-[-0.01em] text-ink transition-colors hover:text-brand">
                       {phone}
                     </a>
-                    <p className="mt-1 text-[14px] text-muted">Atención técnica inmediata 24h</p>
+                    <p className="mt-1 text-[14px] text-muted">Atención técnica Lun - Vie: 8:00 - 20:00</p>
                   </div>
                 </div>
 

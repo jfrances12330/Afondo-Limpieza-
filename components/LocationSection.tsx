@@ -18,7 +18,7 @@ const LocationSection: React.FC = () => {
             Trabajamos en toda la provincia de Alicante
           </h2>
           <p className="mt-5 max-w-lg text-[1.0625rem] leading-relaxed text-muted">
-            Servicio rápido de urgencia 24h para hostelería. Llegamos a cualquier cocina industrial de la provincia sin costes extra de desplazamiento.
+            Servicio rápido para hostelería, de lunes a viernes de 8:00 a 20:00. Llegamos a cualquier cocina industrial de la provincia sin costes extra de desplazamiento.
           </p>
         </div>
 

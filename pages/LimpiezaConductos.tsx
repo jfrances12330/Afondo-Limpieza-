@@ -153,7 +153,7 @@ const LimpiezaConductos: React.FC = () => {
               <Reveal>
                 <div className="mb-6 inline-flex items-center gap-2.5 rounded-md border border-white/15 bg-white/4 px-3 py-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true"></span>
-                  <span className="font-mono text-[12px] text-white/80">Alicante y provincia · Urgencias 24h</span>
+                  <span className="font-mono text-[12px] text-white/80">Alicante y provincia · Lun - Vie 8:00 - 20:00</span>
                 </div>
               </Reveal>
 

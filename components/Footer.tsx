@@ -99,7 +99,7 @@ const Footer: React.FC<FooterProps> = () => {
 
         <div className="flex flex-col items-start justify-between gap-5 border-t border-line pt-8 text-[13.5px] text-muted md:flex-row md:items-center">
           <p>
-            © 2025 Afondo. Todos los derechos reservados. | Diseño web por <a href="https://odoonto.com" target="_blank" rel="noopener noreferrer" className="font-medium text-ink-3 hover:text-ink transition-colors">odoonto.com</a>
+            © {new Date().getFullYear()} Afondo. Todos los derechos reservados. | Diseño web por <a href="https://7loop.es" target="_blank" rel="noopener" className="font-medium text-ink-3 hover:text-ink transition-colors">7Loop</a>
           </p>
           <div className="flex items-center gap-2">
             <a

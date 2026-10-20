@@ -108,7 +108,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onNavigate }) => {
               <span className="tnum text-[16px] font-semibold tracking-wide">{phoneDisplay}</span>
               <span className="material-symbols-outlined text-[20px]">call</span>
             </div>
-            <p className="mt-3 font-mono text-[11.5px] text-muted">Atención inmediata 24/7</p>
+            <p className="mt-3 font-mono text-[11.5px] text-muted">Atención Lun - Vie: 8:00 - 20:00</p>
           </a>
         </div>
 
