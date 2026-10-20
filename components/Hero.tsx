@@ -16,17 +16,31 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
   const heroSrcSet = (ext: string) =>
     `${heroBase}-800.${ext} 800w, ${heroBase}-1280.${ext} 1280w, ${heroBase}-1920.${ext} 1920w`;
 
-  // Restyling oct-2026: la foto queda de apoyo detrás de la calculadora (solo
-  // escritorio). Ya no es la imagen principal: se retira su preload de index.html.
-  const sizes = "(min-width: 1024px) 300px, 1px";
+  // Restyling oct-2026: la foto queda como fondo apagado del bloque; la pieza
+  // principal es el presupuesto al instante. Sin preload en index.html.
   const sellos = [
-    { icon: 'verified', text: <>Certificado <br className="hidden" /> técnico UNE</> },
-    { icon: 'local_fire_department', text: <>Prevención <br className="hidden" /> de incendios</> },
-    { icon: 'gavel', text: <>Garantía ante <br className="hidden" /> Sanidad</> },
+    { icon: 'verified', text: <>Certificado <br className="hidden" />  técnico UNE</> },
+    { icon: 'local_fire_department', text: <>Prevención <br className="hidden" />  de incendios</> },
+    { icon: 'gavel', text: <>Garantía ante <br className="hidden" />  Sanidad</> },
   ];
 
   return (
     <section className="relative overflow-hidden bg-ink font-plex text-white">
+      {/* Foto de archivo de fondo, muy apagada */}
+      <picture className="pointer-events-none absolute inset-0 block opacity-[0.18]">
+        <source type="image/webp" srcSet={heroSrcSet('webp')} sizes="100vw" />
+        <img
+          src={`${heroBase}-1280.jpg`}
+          srcSet={heroSrcSet('jpg')}
+          sizes="100vw"
+          alt="Equipo de extracción en la cubierta de un edificio: dos turbinas cilíndricas conectadas a conductos de chapa"
+          className="h-full w-full object-cover grayscale"
+          width="1920"
+          height="1440"
+          decoding="async"
+        />
+      </picture>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/60" aria-hidden="true" />
       {/* Retícula técnica muy tenue: plano de instalación, no decoración de IA */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
@@ -71,65 +85,22 @@ const Hero: React.FC<HeroProps> = ({ onNavigateCalculadora }) => {
               </p>
             </div>
           </div>
+
+          <ul className="mt-10 grid max-w-xl grid-cols-1 gap-2 border-t border-white/10 pt-6 sm:grid-cols-3">
+            {sellos.map((x, i) => (
+              <li key={i} className="flex items-center gap-2.5">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/[0.06] text-[#b9c4ff]">
+                  <span className="material-symbols-outlined text-[18px]">{x.icon}</span>
+                </span>
+                <span className="text-[13px] font-medium leading-snug text-white/85">{x.text}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Composición tipo producto: calculadora viva + foto + informe + sellos */}
-        <div className="relative lg:h-[600px]">
-          {/* Foto (detrás) */}
-          <div className="absolute left-0 top-20 hidden w-[52%] overflow-hidden rounded-xl border border-white/10 bg-ink-2 shadow-lift lg:block">
-            <picture className="block aspect-[4/5]">
-              <source type="image/webp" srcSet={heroSrcSet('webp')} sizes={sizes} />
-              <img
-                src={`${heroBase}-1280.jpg`}
-                srcSet={heroSrcSet('jpg')}
-                sizes={sizes}
-                alt="Equipo de extracción en la cubierta de un edificio: dos turbinas cilíndricas conectadas a conductos de chapa"
-                className="h-full w-full object-cover"
-                width="1920"
-                height="1440"
-                decoding="async"
-              />
-            </picture>
-          </div>
-
-          {/* Informe (chip flotante) */}
-          <div className="absolute -right-4 bottom-2 z-20 hidden w-[220px] rounded-xl border border-line bg-white p-3.5 text-ink shadow-lift lg:block" aria-hidden="true">
-            <div className="mb-2.5 flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-md bg-ink text-white">
-                <span className="material-symbols-outlined text-[18px]">description</span>
-              </span>
-              <div className="leading-tight">
-                <p className="text-[13px] font-semibold">Informe técnico</p>
-                <p className="font-mono text-[10px] text-muted">UNE 100165 · CTE</p>
-              </div>
-            </div>
-            <div className="mb-2 grid grid-cols-2 gap-1.5">
-              <img src="/img/reparacion-fuga-conducto-extraccion-alicante-antes-400.webp" alt="" className="aspect-video w-full rounded object-cover" width="400" height="225" />
-              <img src="/img/reparacion-fuga-conducto-extraccion-alicante-despues-400.webp" alt="" className="aspect-video w-full rounded object-cover" width="400" height="225" />
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] text-muted">Validez</span>
-              <span className="rounded bg-[#e8f7ee] px-1.5 py-0.5 text-[10.5px] font-semibold text-[#15803d]">6 meses</span>
-            </div>
-          </div>
-
-          {/* Calculadora viva */}
-          <div className="relative z-10 lg:absolute lg:right-0 lg:top-0 lg:w-[380px]">
-            <MiniCalc />
-          </div>
-
-          {/* Sellos */}
-          <div className="relative z-20 mt-4 rounded-xl border border-line bg-white p-2 text-ink shadow-lift lg:absolute lg:-left-8 lg:bottom-0 lg:mt-0 lg:w-[280px]">
-            {sellos.map((s, i) => (
-              <div key={i} className={`flex items-center gap-3 px-3 py-2.5 ${i > 0 ? 'border-t border-line' : ''}`}>
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-brand-soft text-brand">
-                  <span className="material-symbols-outlined text-[18px]">{s.icon}</span>
-                </span>
-                <span className="text-[14px] font-medium leading-snug">{s.text}</span>
-                <span className="material-symbols-outlined ml-auto text-[18px] text-[#1fa855]">check_circle</span>
-              </div>
-            ))}
-          </div>
+        {/* Presupuesto al instante */}
+        <div className="relative mx-auto w-full max-w-[440px] lg:mr-0">
+          <MiniCalc />
         </div>
       </div>
     </section>
