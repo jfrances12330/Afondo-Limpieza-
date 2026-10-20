@@ -39,6 +39,18 @@ const ZonaPrivadaHub: React.FC = () => (
             Enviar el mensaje de reseña por WhatsApp a un cliente
           </p>
         </Link>
+        <Link
+          to="/zona-privada/contratos"
+          className="group block bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-lg hover:shadow-2xl transition-all p-8 sm:p-10 text-center lg:col-span-2"
+        >
+          <span className="material-symbols-outlined !text-5xl mb-5 text-primary" aria-hidden="true">contract</span>
+          <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+            Contrato de mantenimiento
+          </h2>
+          <p className="mt-3 text-base text-slate-600 dark:text-slate-400">
+            Rellenar los datos del cliente y sacar el contrato en PDF
+          </p>
+        </Link>
       </div>
 
       <div className="text-center mt-12">

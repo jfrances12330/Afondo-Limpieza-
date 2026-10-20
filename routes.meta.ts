@@ -49,6 +49,12 @@ export const routes: RouteMeta[] = [
     noindex: true,
   },
   {
+    path: "/zona-privada/contratos",
+    title: "Contratos | Afondo",
+    canonical: "https://afondolimpiezadecampanas.com/zona-privada/contratos",
+    noindex: true,
+  },
+  {
     path: "/aviso-legal",
     title: "Aviso legal | Afondo",
     canonical: "https://afondolimpiezadecampanas.com/aviso-legal",

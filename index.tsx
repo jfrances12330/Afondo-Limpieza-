@@ -16,6 +16,7 @@ const TrabajosRealizados = lazy(() => import('./pages/TrabajosRealizados'));
 const ZonaPrivadaHub = lazy(() => import('./components/zona-privada/ZonaPrivadaHub'));
 const GateAcceso = lazy(() => import('./components/zona-privada/GateAcceso'));
 const ResenasTool = lazy(() => import('./components/zona-privada/resenas/ResenasTool'));
+const ContratosTool = lazy(() => import('./components/zona-privada/contratos/ContratosTool'));
 
 // Compatibilidad con URLs con hash previas (#/certificado, #/aviso-legal, etc.)
 // Al montar, si la URL trae hash tipo "#/algo", redirige a "/algo" preservando historial.
@@ -53,6 +54,7 @@ const Root: React.FC = () => (
         {/* Sin GateAcceso: el generador trae su propio gate y aterriza donde se pidió */}
         <Route path="/zona-privada/certificado" element={<CertificateGenerator />} />
         <Route path="/zona-privada/resenas" element={<GateAcceso><ResenasTool /></GateAcceso>} />
+        <Route path="/zona-privada/contratos" element={<GateAcceso><ContratosTool /></GateAcceso>} />
         <Route path="/aviso-legal" element={<RoutedBack Page={AvisoLegal} />} />
         <Route path="/privacidad" element={<RoutedBack Page={Privacidad} />} />
         <Route path="/cookies" element={<RoutedBack Page={Cookies} />} />
