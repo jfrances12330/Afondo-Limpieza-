@@ -1,7 +1,8 @@
 // Herramienta de contratos (oct-2026). Texto = plantilla de Jorge
-// «Contrato_Mantenimiento_Extraccion_Humos» (20-oct-2026), pegado literal salvo
-// la errata «extractorasa» → «extractoras». Los huecos de la plantilla son los
-// campos de abajo; nada más cambia.
+// «Contrato_Mantenimiento_Extraccion_Humos» (20-oct-2026), pegado LITERAL,
+// erratas incluidas: Jorge no quiere que se toque nada del texto que puso Jaime
+// (20-oct: «si él lo ha puesto así yo no quiero modificar nada»). Los huecos de
+// la plantilla son los campos de abajo.
 
 export type Periodicidad = 'Anual' | 'Semestral' | 'Cuatrimestral';
 export type Respuesta = '24' | '48';
@@ -32,8 +33,8 @@ export interface Contrato {
   firmaCliente?: string;
 }
 
-// Normas que cita la cláusula 1. Constante aparte: está pendiente de que Jorge
-// confirme si se queda así o pasa a «UNE 100165 / UNE-EN 15780».
+// Normas que cita la cláusula 1, tal cual en la plantilla. Se avisó de que la
+// UNE 100030 es de legionela y Jorge decidió dejarlo (20-oct-2026).
 export const NORMAS = 'UNE100030 / UNE15780';
 
 export const IVA = 0.21;
@@ -68,7 +69,7 @@ export type Bloque = { t: 'h' | 'sub' | 'p' | 'li'; s: string; b?: string };
 
 export const clausulasAntesDelPrecio = (c: Contrato): Bloque[] => [
   { t: 'h', s: '1. OBJETO DEL CONTRATO' },
-  { t: 'p', s: `El objeto del presente contrato es la prestación de servicios de revisión, limpieza técnica especializada y mantenimiento preventivo periódico de la instalación de extracción de humos ubicada en el establecimiento del CLIENTE, comprendiendo campanas extractoras, plenums, filtros, tramos de conductos de evacuación y caja de extracción/turbina, todo ello de conformidad con la normativa vigente en materia de seguridad, protección contra incendios y la norma ${NORMAS}.` },
+  { t: 'p', s: `El objeto del presente contrato es la prestación de servicios de revisión, limpieza técnica especializada y mantenimiento preventivo periódico de la instalación de extracción de humos ubicada en el establecimiento del CLIENTE, comprendiendo campanas extractorasa, plenums, filtros, tramos de conductos de evacuación y caja de extracción/turbina, todo ello de conformidad con la normativa vigente en materia de seguridad, protección contra incendios y la norma ${NORMAS}.` },
   { t: 'h', s: '2. COBERTURAS Y SERVICIOS INCLUIDOS' },
   { t: 'p', s: `El servicio contratado comprende la realización de intervenciones de mantenimiento preventivo con una periodicidad ${c.periodicidad}, e incluye expresamente las siguientes actuaciones:` },
   { t: 'sub', s: 'A. Limpieza Integral Periódica' },
