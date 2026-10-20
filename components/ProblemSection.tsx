@@ -1,6 +1,9 @@
 
 import React from 'react';
 import { Container, SectionHead } from './ui';
+import { VisualMulta, VisualIncendio, VisualGarantia } from './home/ProblemVisuals';
+
+const VISUALES = [VisualMulta, VisualIncendio, VisualGarantia];
 
 const ProblemSection: React.FC = () => {
   const problems = [
@@ -41,8 +44,12 @@ const ProblemSection: React.FC = () => {
 
         <div className="grid grid-cols-1 overflow-hidden rounded-xl border border-line md:grid-cols-3">
           {problems.map((problem, idx) => (
-            <div key={idx} className={`flex flex-col bg-white p-7 md:p-8 ${idx > 0 ? 'border-t border-line md:border-t-0 md:border-l' : ''}`}>
-              <span className="material-symbols-outlined mb-6 text-[26px] text-brand" aria-hidden="true">{problem.icon}</span>
+            <div key={idx} className={`flex flex-col bg-white ${idx > 0 ? 'border-t border-line md:border-t-0 md:border-l' : ''}`}>
+              <div className="flex h-[200px] items-center justify-center border-b border-line bg-mist [background-image:radial-gradient(#dfe3ea_1px,transparent_1px)] [background-size:14px_14px]">
+                {React.createElement(VISUALES[idx])}
+              </div>
+              <div className="flex flex-1 flex-col p-7 md:p-8">
+              <span className="material-symbols-outlined mb-4 text-[24px] text-brand" aria-hidden="true">{problem.icon}</span>
               <h3 className="text-[1.25rem] font-semibold leading-snug tracking-[-0.01em] text-ink">
                 {problem.title}
               </h3>
@@ -53,6 +60,7 @@ const ProblemSection: React.FC = () => {
                 <span className="inline-flex items-center gap-1.5 rounded-md bg-mist px-2.5 py-1 font-mono text-[11.5px] text-ink-3">
                   <span className="material-symbols-outlined text-[15px] text-brand">{problem.statusIcon}</span> {problem.status}
                 </span>
+              </div>
               </div>
             </div>
           ))}

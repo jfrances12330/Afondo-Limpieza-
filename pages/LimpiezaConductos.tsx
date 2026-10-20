@@ -6,6 +6,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import { Container, SectionHead, WhatsAppFab } from '../components/ui';
+import PanelIntervencion from '../components/PanelIntervencion';
+import MapaCobertura from '../components/MapaCobertura';
 
 /**
  * Restyling oct-2026 (tipo Stripe): mismo copy, mismos H1-H3, head, JSON-LD y
@@ -146,7 +148,7 @@ const LimpiezaConductos: React.FC = () => {
         {/* ═══ HERO ═══ */}
         <section className="relative overflow-hidden bg-ink text-white">
           <GridPattern />
-          <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-5 pb-16 pt-12 sm:px-6 md:pt-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:px-8 lg:pb-24 lg:pt-20">
+          <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-5 pb-16 pt-12 sm:px-6 md:pt-16 lg:grid-cols-[1fr_1fr] lg:gap-14 lg:px-8 lg:pb-24 lg:pt-20">
             <div>
               <Reveal>
                 <div className="mb-6 inline-flex items-center gap-2.5 rounded-md border border-white/15 bg-white/[0.04] px-3 py-1.5">
@@ -156,7 +158,7 @@ const LimpiezaConductos: React.FC = () => {
               </Reveal>
 
               <Reveal delay={100}>
-                <h1 className="text-[2.1rem] font-semibold leading-[1.08] tracking-[-0.025em] sm:text-[2.75rem] lg:text-[3.1rem]">
+                <h1 className="text-[2rem] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[2.6rem]">
                   Limpieza de conductos de extracción en{' '}
                   <span className="text-[#b9c4ff]">Alicante</span>
                   : desengrase interior de tramos verticales y horizontales
@@ -186,25 +188,27 @@ const LimpiezaConductos: React.FC = () => {
               </Reveal>
             </div>
 
-            {/* Foto + panel de sellos */}
-            <div className="relative pb-10 lg:pb-0">
-              <div className="overflow-hidden rounded-xl border border-white/10 bg-ink-2 shadow-lift">
-                <picture className="block aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5]">
-                  <source type="image/webp" srcSet={HERO_SRCSET('webp')} sizes="(min-width: 1024px) 420px, calc(100vw - 2.5rem)" />
+            {/* Panel de intervención + foto + sellos */}
+            <div className="relative lg:h-[540px]">
+              <div className="absolute bottom-0 right-0 hidden w-[52%] overflow-hidden rounded-xl border border-white/10 bg-ink-2 shadow-lift lg:block">
+                <picture className="block aspect-[3/4]">
+                  <source type="image/webp" srcSet={HERO_SRCSET('webp')} sizes="(min-width: 1024px) 240px, 1px" />
                   <img
                     src={`${HERO_BASE}-800.jpg`}
                     srcSet={HERO_SRCSET('jpg')}
-                    sizes="(min-width: 1024px) 420px, calc(100vw - 2.5rem)"
+                    sizes="(min-width: 1024px) 240px, 1px"
                     alt="Recorrido del conducto de extracción hasta la conexión vertical"
                     className="h-full w-full object-cover"
                     width="1125"
                     height="2000"
                     decoding="async"
-                    fetchPriority="high"
                   />
                 </picture>
               </div>
-              <div className="absolute -bottom-2 left-4 right-4 rounded-xl border border-line bg-white p-2 text-ink shadow-lift sm:left-auto sm:right-[-12px] sm:w-[280px] lg:-bottom-6 lg:-left-10 lg:right-auto">
+              <div className="relative z-10 lg:absolute lg:left-0 lg:top-4 lg:w-[400px]">
+                <PanelIntervencion />
+              </div>
+              <div className="relative z-20 mt-4 rounded-xl border border-line bg-white p-2 text-ink shadow-lift lg:absolute lg:bottom-6 lg:left-10 lg:mt-0 lg:w-[300px]">
                 {sellos.map((b, i) => (
                   <div key={i} className={`flex items-center gap-3 px-3 py-2.5 ${i > 0 ? 'border-t border-line' : ''}`}>
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-brand-soft text-brand">
@@ -386,20 +390,14 @@ const LimpiezaConductos: React.FC = () => {
             </Reveal>
 
             <div>
-              <div className="overflow-hidden rounded-xl border border-line bg-white shadow-card">
-                <ul className="grid grid-cols-2 sm:grid-cols-3">
-                  {CIUDADES.map((c) => (
-                    <li key={c.name} className="flex items-center gap-2 border-b border-r border-line px-4 py-3 text-[14px] text-ink-2 [&:nth-child(2n)]:border-r-0 sm:[&:nth-child(2n)]:border-r sm:[&:nth-child(3n)]:border-r-0">
-                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true"></span>
-                      <span>{c.name}</span>
-                    </li>
-                  ))}
-                  <li className="col-span-2 flex items-center gap-2 bg-brand-soft px-4 py-3 sm:col-span-3">
-                    <span className="material-symbols-outlined text-[17px] text-brand">public</span>
-                    <span className="text-[14px] font-semibold text-brand">Toda la Provincia</span>
-                  </li>
-                </ul>
-              </div>
+              <MapaCobertura
+                todaLaProvincia={
+                  <span className="inline-flex items-center gap-1.5 rounded-md bg-brand px-2.5 py-1 text-[13px] font-semibold text-white">
+                    <span className="material-symbols-outlined text-[15px]">public</span>
+                    Toda la Provincia
+                  </span>
+                }
+              />
               <Reveal>
                 <p className="mt-5 text-[15px] text-ink-3">
                   ¿Tu población no está en la lista? Llámanos igualmente al <strong className="tnum font-semibold text-ink">622 064 101</strong> y lo vemos.

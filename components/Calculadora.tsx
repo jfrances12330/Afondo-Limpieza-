@@ -14,14 +14,20 @@ type Accessibility = 'fácil' | 'media' | 'difícil';
 const Calculadora: React.FC<CalculadoraProps> = ({ onBack }) => {
   const [step, setStep] = useState<Step>(0);
 
+  // Lo que se eligió en la mini calculadora de la portada llega por la URL
+  // (?c=1&t=1&d=0&f=3). Sin parámetros, los valores de siempre.
+  const qs = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
+  const qBool = (k: string, def: boolean) => (qs.has(k) ? qs.get(k) === '1' : def);
+  const qFiltros = Math.min(20, Math.max(1, parseInt(qs.get('f') || '3', 10) || 3));
+
   // Paso 0: Selección de Servicios
-  const [includeHood, setIncludeHood] = useState(true);
-  const [includeTurbine, setIncludeTurbine] = useState(true);
-  const [includeDucts, setIncludeDucts] = useState(false);
+  const [includeHood, setIncludeHood] = useState(qBool('c', true));
+  const [includeTurbine, setIncludeTurbine] = useState(qBool('t', true));
+  const [includeDucts, setIncludeDucts] = useState(qBool('d', false));
 
   // Paso 1: Campana y Filtros
   const [type, setType] = useState<HoodType>('mural');
-  const [filters, setFilters] = useState(3);
+  const [filters, setFilters] = useState(qFiltros);
 
   // Paso 2: Extracción
   const [ductsVertical, setDuctsVertical] = useState(2);

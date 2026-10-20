@@ -31,14 +31,37 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onNavigate }) => {
             rel="noopener noreferrer"
             className="group flex flex-col rounded-xl border border-white/10 bg-white p-7 transition-shadow hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,.7)] md:p-8"
           >
-            <div className="mb-8 flex items-center justify-between">
-              <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#e8f7ee] text-[#178a45]">
-                <span className="material-symbols-outlined text-[24px]">chat</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-md bg-[#e8f7ee] px-2 py-1 font-mono text-[11px] text-[#178a45]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#1fa855]"></span>
-                Online
-              </span>
+            {/* Chat de muestra: el mensaje es el mismo que lleva el enlace */}
+            <div className="-mx-7 -mt-7 mb-7 overflow-hidden rounded-t-xl border-b border-line md:-mx-8 md:-mt-8">
+              <div className="flex items-center gap-3 bg-[#075e54] px-4 py-2.5 text-white">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-ink" aria-hidden="true">
+                  <span className="material-symbols-outlined text-[18px]">cleaning_services</span>
+                </span>
+                <span className="flex-1 leading-tight" aria-hidden="true">
+                  <span className="block text-[13.5px] font-semibold">Afondo</span>
+                  <span className="block text-[11px] text-white/70">en línea</span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-md bg-white/15 px-2 py-1 font-mono text-[11px]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#4ade80]"></span>
+                  Online
+                </span>
+              </div>
+              <div className="space-y-2 bg-[#efeae2] px-4 py-4 [background-image:radial-gradient(#e2dbd0_1px,transparent_1px)] [background-size:12px_12px]" aria-hidden="true">
+                <div className="ml-auto w-fit max-w-[85%] rounded-lg rounded-tr-none bg-[#d9fdd3] px-3 py-2 text-[13px] text-ink shadow-sm">
+                  Hola, quisiera pedir presupuesto para la limpieza de mi campana.
+                  <span className="ml-2 inline-flex translate-y-0.5 items-center gap-0.5 text-[10px] text-[#53bdeb]">
+                    <span className="material-symbols-outlined text-[14px]">done_all</span>
+                  </span>
+                </div>
+                <div className="ml-auto w-[150px] overflow-hidden rounded-lg rounded-tr-none bg-[#d9fdd3] p-1 shadow-sm">
+                  <img src="/img/stock-campana-industrial-cocina-1-400.webp" alt="" className="aspect-[4/3] w-full rounded-md object-cover" width="400" height="300" loading="lazy" />
+                </div>
+                <div className="flex w-fit items-center gap-1 rounded-lg rounded-tl-none bg-white px-3 py-2.5 shadow-sm">
+                  <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted [animation-delay:-0.3s]"></span>
+                  <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted [animation-delay:-0.15s]"></span>
+                  <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted"></span>
+                </div>
+              </div>
             </div>
             <h3 className="text-[1.375rem] font-semibold tracking-[-0.01em] text-ink">WhatsApp Business</h3>
             <p className="mb-8 mt-2 max-w-sm text-[15px] leading-relaxed text-muted">
@@ -56,12 +79,25 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onNavigate }) => {
             href={`tel:${phone}`}
             className="group flex flex-col rounded-xl border border-white/10 bg-white p-7 transition-shadow hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,.7)] md:p-8"
           >
-            <div className="mb-8 flex items-center justify-between">
-              <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-soft text-brand">
-                <span className="material-symbols-outlined text-[24px]">call</span>
-              </span>
-              <span className="inline-flex items-center rounded-md bg-brand-soft px-2 py-1 font-mono text-[11px] text-brand">
+            {/* Pantalla de llamada de muestra */}
+            <div className="relative -mx-7 -mt-7 mb-7 flex flex-col items-center overflow-hidden rounded-t-xl border-b border-line bg-ink-2 px-4 pb-5 pt-6 text-white md:-mx-8 md:-mt-8">
+              <span className="absolute right-4 top-4 inline-flex items-center rounded-md bg-white/10 px-2 py-1 font-mono text-[11px] text-[#c9d2ff]">
                 Directo
+              </span>
+              <span className="relative mb-3 flex h-14 w-14 items-center justify-center" aria-hidden="true">
+                <span className="absolute inset-0 animate-ping rounded-full bg-brand/40 [animation-duration:2s]"></span>
+                <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-brand">
+                  <span className="material-symbols-outlined text-[26px]">call</span>
+                </span>
+              </span>
+              <span className="text-[13px] font-semibold" aria-hidden="true">Afondo · Higiene Industrial</span>
+              <span className="tnum mt-0.5 font-mono text-[12px] text-white/60" aria-hidden="true">+34 622 06 41 01</span>
+              <span className="mt-4 flex gap-4" aria-hidden="true">
+                {['mic_off', 'dialpad', 'volume_up'].map((i) => (
+                  <span key={i} className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
+                    <span className="material-symbols-outlined text-[18px]">{i}</span>
+                  </span>
+                ))}
               </span>
             </div>
             <h3 className="text-[1.375rem] font-semibold tracking-[-0.01em] text-ink">Llamada Directa</h3>

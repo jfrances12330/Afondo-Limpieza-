@@ -12,12 +12,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://lh3.googleusercontent.com" />
 
-  <!-- Pre-carga de la imagen principal (LCP) con fetchpriority alta.
-       imagesrcset/imagesizes deben coincidir EXACTAMENTE con el <source> webp de Hero.tsx. -->
-  <link rel="preload" as="image" type="image/webp"
-    imagesrcset="/img/stock-equipo-extraccion-cubierta-1-800.webp 800w, /img/stock-equipo-extraccion-cubierta-1-1280.webp 1280w, /img/stock-equipo-extraccion-cubierta-1-1920.webp 1920w"
-    imagesizes="(min-width: 1024px) 560px, calc(100vw - 2.5rem)"
-    fetchpriority="high" />
 
   <!-- Favicon. El .ico tiene que existir como fichero real: el catch-all del
        .htaccess devuelve index.html con 200 en cualquier ruta que no exista. -->

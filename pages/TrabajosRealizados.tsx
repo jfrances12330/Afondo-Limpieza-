@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -23,6 +23,7 @@ type Foto = {
 
 type Trabajo = {
   id: string;
+  cat: 'Limpieza' | 'Reparación' | 'Instalación' | 'Mantenimiento';  // solo para el filtro
   n: string;
   titulo: string;
   lugar: string;
@@ -35,6 +36,7 @@ const IMG = '/img/';
 const TRABAJOS: Trabajo[] = [
   {
     id: 'limpieza-turbina-taller-benidorm',
+    cat: 'Limpieza',
     n: '01',
     titulo: 'Limpieza de turbina de extracción en taller',
     lugar: 'Benidorm · Enero 2026',
@@ -50,6 +52,7 @@ const TRABAJOS: Trabajo[] = [
   },
   {
     id: 'reparacion-fuga-conducto-alicante',
+    cat: 'Reparación',
     n: '02',
     titulo: 'Reparación de fugas en conducto de extracción',
     lugar: 'Alicante · Febrero 2026',
@@ -65,6 +68,7 @@ const TRABAJOS: Trabajo[] = [
   },
   {
     id: 'instalacion-conductos-falso-techo-alicante',
+    cat: 'Instalación',
     n: '03',
     titulo: 'Instalación de conductos en falso techo',
     lugar: 'Alicante · Mayo 2025',
@@ -80,6 +84,7 @@ const TRABAJOS: Trabajo[] = [
   },
   {
     id: 'traslado-extraccion-cubierta-alicante',
+    cat: 'Instalación',
     n: '04',
     titulo: 'Traslado de la extracción a cubierta con turbina de mayor capacidad',
     lugar: 'Alicante · 2025',
@@ -95,6 +100,7 @@ const TRABAJOS: Trabajo[] = [
   },
   {
     id: 'mantenimiento-chimenea-barbacoa-javea',
+    cat: 'Mantenimiento',
     n: '05',
     titulo: 'Mantenimiento trimestral de chimenea de barbacoa de leña',
     lugar: 'Jávea · Mantenimiento trimestral desde 2025',
@@ -169,7 +175,12 @@ const FotoTile: React.FC<{ f: Foto; sizes: string }> = ({ f, sizes }) => (
   </figure>
 );
 
+const CATS = ['Todos', 'Limpieza', 'Reparación', 'Instalación', 'Mantenimiento'] as const;
+const N_FOTOS = TRABAJOS.reduce((n, t) => n + t.fotos.length, 0);
+const LUGARES = Array.from(new Set(TRABAJOS.map((t) => t.lugar.split(' · ')[0])));
+
 const TrabajosRealizados: React.FC = () => {
+  const [cat, setCat] = useState<(typeof CATS)[number]>('Todos');
   return (
     <div className="flex min-h-screen flex-col bg-white font-plex text-ink">
       <Navbar
@@ -244,11 +255,34 @@ const TrabajosRealizados: React.FC = () => {
         {/* ═══ LAS CINCO FICHAS ═══ */}
         <section className="bg-mist py-20 md:py-24" aria-labelledby="trabajos-titulo">
           <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
-            <div className="mb-12 max-w-3xl">
-              <span className="eyebrow mb-4 inline-flex items-center gap-2"><span className="h-px w-5 bg-brand" aria-hidden="true"></span>Obra hecha</span>
-              <h2 id="trabajos-titulo" className="text-[1.9rem] font-semibold leading-[1.12] tracking-[-0.02em] text-ink sm:text-[2.5rem]">
-                Cinco trabajos, foto a foto
-              </h2>
+            <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-3xl">
+                <span className="eyebrow mb-4 inline-flex items-center gap-2"><span className="h-px w-5 bg-brand" aria-hidden="true"></span>Obra hecha</span>
+                <h2 id="trabajos-titulo" className="text-[1.9rem] font-semibold leading-[1.12] tracking-[-0.02em] text-ink sm:text-[2.5rem]">
+                  Cinco trabajos, foto a foto
+                </h2>
+              </div>
+              <dl className="grid grid-cols-3 overflow-hidden rounded-xl border border-line bg-white text-center shadow-card" aria-hidden="true">
+                <div className="px-5 py-3"><dt className="font-mono text-[10.5px] text-muted">Trabajos</dt><dd className="tnum text-[1.4rem] font-semibold">{TRABAJOS.length}</dd></div>
+                <div className="border-l border-line px-5 py-3"><dt className="font-mono text-[10.5px] text-muted">Fotos</dt><dd className="tnum text-[1.4rem] font-semibold">{N_FOTOS}</dd></div>
+                <div className="border-l border-line px-5 py-3"><dt className="font-mono text-[10.5px] text-muted">Localidades</dt><dd className="tnum text-[1.4rem] font-semibold">{LUGARES.length}</dd></div>
+              </dl>
+            </div>
+
+            {/* Filtro: oculta con CSS, las cinco fichas siguen en el HTML */}
+            <div className="sticky top-16 z-20 -mx-5 mb-6 border-b border-line bg-mist/90 px-5 py-3 backdrop-blur sm:mx-0 sm:rounded-xl sm:border sm:bg-white/90 sm:px-3">
+              <div className="flex gap-1.5 overflow-x-auto">
+                {CATS.map((c) => {
+                  const n = c === 'Todos' ? TRABAJOS.length : TRABAJOS.filter((t) => t.cat === c).length;
+                  const on = cat === c;
+                  return (
+                    <button key={c} type="button" aria-pressed={on} onClick={() => setCat(c)} className={`inline-flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-[13.5px] font-medium transition-colors ${on ? 'bg-ink text-white' : 'text-ink-3 hover:bg-mist'}`}>
+                      {c}
+                      <span className={`tnum rounded px-1.5 font-mono text-[10.5px] ${on ? 'bg-white/15 text-white' : 'bg-mist text-muted'}`}>{n}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="space-y-6">
@@ -261,7 +295,7 @@ const TrabajosRealizados: React.FC = () => {
                   <article
                     key={t.id}
                     id={t.id}
-                    className="scroll-mt-24 overflow-hidden rounded-xl border border-line bg-white shadow-card"
+                    className={`scroll-mt-32 overflow-hidden rounded-xl border border-line bg-white shadow-card ${cat !== 'Todos' && t.cat !== cat ? 'hidden' : ''}`}
                   >
                     <header className="flex flex-col gap-3 border-b border-line px-6 py-5 md:flex-row md:items-center md:justify-between md:px-8">
                       <div className="flex items-center gap-4">
@@ -282,7 +316,7 @@ const TrabajosRealizados: React.FC = () => {
                       {/* items-center: las fotos conservan su proporción real (van de 9:16
                           a 16:9), así que la que es más baja se centra contra sus vecinas
                           en vez de dejar el hueco entero debajo. */}
-                      <div className={`grid items-center gap-3 md:gap-4 ${dos ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
+                      <div className={`grid grid-cols-2 items-center gap-2.5 md:gap-4 ${dos ? '' : 'lg:grid-cols-3'}`}>
                         {t.fotos.map((f) => <FotoTile key={f.base} f={f} sizes={sizes} />)}
                       </div>
                     </div>
