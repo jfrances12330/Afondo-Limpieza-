@@ -18,7 +18,7 @@ const K_BORRADOR = 'afondo_contrato_borrador';
 const hoy = () => new Date().toISOString().slice(0, 10);
 const prestadorBase: Parte = {
   nombre: 'Jaime Gascón López',
-  nif: '',
+  nif: '53978208-Z',   // el mismo del certificado y del aviso legal
   direccion: 'Partida Canastell, E17, 03690 San Vicente del Raspeig (Alicante)',
   telefono: '622 064 101',
   email: 'hola@afondolimpiezadecampanas.com',
@@ -82,7 +82,7 @@ const Segmento = <T extends string>({ opciones, valor, onChange }: { opciones: {
 
 const ContratosTool: React.FC = () => {
   const [c, setC] = useState<Contrato>(() => leer<Contrato>(K_BORRADOR) || nuevo());
-  const [verPrestador, setVerPrestador] = useState(() => !(leer<Parte>(K_PRESTADOR)?.nif));
+  const [verPrestador, setVerPrestador] = useState(false);
   const [generando, setGenerando] = useState(false);
   const [pdf, setPdf] = useState<{ blob: Blob; nombre: string; url: string } | null>(null);
   const [aviso, setAviso] = useState('');
